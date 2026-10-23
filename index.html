@@ -2227,15 +2227,15 @@
                 <div class="whi">
                     <div class="whi-block">
                         <p class="whi-label">What</p>
-                        <p class="whi-text">A real-time computer vision system that automates rack detection and decision-making for autonomous mobile robots in Toyota Boshoku's manufacturing plant. It takes a live RTSP camera feed, applies homography and distortion correction to get a consistent bird's-eye view of the workspace, then uses HSV colour segmentation with configurable detection regions to work out which racks are occupied.</p>
+                        <p class="whi-text">A real-time computer vision system that automates rack detection for the autonomous mobile robots (AMRs) in Toyota Boshoku's plant and decides what they do next. It reads a live RTSP camera feed, corrects distortion and applies a homography to get a consistent bird's-eye view of the workspace, then uses HSV colour segmentation in configurable regions to work out which racks are occupied.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">How</p>
-                        <p class="whi-text">Detection results are converted into structured boolean arrays and sent to Allen-Bradley PLCs over Ethernet/IP, where they directly trigger AMR actions. I built an interactive calibration interface with live tuning for colour thresholds, detection sensitivity, and geometric transformations, plus save/load so it can be redeployed quickly. A multithreaded camera pipeline eliminates frame latency and keeps the system stable running in production.</p>
+                        <p class="whi-text">Detection results go to Allen-Bradley PLCs over Ethernet/IP as boolean arrays, and the PLCs use them to trigger AMR actions directly. I built a calibration interface for tuning colour thresholds, detection sensitivity, and the geometric transforms on the live feed, with save and load so the system can be redeployed quickly. The camera pipeline is multithreaded, which keeps frame latency low and the system stable in production.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">Impact</p>
-                        <p class="whi-text">Replaced manual operator input entirely: the AMRs now make real-time decisions based on actual rack availability. In production it reliably handled over 100 rack moves per day, which took that job off operators and cut the production delays that came with it.</p>
+                        <p class="whi-text">The AMRs no longer need manual input from operators. They make decisions in real time based on which racks are actually available. In production the system handled over 100 rack moves a shift, which took that job off the operators and cut the production delays that came with it.</p>
                     </div>
                 </div>
             </div><!-- /project -->
@@ -2279,15 +2279,15 @@
                 <div class="whi">
                     <div class="whi-block">
                         <p class="whi-label">What</p>
-                        <p class="whi-text">Human-machine interface displays for multiple machines and robotic systems across the production plant. The screens show real-time servo speed and torque data for sonic weld robots during clip installation and track total screws and clips installed. Operators can also selectively bypass vision-based defect detection for specific screws.</p>
+                        <p class="whi-text">HMI screens for machines and robots across the plant. They show live servo speed and torque for the sonic weld robots that install clips, keep a count of the screws and clips installed, and let operators bypass vision-based defect detection for specific screws.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">How</p>
-                        <p class="whi-text">Built using FactoryTalk View Studio and Studio 5000. Ladder logic captures and stores real-time production and diagnostic data in the Allen-Bradley PLC, and structured tags and arrays carry it to the HMI. I laid out the screens so operators and maintenance staff can read system status at a glance instead of digging into raw PLC data.</p>
+                        <p class="whi-text">I built them in FactoryTalk View Studio and Studio 5000. Ladder logic in the Allen-Bradley PLC captures and stores production and diagnostic data as it happens, and structured tags and arrays pass it to the HMI. I laid out the screens so operators and maintenance staff can read a machine's status at a glance without digging through raw PLC data.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">Impact</p>
-                        <p class="whi-text">Better visibility into robot performance made faults faster to diagnose and maintenance easier to schedule. Tracking tool usage means worn parts get swapped before they fail rather than after, cutting unexpected downtime. The operator bypasses removed unnecessary production stoppages while keeping quality checks intact.</p>
+                        <p class="whi-text">Seeing how the robots were performing made faults quicker to diagnose and maintenance easier to schedule. Tool usage is tracked, so worn parts get replaced before they fail, which cuts unexpected downtime. The operator bypasses also stopped the line from halting when it didn't need to, without removing the quality checks.</p>
                     </div>
                 </div>
             </div><!-- /project -->
@@ -2337,15 +2337,15 @@
                 <div class="whi">
                     <div class="whi-block">
                         <p class="whi-label">What</p>
-                        <p class="whi-text">A spacer jig designed to align push bar holes for accurate, repeatable drilling on the UWFE race car chassis.</p>
+                        <p class="whi-text">A spacer jig that lines up the push bar holes on the UWFE race car chassis so they can be drilled accurately and the same way every time.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">How</p>
-                        <p class="whi-text">Measured the necessary dimensions directly from the driveline SVN master assembly, modeled the spacer in SolidWorks to fit the push bar geometry, then 3D-printed the jig for immediate use.</p>
+                        <p class="whi-text">I took the dimensions straight from the driveline SVN master assembly, modeled the spacer in SolidWorks to fit the push bar geometry, and 3D printed it so the team could use it right away.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">Impact</p>
-                        <p class="whi-text">Team members could drill accurately without measuring by hand each time, so setup got faster and hole placement stayed consistent across parts.</p>
+                        <p class="whi-text">Team members could drill accurately without measuring by hand each time, which made setup faster and kept hole placement consistent from part to part.</p>
                     </div>
                 </div>
             </div><!-- /project -->
@@ -2385,15 +2385,15 @@
                 <div class="whi">
                     <div class="whi-block">
                         <p class="whi-label">What</p>
-                        <p class="whi-text">A motor template jig to improve alignment and repeatability of chassis hole and insert manufacturing for the UWFE driveline.</p>
+                        <p class="whi-text">A motor template jig for the UWFE driveline that keeps chassis holes and inserts aligned when they're made, so they come out the same from part to part.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">How</p>
-                        <p class="whi-text">Modeled the jig in SolidWorks using measurements taken from the SVN driveline master assembly. Drafted a full engineering drawing with GD&T specifications and had it validated by a senior team member for manufacturability. Water-jetted the aluminium base to dimension, then milled holes to ±0.1 mm tolerance.</p>
+                        <p class="whi-text">I modeled the jig in SolidWorks from measurements in the SVN driveline master assembly and made a full engineering drawing with GD&amp;T, which a senior team member checked for manufacturability. I water-jetted the aluminium base to size, then milled the holes to a ±0.1 mm tolerance.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">Impact</p>
-                        <p class="whi-text">Standardized hole alignment across driveline machining operations, so team members could work faster and more accurately.</p>
+                        <p class="whi-text">It standardized hole alignment across the driveline machining work, so team members could work faster and more accurately.</p>
                     </div>
                 </div>
             </div><!-- /project -->
@@ -2431,15 +2431,15 @@
                 <div class="whi">
                     <div class="whi-block">
                         <p class="whi-label">What</p>
-                        <p class="whi-text">An accurate CAD replica of the physical cooling system radiator for integration into the UWFE driveline assembly model.</p>
+                        <p class="whi-text">An accurate CAD model of the cooling system's radiator, made to go into the UWFE driveline assembly.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">How</p>
-                        <p class="whi-text">Measured all key radiator dimensions using calipers, then recreated the geometry in SolidWorks with matching form and mounting features. Committed the finished model to the team's TortoiseSVN master assembly.</p>
+                        <p class="whi-text">I measured the radiator with calipers and rebuilt it in SolidWorks with the same shape and mounting features, then committed the model to the team's TortoiseSVN master assembly.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">Impact</p>
-                        <p class="whi-text">The team used the model to verify spatial packaging and fitment in the full driveline assembly before fabrication, which closed out one of the missing pieces of the cooling system design.</p>
+                        <p class="whi-text">The team used it to check packaging and fit in the full driveline assembly before anything was fabricated, and it filled one of the missing pieces of the cooling system design.</p>
                     </div>
                 </div>
             </div><!-- /project -->
@@ -2496,15 +2496,15 @@
                 <div class="whi">
                     <div class="whi-block">
                         <p class="whi-label">What</p>
-                        <p class="whi-text">A guitar you play in the air: it reads hand and finger movements from a webcam feed and turns them into musical input, in real time. The left hand selects chords based on finger positions; the right hand triggers individual notes. Visual overlays display chord diagrams and fingertip indicators in the live feed.</p>
+                        <p class="whi-text">A guitar you play in the air. It reads hand and finger movements from a webcam in real time and turns them into music: the left hand picks chords by finger position, and the right hand plays individual notes. Chord diagrams and fingertip markers are drawn over the live feed.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">How</p>
-                        <p class="whi-text">Built custom hand-tracking logic on top of MediaPipe, interpreting finger states by comparing landmark positions to determine which fingers are raised or pressed. Detected gestures map to chord and note audio files via Pygame. An event-based playback system only fires on new finger presses, so holding a position doesn't retrigger the same audio. Optimized frame processing to maintain sub-frame latency from a live camera feed.</p>
+                        <p class="whi-text">I wrote custom hand-tracking logic on top of MediaPipe that compares landmark positions to work out which fingers are raised or pressed. Each gesture maps to a chord or note audio file played through Pygame. Sound only plays on a new finger press, so holding a position doesn't retrigger it, and I tuned the frame processing to keep latency low on the live feed.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">Impact</p>
-                        <p class="whi-text">This was my entry point into real-time computer vision, and it convinced me a standard webcam could drive a low-latency interactive system accurately. What I learned here about frame processing, gesture mapping, and keeping everything real-time fed directly into the AMR CV system at Toyota Boshoku.</p>
+                        <p class="whi-text">This was my first real-time computer vision project, and it showed me a standard webcam could drive an accurate, low-latency interactive system. What I learned here about frame processing, gesture mapping, and staying real-time went straight into the AMR vision system at Toyota Boshoku.</p>
                     </div>
                 </div>
             </div><!-- /project -->
@@ -2549,15 +2549,15 @@
                 <div class="whi">
                     <div class="whi-block">
                         <p class="whi-label">What</p>
-                        <p class="whi-text">An autonomous checkers-playing robot built to compete against a human player. It scans the board with optical and distance sensors, identifies piece locations, determines a legal move, and physically executes it with a motorized claw on an X-Y gantry. All of this had to fit within strict hardware and size constraints.</p>
+                        <p class="whi-text">A robot that plays checkers against a person on its own. It scans the board with optical and distance sensors, finds the pieces, picks a legal move, and makes it with a motorized claw on an X-Y gantry. The whole thing had to fit strict hardware and size limits.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">How</p>
-                        <p class="whi-text">C++ firmware represents the board as a 2D array, handling piece detection, legal move generation, promotion logic, and game-over detection. The X-Y motion system positions the claw over target squares and the claw mechanism picks and places pieces. It took several prototypes to get right: stiffening the chassis, fixing jams, re-aligning the claw and sensors, and eventually modifying the checkers pieces themselves so they'd detect reliably.</p>
+                        <p class="whi-text">The C++ firmware stores the board as a 2D array and handles piece detection, legal move generation, promotion, and game-over detection. The X-Y system moves the claw over the target square, and the claw picks up and places the pieces. Getting it working took several prototypes: stiffening the chassis, fixing jams, realigning the claw and sensors, and finally modifying the checkers pieces so the sensors would detect them reliably.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">Impact</p>
-                        <p class="whi-text">The final robot reliably played complete games of checkers against a human. Everything had to work together: the mechanical design, the sensors, and the embedded software. More than anything it taught me how to iterate on a prototype and debug problems that could live anywhere between the hardware and the code.</p>
+                        <p class="whi-text">The final robot reliably played full games against a person, which needed the mechanical design, sensors, and embedded software all working together. It taught me how to iterate on a prototype and how to track down problems that could sit anywhere between the hardware and the code.</p>
                     </div>
                 </div>
             </div><!-- /project -->
@@ -2588,15 +2588,15 @@
                 <div class="whi">
                     <div class="whi-block">
                         <p class="whi-label">What</p>
-                        <p class="whi-text">A 2D survival shooter built from scratch in Java using JavaFX. The player controls a spaceship, dodges randomly spawned asteroids, shoots aliens, and survives as long as possible. Includes a full menu flow, health tracking, enemy combat, collision handling, and a game over screen with persistent high-score statistics.</p>
+                        <p class="whi-text">A 2D survival shooter I wrote from scratch in Java with JavaFX. You fly a spaceship, dodge randomly spawned asteroids, shoot aliens, and try to last as long as you can. It has a full menu flow, health, enemy combat, collision handling, and a game over screen with high-score stats that are saved between sessions.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">How</p>
-                        <p class="whi-text">Object-oriented architecture with separate classes for each entity type: spaceship, aliens, asteroids, projectiles, health bar, and stat tracker. Real-time gameplay is driven by a JavaFX AnimationTimer loop handling movement, spawning, collision detection, and scoring. Smooth held-key movement uses a key-state map instead of single key events. Directional projectile motion is calculated from normalized velocity components toward mouse-click targets; enemy shots track the player. Stats persist between sessions via file I/O.</p>
+                        <p class="whi-text">Each entity type has its own class: spaceship, aliens, asteroids, projectiles, health bar, and stat tracker. A JavaFX AnimationTimer loop runs movement, spawning, collision detection, and scoring. A key-state map tracks held keys so movement stays smooth. Shots fly toward the mouse click using normalized velocity components, enemy shots track the player, and stats are written to a file so they carry over between sessions.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">Impact</p>
-                        <p class="whi-text">Built and shipped a complete, playable game, from the architecture through the gameplay loop to persistent state. It gave me a real feel for managing several interacting real-time systems and for keeping OOP design clean inside a tight game loop.</p>
+                        <p class="whi-text">I built a complete, playable game, from the architecture and game loop to saved stats. Along the way I learned to manage several real-time systems that affect each other, and to keep an object-oriented design clean inside a tight game loop.</p>
                     </div>
                 </div>
             </div><!-- /project -->
@@ -2659,11 +2659,11 @@
                 <div class="whi">
                     <div class="whi-block">
                         <p class="whi-label">What</p>
-                        <p class="whi-text">Trained a reinforcement-learning policy in NVIDIA Isaac Lab for a SO-ARM101 robotic arm to push a block up a ramp and into an elevated container using contact only. The gripper was locked closed, so the policy could never grip or lift and had to solve the task through pushing dynamics alone. The project was built for eventual transfer to the physical SO-101 arm.</p>
+                        <p class="whi-text">I trained a reinforcement learning policy in NVIDIA Isaac Lab that gets an SO-ARM101 arm to push a block up a ramp and into a raised container using contact alone. The gripper was locked shut, so the policy couldn't grab or lift the block and had to do everything by pushing. It was built to transfer to the physical SO-101 arm later.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">How</p>
-                        <p class="whi-text">Designed reward shaping to encourage correct approach positioning and reward progress up the ramp, while penalizing any attempt to lift the block. Training ran in three stages, each building on the last:</p>
+                        <p class="whi-text">I designed the rewards to encourage the right approach position and progress up the ramp, and to penalize any attempt to lift the block. Training ran in three stages, each building on the one before:</p>
                         <div class="rl-runs-wrap">
                             <table class="rl-runs">
                                 <thead>
@@ -2709,7 +2709,7 @@
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">Impact</p>
-                        <p class="whi-text">The policy reliably completes the push task from varied starting positions and was exported to ONNX for sim-to-real deployment on the physical SO-101 arm. I owned the whole RL workflow for a contact-rich manipulation task: environment design, reward engineering, curriculum design, and the deployment export.</p>
+                        <p class="whi-text">The policy reliably completes the push from varied starting positions, and I exported it to ONNX for deployment on the physical SO-101 arm. I owned the whole RL workflow for this contact-rich manipulation task, from environment design and reward engineering through the curriculum to the deployment export.</p>
                     </div>
                 </div>
             </div><!-- /project -->
