@@ -533,6 +533,170 @@
             gap: 0.6rem;
         }
 
+        /* A demo button whose video isn't added yet: swap the span for an
+           <a class="video-btn" href=...> once the link exists. */
+        .video-btn-pending {
+            border-style: dashed;
+            opacity: 0.6;
+            cursor: default;
+        }
+        .video-btn-pending:hover {
+            color: var(--mid);
+            border-color: var(--border2);
+        }
+
+        /* ── ROBIM PAGE ── */
+        /* Background card above the projects: four labelled parts + stack */
+        .context-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.6rem 1.75rem;
+            margin-bottom: 4rem;
+        }
+
+        .context-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.6rem 2rem;
+        }
+
+        .context-part p:not(.whi-label) {
+            font-size: 0.86rem;
+            color: var(--body);
+            line-height: 1.75;
+        }
+
+        .context-stack {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.35rem;
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .context-stack-label {
+            font-size: 0.72rem;
+            color: var(--dim);
+            margin-right: 0.4rem;
+        }
+
+        a.tag {
+            text-decoration: underline dotted var(--accent);
+            text-underline-offset: 3px;
+            transition: color 0.15s, border-color 0.15s;
+        }
+        a.tag:hover { color: var(--accent); border-color: var(--accent); }
+
+        /* Wikipedia links for terms a non-technical reader may not know */
+        .wiki {
+            color: inherit;
+            text-decoration: underline dotted var(--accent);
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+            transition: color 0.15s;
+        }
+        .wiki:hover {
+            color: var(--accent);
+            text-decoration-style: solid;
+        }
+
+        /* Collapsible numbered steps inside a How block: the summary shows
+           the step's title and first sentence, the body the rest. */
+        .steps {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .step {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            transition: border-color 0.15s;
+        }
+        .step:hover, .step[open] { border-color: var(--border2); }
+
+        .step > summary {
+            list-style: none;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+            padding: 0.85rem 1rem;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .step > summary::-webkit-details-marker { display: none; }
+        .step > summary:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        .step-num {
+            flex-shrink: 0;
+            width: 1.6rem;
+            height: 1.6rem;
+            margin-top: 0.05rem;
+            border-radius: 50%;
+            border: 1px solid var(--border2);
+            background: var(--bg);
+            color: var(--accent);
+            font-size: 0.72rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-text { flex: 1; min-width: 0; }
+
+        .step-title {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+            transition: color 0.15s;
+        }
+        .step > summary:hover .step-title { color: var(--accent); }
+
+        .step-lead {
+            display: block;
+            margin-top: 0.2rem;
+            font-size: 0.84rem;
+            color: var(--mid);
+            line-height: 1.65;
+        }
+
+        .step-chev {
+            flex-shrink: 0;
+            width: 12px;
+            height: 12px;
+            margin-top: 0.4rem;
+            color: var(--dim);
+            transition: transform 0.2s ease;
+        }
+        .step[open] .step-chev { transform: rotate(180deg); }
+
+        .step-body {
+            padding: 0 1.25rem 1.1rem 3.45rem;
+            font-size: 0.86rem;
+            color: var(--body);
+            line-height: 1.75;
+        }
+        .step-body > * + * { margin-top: 0.7rem; }
+        .step-body ul { list-style: disc; padding-left: 1.15rem; }
+        .step-body li + li { margin-top: 0.3rem; }
+
+        @media (max-width: 640px) {
+            .context-card { padding: 1.25rem; }
+            .context-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+            .step > summary { padding: 0.8rem 0.85rem; gap: 0.7rem; }
+            .step-body { padding: 0 0.95rem 1rem 0.95rem; }
+        }
+
         /* ── ME PANEL ── */
         .me-wrap {
             max-width: 640px;
@@ -1993,12 +2157,13 @@
                 <p class="cat-section-label">Internships</p>
                 <button class="cat-btn" onclick="navigate('robim')">
                     <div class="cat-btn-logo">
-                        <img src="Images/robim logo.png" alt="Robim">
+                        <img src="Images/robim logo.png" alt="RoBIM">
                     </div>
                     <div class="cat-btn-body">
-                        <p class="cat-btn-title">Robim</p>
+                        <p class="cat-btn-title">RoBIM</p>
                         <p class="cat-btn-sub">Robotics Software Engineering Intern</p>
                         <p class="cat-btn-date">Sep 2026–Present</p>
+                        <p class="cat-btn-tags"><span>Computer vision</span><span>ROS 2</span><span>Motion planning</span></p>
                     </div>
                     <span class="cat-btn-arrow">→</span>
                 </button>
@@ -2166,12 +2331,387 @@
         </div>
     </div>
 
-    <!-- ── ROBIM DETAIL ── (header only until the write-ups land) -->
+    <!-- ── ROBIM DETAIL ── -->
     <div id="cat-robim" class="cat-detail" style="display:none">
     <div class="projects-wrap">
 
-        <p class="panel-heading">Robim</p>
+        <p class="panel-heading">RoBIM</p>
         <p class="panel-sub"><span>Robotics Software Engineering Intern</span><span class="panel-date">Sep 2026–Present</span></p>
+
+        <!-- Background for readers who don't know RoBIM. Wikipedia links
+             (.wiki) mark each hard term at its first appearance on the page. -->
+        <div class="context-card">
+            <div class="context-grid">
+                <div class="context-part">
+                    <p class="whi-label">RoBIM and the HIVE</p>
+                    <p>RoBIM builds robots that prefabricate components for construction. Its robotic system for this is called a HIVE. A HIVE is modular and configurable. It can be moved and set up on a building site, with the robot mounted on a set of connected hexagonal plates.</p>
+                </div>
+                <div class="context-part">
+                    <p class="whi-label">What I'm building</p>
+                    <p>RoBIM is developing a HIVE for processing materials, and I'm prototyping its vision software. That software is called HIVE Insight, and it lets the robot use a camera to see and measure what's in front of it. Until the new HIVE is ready, I'm working on a UR20, an industrial robot arm made by Universal Robots.</p>
+                </div>
+                <div class="context-part">
+                    <p class="whi-label">Hardware</p>
+                    <p>The arm's wrist carries an OAK <a class="wiki" href="https://en.wikipedia.org/wiki/Computer_stereo_vision" target="_blank" rel="noopener">stereo depth camera</a>, which measures distance as well as colour, and a Zimmer gripper with an attachment I designed.</p>
+                </div>
+                <div class="context-part">
+                    <p class="whi-label">Where I started</p>
+                    <p>My work builds on a system written by a previous co-op student, which scans a board of lumber, measures it and grades its quality. I added the survey scan, which finds a board anywhere in the robot's work area and scans it where it lies, and pick and place, which picks boards up and sorts them.</p>
+                </div>
+            </div>
+            <div class="context-stack">
+                <span class="context-stack-label">Built with</span>
+                <a class="tag" href="https://en.wikipedia.org/wiki/Robot_Operating_System" target="_blank" rel="noopener">ROS 2</a>
+                <span class="tag">C++</span>
+                <span class="tag">MoveIt</span>
+                <span class="tag">Python</span>
+                <span class="tag">FastAPI</span>
+                <span class="tag">Next.js</span>
+            </div>
+        </div>
+
+        <div class="group">
+            <!-- SURVEY SCAN -->
+            <div class="project" id="robim-survey">
+                <h2 class="project-title">Survey Scan</h2>
+                <div class="stack">
+                    <span class="tag">Python</span>
+                    <span class="tag">C++</span>
+                    <span class="tag">ROS 2</span>
+                    <span class="tag">MoveIt</span>
+                    <span class="tag">OpenCV</span>
+                    <span class="tag">YOLO26</span>
+                    <span class="tag">Roboflow</span>
+                    <span class="tag">Point Clouds</span>
+                </div>
+
+                <div class="btn-row">
+                    <span class="video-btn video-btn-pending" title="Video not added yet">
+                        <svg viewBox="0 0 10 10" fill="currentColor"><polygon points="1,0.5 9.5,5 1,9.5"/></svg>
+                        Watch Demo
+                    </span>
+                </div>
+
+                <div class="whi">
+                    <div class="whi-block">
+                        <p class="whi-label">What</p>
+                        <p class="whi-text">The survey scan takes a board lying anywhere in the work area and produces a 3D scan of it. The operator only has to pick which board.</p>
+                    </div>
+                    <div class="whi-block">
+                        <p class="whi-label">How</p>
+                        <ol class="steps">
+                            <li><details class="step">
+                                <summary>
+                                    <span class="step-num">1</span>
+                                    <span class="step-text">
+                                        <span class="step-title">Recognise the boards</span>
+                                        <span class="step-lead">The survey starts by finding boards in a camera image with a segmentation model I trained.</span>
+                                    </span>
+                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+                                </summary>
+                                <div class="step-body">
+                                    <p>A <a class="wiki" href="https://en.wikipedia.org/wiki/Image_segmentation" target="_blank" rel="noopener">segmentation model</a> outlines every pixel of a board, where a detection model would only draw a box around it. Those exact pixels matter, because they're used to pull the board's depth out of the <a class="wiki" href="https://en.wikipedia.org/wiki/Depth_map" target="_blank" rel="noopener">depth image</a>.</p>
+                                    <p>The training images came from the robot's own camera. I added a capture mode that moves it through survey-like poses at different tilts and saves each frame. I labelled each board's top face as a polygon in Roboflow, exported the set in <a class="wiki" href="https://en.wikipedia.org/wiki/You_Only_Look_Once" target="_blank" rel="noopener">YOLO</a> format, and <a class="wiki" href="https://en.wikipedia.org/wiki/Fine-tuning_(deep_learning)" target="_blank" rel="noopener">fine-tuned</a> a COCO-pretrained YOLO26n-seg model on it. I also trained YOLOv8n-seg on the same data to compare, and kept YOLO26n.</p>
+                                    <p>Frames taken back to back are nearly identical, so the train/validation split keeps those near-duplicates on the same side. Otherwise the validation score would make the model look better than it is.</p>
+                                </div>
+                            </details></li>
+                            <li><details class="step">
+                                <summary>
+                                    <span class="step-num">2</span>
+                                    <span class="step-text">
+                                        <span class="step-title">Capture a clean depth image</span>
+                                        <span class="step-lead">The arm parks at a survey pose that looks over the work area, and the camera takes a short burst of frames.</span>
+                                    </span>
+                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+                                </summary>
+                                <div class="step-body">
+                                    <p>The depth images are merged by taking each pixel's median. Stereo depth flickers from frame to frame, and the noise grows with distance. The arm is still at this point, so combining frames gives a cleaner depth image without slowing anything down.</p>
+                                </div>
+                            </details></li>
+                            <li><details class="step">
+                                <summary>
+                                    <span class="step-num">3</span>
+                                    <span class="step-text">
+                                        <span class="step-title">Fit the board's geometry</span>
+                                        <span class="step-lead">Each outline is turned into a 3D position, direction and size.</span>
+                                    </span>
+                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+                                </summary>
+                                <div class="step-body">
+                                    <ul>
+                                        <li>Every pixel inside the mask is back-projected into a 3D point using its depth and the camera's <a class="wiki" href="https://en.wikipedia.org/wiki/Camera_resectioning#Intrinsic_parameters" target="_blank" rel="noopener">intrinsics</a>.</li>
+                                        <li>Stray points far from the rest are dropped.</li>
+                                        <li>A plane is fitted to what's left with <a class="wiki" href="https://en.wikipedia.org/wiki/Singular_value_decomposition" target="_blank" rel="noopener">SVD</a>, then refitted a few times, each time discarding points that sit off it. This removes edge pixels that landed on the floor.</li>
+                                        <li><a class="wiki" href="https://en.wikipedia.org/wiki/Principal_component_analysis" target="_blank" rel="noopener">PCA</a> on the remaining points gives the board's axes. The direction with the most spread is its length, the one with the least is the face <a class="wiki" href="https://en.wikipedia.org/wiki/Normal_(geometry)" target="_blank" rel="noopener">normal</a>, and the third runs across its width.</li>
+                                        <li>Length and width are the spread of the points along those axes, trimmed slightly so a few outliers don't stretch them.</li>
+                                        <li>The ratio of the two largest spreads shows how sure the fit is about the long axis. A nearly square patch can't give a reliable direction.</li>
+                                        <li>Thickness is the median height of the top face above a thin ring of floor just around the mask.</li>
+                                    </ul>
+                                </div>
+                            </details></li>
+                            <li><details class="step">
+                                <summary>
+                                    <span class="step-num">4</span>
+                                    <span class="step-text">
+                                        <span class="step-title">Convert to robot coordinates</span>
+                                        <span class="step-lead">These measurements are in the camera's frame, but the robot plans in its own base frame.</span>
+                                    </span>
+                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+                                </summary>
+                                <div class="step-body">
+                                    <p>The conversion chains two transforms: the arm's live tool pose, which the robot reports, and the camera's position on the wrist, which comes from <a class="wiki" href="https://en.wikipedia.org/wiki/Hand%E2%80%93eye_calibration_problem" target="_blank" rel="noopener">hand-eye calibration</a>.</p>
+                                    <p>I automated that calibration:</p>
+                                    <ul>
+                                        <li>The operator points the camera at a checkerboard.</li>
+                                        <li>The routine generates candidate poses by tilting about an axis through the board and rolling about the lens axis, which keeps the board centred in view.</li>
+                                        <li>It picks the reachable candidates that differ most from each other, and records an image and the tool pose at each one.</li>
+                                        <li><a class="wiki" href="https://en.wikipedia.org/wiki/Perspective-n-Point" target="_blank" rel="noopener">solvePnP</a> finds the board's pose in every image.</li>
+                                        <li><a class="wiki" href="https://en.wikipedia.org/wiki/OpenCV" target="_blank" rel="noopener">OpenCV</a>'s hand-eye solver (Park's method) solves for the camera-to-tool transform.</li>
+                                    </ul>
+                                    <p>The checkerboard is only ever seen from above, and side scans were landing slightly inside the top face's edge. So I added a refinement that uses real survey scans as the check:</p>
+                                    <ul>
+                                        <li>the side face should meet the top face's near edge;</li>
+                                        <li>the floor beside the board should sit at the same height in both passes;</li>
+                                        <li>the strip of top face visible from the side should match the top's height.</li>
+                                    </ul>
+                                    <p><a class="wiki" href="https://en.wikipedia.org/wiki/Levenberg%E2%80%93Marquardt_algorithm" target="_blank" rel="noopener">Levenberg-Marquardt</a> finds the small correction that makes those hold, while staying close to the checkerboard result.</p>
+                                </div>
+                            </details></li>
+                            <li><details class="step">
+                                <summary>
+                                    <span class="step-num">5</span>
+                                    <span class="step-text">
+                                        <span class="step-title">Pick a board and correct its height</span>
+                                        <span class="step-lead">The operator picks a board on the screen.</span>
+                                    </span>
+                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+                                </summary>
+                                <div class="step-body">
+                                    <p>At this distance, depth is least reliable for height and tilt, but the boards always lie on a known surface: the floor, wood supports, or a custom height set for the run. So the controller:</p>
+                                    <ul>
+                                        <li>places the board's top at that surface height plus the board's thickness;</li>
+                                        <li>slides the measured centre along the camera's line of sight to that height, which keeps the board where the camera saw it in the image;</li>
+                                        <li>lays the board flat.</li>
+                                    </ul>
+                                </div>
+                            </details></li>
+                            <li><details class="step">
+                                <summary>
+                                    <span class="step-num">6</span>
+                                    <span class="step-text">
+                                        <span class="step-title">Take a close look</span>
+                                        <span class="step-lead">Even after that correction, the survey position can be several centimetres off.</span>
+                                    </span>
+                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+                                </summary>
+                                <div class="step-body">
+                                    <p>That's enough for a sweep to run along the board's edge instead of its middle. So the camera moves directly above the board, and a separate close-range model segments the top face:</p>
+                                    <ul>
+                                        <li>The points are converted into the robot's frame.</li>
+                                        <li>An SVD of their horizontal positions gives the heading.</li>
+                                        <li>The outermost points across that heading give the two long edges. An edge only counts if the mask doesn't touch the image border there, since that would mean the board is cut off.</li>
+                                    </ul>
+                                    <p>The controller then moves the centre line, heading and width onto what it measured.</p>
+                                </div>
+                            </details></li>
+                            <li><details class="step">
+                                <summary>
+                                    <span class="step-num">7</span>
+                                    <span class="step-text">
+                                        <span class="step-title">Sweep the board</span>
+                                        <span class="step-lead">The arm moves the camera along the board in up to three passes: one over the top, and one along each side with the camera turned to face it, to capture the faces a top view can't see.</span>
+                                    </span>
+                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+                                </summary>
+                                <div class="step-body">
+                                    <p>Before each pass, the controller checks reach:</p>
+                                    <ul>
+                                        <li>It samples poses along the line, solves <a class="wiki" href="https://en.wikipedia.org/wiki/Inverse_kinematics" target="_blank" rel="noopener">inverse kinematics</a> at each, and keeps the longest continuous reachable stretch.</li>
+                                        <li>It narrows each boundary by <a class="wiki" href="https://en.wikipedia.org/wiki/Bisection_method" target="_blank" rel="noopener">bisection</a>.</li>
+                                        <li>MoveIt plans the straight-line path. If the path stops short, the end is pulled in and it tries again.</li>
+                                        <li>Side passes are walked in small steps, with each IK solve seeded from the previous step's joints. They stop at the first collision, missing solution, or sudden joint jump, which would mean the arm flipping posture mid-sweep.</li>
+                                    </ul>
+                                    <p>This way a board that's partly out of reach still gets scanned over the part the arm can reach. The board itself goes into MoveIt's <a class="wiki" href="https://en.wikipedia.org/wiki/Collision_detection" target="_blank" rel="noopener">collision scene</a> as a padded box, so the camera and gripper are planned around it.</p>
+                                </div>
+                            </details></li>
+                            <li><details class="step">
+                                <summary>
+                                    <span class="step-num">8</span>
+                                    <span class="step-text">
+                                        <span class="step-title">Check the ends</span>
+                                        <span class="step-lead">At the end of each pass, the camera checks whether it's looking at the real end of the board.</span>
+                                    </span>
+                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+                                </summary>
+                                <div class="step-body">
+                                    <p>A mask can stop early because of a shadow, and the board can run past where the survey thought it ended. The check:</p>
+                                    <ul>
+                                        <li>fits the face's plane in the robot frame;</li>
+                                        <li>finds the last column of the mask along the board;</li>
+                                        <li>makes sure the whole width is in view;</li>
+                                        <li>looks just past that column, where the depth has to drop off the face onto the background in two separate frames.</li>
+                                    </ul>
+                                    <p>If the face's depth instead runs right to the image border on the same plane, the board continues, and the arm steps further along until it finds the end or reaches a set limit.</p>
+                                </div>
+                            </details></li>
+                            <li><details class="step">
+                                <summary>
+                                    <span class="step-num">9</span>
+                                    <span class="step-text">
+                                        <span class="step-title">Build the point clouds</span>
+                                        <span class="step-lead">The arm keeps moving while frames come in, so each frame is paired with the arm's pose at the moment it was captured.</span>
+                                    </span>
+                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+                                </summary>
+                                <div class="step-body">
+                                    <p>The camera's timestamp is converted to the computer's clock, and the tool pose is <a class="wiki" href="https://en.wikipedia.org/wiki/Linear_interpolation" target="_blank" rel="noopener">interpolated</a> between the robot's samples at that instant. Each frame's masked depth is then back-projected, transformed into the robot frame, and merged into <a class="wiki" href="https://en.wikipedia.org/wiki/Point_cloud" target="_blank" rel="noopener">point clouds</a> of the top and sides.</p>
+                                    <p>Small calibration errors still leave seams between passes. So a second, aligned cloud keeps the top fixed and moves each side pass as one <a class="wiki" href="https://en.wikipedia.org/wiki/Rigid_transformation" target="_blank" rel="noopener">rigid piece</a>, positioned to close the gap at the shared edge slice by slice along the board. Working slice by slice preserves the real shape of a twisted or bowed board.</p>
+                                </div>
+                            </details></li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /project -->
+
+            <!-- PICK AND PLACE -->
+            <div class="project" id="robim-pick">
+                <h2 class="project-title">Pick and Place</h2>
+                <div class="stack">
+                    <span class="tag">C++</span>
+                    <span class="tag">ROS 2</span>
+                    <span class="tag">MoveIt</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">FastAPI</span>
+                    <span class="tag">Next.js</span>
+                </div>
+
+                <div class="btn-row">
+                    <span class="video-btn video-btn-pending" title="Video not added yet">
+                        <svg viewBox="0 0 10 10" fill="currentColor"><polygon points="1,0.5 9.5,5 1,9.5"/></svg>
+                        Watch Demo
+                    </span>
+                </div>
+
+                <div class="whi">
+                    <div class="whi-block">
+                        <p class="whi-label">What</p>
+                        <p class="whi-text">Pick and place builds on the same survey. A single pick runs the survey and close look, grips the board, and holds it. For a sort, the operator ticks several boards and the robot lays them in a row on the floor, shortest first.</p>
+                    </div>
+                    <div class="whi-block">
+                        <p class="whi-label">How</p>
+                        <ol class="steps">
+                            <li><details class="step">
+                                <summary>
+                                    <span class="step-num">1</span>
+                                    <span class="step-text">
+                                        <span class="step-title">Plan the grip</span>
+                                        <span class="step-lead">The grip is planned from the close look.</span>
+                                    </span>
+                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+                                </summary>
+                                <div class="step-body">
+                                    <p>The jaws close along a level line across the board at its centre, with the tool pointing straight down. Two wrist angles 180° apart give the same grip, and the controller picks the one closer to the wrist's current angle so the wrist doesn't turn more than it has to.</p>
+                                    <p>The grip point is measured from the gripper's collision model. The controller works out how far the gripper's shapes reach below the flange, so the target sits at the real fingertips even after the gripper attachments change. How far the jaws go down the board comes from its thickness.</p>
+                                </div>
+                            </details></li>
+                            <li><details class="step">
+                                <summary>
+                                    <span class="step-num">2</span>
+                                    <span class="step-text">
+                                        <span class="step-title">Approach and close</span>
+                                        <span class="step-lead">The arm moves to a pose above the board and checks that it actually arrived.</span>
+                                    </span>
+                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+                                </summary>
+                                <div class="step-body">
+                                    <p>It then descends in a straight line planned by MoveIt, so the fingers come straight down without dragging across the wood. After another position check, the controller closes the gripper through the UR's digital outputs.</p>
+                                </div>
+                            </details></li>
+                            <li><details class="step">
+                                <summary>
+                                    <span class="step-num">3</span>
+                                    <span class="step-text">
+                                        <span class="step-title">Measure every board before a sort</span>
+                                        <span class="step-lead">The survey measures lengths from across the work area, which isn't precise enough to put boards of similar length in order.</span>
+                                    </span>
+                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+                                </summary>
+                                <div class="step-body">
+                                    <p>So before touching anything, the camera visits both ends of every board and runs the same end check as the scan: it finds where the face mask stops, confirmed by depth falling off the face. If the board runs past the view, the camera steps outward and looks again. The two ends give each board's length, its heading (the line between them) and its centre (their midpoint).</p>
+                                </div>
+                            </details></li>
+                            <li><details class="step">
+                                <summary>
+                                    <span class="step-num">4</span>
+                                    <span class="step-text">
+                                        <span class="step-title">Plan the layout</span>
+                                        <span class="step-lead">With those measurements, the controller works out a spot for every board, side by side in a fixed sorting zone, and checks them all before the first pick.</span>
+                                    </span>
+                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+                                </summary>
+                                <div class="step-body">
+                                    <p>Each footprint is grown by a clearance margin and tested against the others, and against the boards still waiting, with a <a class="wiki" href="https://en.wikipedia.org/wiki/Hyperplane_separation_theorem" target="_blank" rel="noopener">separating-axis test</a>, which handles rectangles at any angle. That way, a board that won't fit is caught before anything moves.</p>
+                                </div>
+                            </details></li>
+                            <li><details class="step">
+                                <summary>
+                                    <span class="step-num">5</span>
+                                    <span class="step-text">
+                                        <span class="step-title">Move each board</span>
+                                        <span class="step-lead">Right before each grip, the camera takes one more close look at the board's measured centre, since a board can get nudged, and the grip goes where that look finds it.</span>
+                                    </span>
+                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+                                </summary>
+                                <div class="step-body">
+                                    <ul>
+                                        <li>Once gripped, the board is attached to the gripper in MoveIt's planning scene, so the carry is planned with the board's size included.</li>
+                                        <li>The arm lifts the board, carries it to its spot, lowers it to just above the floor, lets go, and lifts clear.</li>
+                                        <li>Each placed board becomes an obstacle for the ones after it.</li>
+                                    </ul>
+                                </div>
+                            </details></li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /project -->
+
+            <!-- GRIPPER ATTACHMENT: swap each .ph placeholder for an <img>
+                 once the CAD screenshot and photo are added -->
+            <div class="project" id="robim-gripper">
+                <h2 class="project-title">Gripper Attachment</h2>
+                <div class="stack">
+                    <span class="tag">SolidWorks</span>
+                </div>
+
+                <div class="img-grid cols-2">
+                    <div>
+                        <div class="img-slot" style="aspect-ratio: 4/3;">
+                            <span class="ph">
+                                <svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m21 15-5-5L5 19.5"/></svg>
+                                <span class="ph-label">Image not added yet</span>
+                            </span>
+                        </div>
+                        <p class="img-caption">CAD model</p>
+                    </div>
+                    <div>
+                        <div class="img-slot" style="aspect-ratio: 4/3;">
+                            <span class="ph">
+                                <svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m21 15-5-5L5 19.5"/></svg>
+                                <span class="ph-label">Image not added yet</span>
+                            </span>
+                        </div>
+                        <p class="img-caption">On the robot</p>
+                    </div>
+                </div>
+
+                <div class="whi">
+                    <div class="whi-block">
+                        <p class="whi-label">What</p>
+                        <p class="whi-text">I designed the attachment that goes on the Zimmer gripper myself in SolidWorks, and got the design reviewed by senior engineers.</p>
+                    </div>
+                </div>
+            </div><!-- /project -->
+        </div><!-- /group -->
 
     </div>
     </div><!-- /cat-robim -->
@@ -2742,7 +3282,7 @@
         </div>
     </div>
 
-    <p class="me-about">I write software for robots. Right now that's at Robim and on WATonomous's humanoid team, where I'm training a robot arm in simulation with reinforcement learning. Before that I spent a term at Toyota Boshoku building a computer vision system that lets mobile robots haul racks around the plant, over 100 a shift.</p>
+    <p class="me-about">I write software for robots. Right now that's at RoBIM and on WATonomous's humanoid team, where I'm training a robot arm in simulation with reinforcement learning. Before that I spent a term at Toyota Boshoku building a computer vision system that lets mobile robots haul racks around the plant, over 100 a shift.</p>
 
     <!-- Quiet door to the 3D workshop — an easter egg, deliberately not a CTA -->
     <p class="lab-door">
@@ -4636,17 +5176,24 @@
                 }
                 if (head !== block) block.appendChild(head);
 
-                // Collect the whi-blocks; degrade gracefully on odd markup
+                // Collect the whi-blocks; degrade gracefully on odd markup.
+                // A collapsible step list (RoBIM) prints as its numbered step
+                // titles only; the full steps are too long for a summary.
                 const whi = [];
                 project.querySelectorAll('.whi-block').forEach((b) => {
-                    const body = text(b.querySelector('.whi-text'));
-                    if (body) whi.push({ label: text(b.querySelector('.whi-label')), body: body, el: b });
+                    const steps = Array.from(b.querySelectorAll('.step-title')).map(text).filter(Boolean);
+                    const body = steps.length
+                        ? steps.map((s, i) => `${i + 1}. ${s}`).join('   ')
+                        : text(b.querySelector('.whi-text'));
+                    if (body) whi.push({ label: text(b.querySelector('.whi-label')), body: body, el: b, steps: steps.length > 0 });
                 });
 
                 if (mode === 'condensed') {
-                    // Impact is the condensed description; fall back to the
-                    // last descriptive text found rather than throwing
-                    const impact = whi.find((w) => w.label === 'Impact') || whi[whi.length - 1];
+                    // Impact is the condensed description; without one, the
+                    // first plain text block (never a step outline), then the
+                    // last text found rather than throwing
+                    const impact = whi.find((w) => w.label === 'Impact')
+                        || whi.find((w) => !w.steps) || whi[whi.length - 1];
                     if (impact) block.appendChild(make('p', 'ps-impact', impact.body));
                 } else {
                     whi.forEach((w) => {
