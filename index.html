@@ -2395,7 +2395,7 @@
                 <div class="whi">
                     <div class="whi-block">
                         <p class="whi-label">What</p>
-                        <p class="whi-text">The survey scan takes a board lying anywhere in the work area and produces a 3D scan of it. The operator only has to pick which board.</p>
+                        <p class="whi-text">The survey scan takes a board lying anywhere in the work area and produces a 3D scan of it. The operator only has to pick which board. Down the line, the goal is to measure each board's size and position accurately enough to saw or split it precisely to match the plans. The point clouds could also be used to train a model that decides where each board is best used, based on how warped or defective it is. A straight board with little warp suits a wall frame's <a class="wiki" href="https://en.wikipedia.org/wiki/Wall_plate" target="_blank" rel="noopener">base plate</a>, for example, while a heavily warped one is better cut into short <a class="wiki" href="https://en.wikipedia.org/wiki/Blocking_(construction)" target="_blank" rel="noopener">blocking</a> pieces between <a class="wiki" href="https://en.wikipedia.org/wiki/Wall_stud" target="_blank" rel="noopener">studs</a>.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">How</p>
@@ -2595,7 +2595,7 @@
                 <div class="whi">
                     <div class="whi-block">
                         <p class="whi-label">What</p>
-                        <p class="whi-text">Pick and place builds on the same survey. A single pick runs the survey and close look, grips the board, and holds it. For a sort, the operator ticks several boards and the robot lays them in a row on the floor, shortest first.</p>
+                        <p class="whi-text">Pick and place builds on the same survey to sort boards. The operator ticks several boards in the survey view, and the robot picks them up one at a time and lays them in a row on the floor, shortest first.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">How</p>
@@ -2604,34 +2604,7 @@
                                 <summary>
                                     <span class="step-num">1</span>
                                     <span class="step-text">
-                                        <span class="step-title">Plan the grip</span>
-                                        <span class="step-lead">The grip is planned from the close look.</span>
-                                    </span>
-                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
-                                </summary>
-                                <div class="step-body">
-                                    <p>The jaws close along a level line across the board at its centre, with the tool pointing straight down. Two wrist angles 180° apart give the same grip, and the controller picks the one closer to the wrist's current angle so the wrist doesn't turn more than it has to.</p>
-                                    <p>The grip point is measured from the gripper's collision model. The controller works out how far the gripper's shapes reach below the flange, so the target sits at the real fingertips even after the gripper attachments change. How far the jaws go down the board comes from its thickness.</p>
-                                </div>
-                            </details></li>
-                            <li><details class="step">
-                                <summary>
-                                    <span class="step-num">2</span>
-                                    <span class="step-text">
-                                        <span class="step-title">Approach and close</span>
-                                        <span class="step-lead">The arm moves to a pose above the board and checks that it actually arrived.</span>
-                                    </span>
-                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
-                                </summary>
-                                <div class="step-body">
-                                    <p>It then descends in a straight line planned by MoveIt, so the fingers come straight down without dragging across the wood. After another position check, the controller closes the gripper through the UR's digital outputs.</p>
-                                </div>
-                            </details></li>
-                            <li><details class="step">
-                                <summary>
-                                    <span class="step-num">3</span>
-                                    <span class="step-text">
-                                        <span class="step-title">Measure every board before a sort</span>
+                                        <span class="step-title">Measure every board</span>
                                         <span class="step-lead">The survey measures lengths from across the work area, which isn't precise enough to put boards of similar length in order.</span>
                                     </span>
                                     <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
@@ -2642,7 +2615,7 @@
                             </details></li>
                             <li><details class="step">
                                 <summary>
-                                    <span class="step-num">4</span>
+                                    <span class="step-num">2</span>
                                     <span class="step-text">
                                         <span class="step-title">Plan the layout</span>
                                         <span class="step-lead">With those measurements, the controller works out a spot for every board, side by side in a fixed sorting zone, and checks them all before the first pick.</span>
@@ -2655,19 +2628,42 @@
                             </details></li>
                             <li><details class="step">
                                 <summary>
-                                    <span class="step-num">5</span>
+                                    <span class="step-num">3</span>
                                     <span class="step-text">
-                                        <span class="step-title">Move each board</span>
-                                        <span class="step-lead">Right before each grip, the camera takes one more close look at the board's measured centre, since a board can get nudged, and the grip goes where that look finds it.</span>
+                                        <span class="step-title">Plan the grip</span>
+                                        <span class="step-lead">Right before each grip, the camera takes one more close look at the board, since it may have been nudged, and the grip is planned from what that look finds.</span>
                                     </span>
                                     <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
                                 </summary>
                                 <div class="step-body">
-                                    <ul>
-                                        <li>Once gripped, the board is attached to the gripper in MoveIt's planning scene, so the carry is planned with the board's size included.</li>
-                                        <li>The arm lifts the board, carries it to its spot, lowers it to just above the floor, lets go, and lifts clear.</li>
-                                        <li>Each placed board becomes an obstacle for the ones after it.</li>
-                                    </ul>
+                                    <p>The jaws close along a level line across the board at its centre, with the tool pointing straight down. Two wrist angles 180° apart give the same grip, and the controller picks the one closer to the wrist's current angle so the wrist doesn't turn more than it has to.</p>
+                                    <p>The grip point is measured from the gripper's collision model. The controller works out how far the gripper's shapes reach below the flange, so the target sits at the real fingertips even after the gripper attachments change. How far the jaws go down the board comes from its thickness.</p>
+                                </div>
+                            </details></li>
+                            <li><details class="step">
+                                <summary>
+                                    <span class="step-num">4</span>
+                                    <span class="step-text">
+                                        <span class="step-title">Approach and close</span>
+                                        <span class="step-lead">The arm moves to a pose above the board and checks that it actually arrived.</span>
+                                    </span>
+                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+                                </summary>
+                                <div class="step-body">
+                                    <p>It then descends in a straight line planned by MoveIt, so the fingers come straight down without dragging across the wood. After another position check, the controller closes the gripper through the UR's digital outputs.</p>
+                                </div>
+                            </details></li>
+                            <li><details class="step">
+                                <summary>
+                                    <span class="step-num">5</span>
+                                    <span class="step-text">
+                                        <span class="step-title">Carry and place</span>
+                                        <span class="step-lead">Once gripped, the board is attached to the gripper in MoveIt's planning scene, so the carry is planned with the board's size included.</span>
+                                    </span>
+                                    <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+                                </summary>
+                                <div class="step-body">
+                                    <p>The arm lifts the board, carries it to its spot, lowers it to just above the floor, lets go, and lifts clear. Each placed board then becomes an obstacle for the ones after it.</p>
                                 </div>
                             </details></li>
                         </ol>
