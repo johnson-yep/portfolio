@@ -541,7 +541,7 @@
         }
 
         .me-name-block {
-            margin-bottom: 4rem;
+            margin-bottom: 2.75rem;
         }
 
         .me-name {
@@ -550,41 +550,46 @@
             letter-spacing: -0.5px;
             color: var(--text);
             line-height: 1.1;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.6rem;
         }
 
         .me-tagline {
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             color: var(--dim);
-            /* edit this */
         }
 
-        /* identity links row (GitHub / LinkedIn / Resume) */
+        /* identity buttons row (GitHub / LinkedIn / Resume / Print summary) */
         .id-links {
             display: flex;
             flex-wrap: wrap;
-            align-items: center;
-            column-gap: 1.25rem;
-            row-gap: 0.25rem;
-            margin-top: 0.85rem;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
         }
 
         .id-link {
             display: inline-flex;
             align-items: center;
             gap: 0.45rem;
-            font-size: 0.85rem;
+            padding: 0.5rem 0.95rem;
+            border: 1px solid var(--border2);
+            border-radius: 999px;
+            background: none;
+            font-family: inherit;
+            font-size: 0.82rem;
             font-weight: 500;
+            line-height: 1.2;
             color: var(--mid);
             text-decoration: none;
             letter-spacing: -0.1px;
-            /* comfortable tap target without widening the visual gaps */
-            padding: 0.3rem 0.35rem;
-            margin: -0.3rem -0.35rem;
-            transition: color 0.15s, transform 0.12s ease;
+            cursor: pointer;
+            transition: color 0.15s, border-color 0.15s, background 0.15s, transform 0.12s ease;
         }
 
-        .id-link:hover { color: var(--text); }
+        .id-link:hover {
+            color: var(--text);
+            border-color: var(--accent);
+            background: var(--surface);
+        }
         .id-link:active { transform: scale(0.96); }
 
         .id-link svg {
@@ -593,20 +598,10 @@
             flex-shrink: 0;
         }
 
-        /* template section */
-        .me-section {
-            margin-bottom: 3.5rem;
-        }
-
-        .me-section-label {
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            color: var(--accent);
-            padding-bottom: 0.875rem;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 1.5rem;
+        .me-about {
+            font-size: 0.95rem;
+            color: var(--body);
+            line-height: 1.75;
         }
 
         .me-photo-slot {
@@ -624,13 +619,6 @@
         }
 
         .me-photo-slot:hover { border-color: var(--border2); }
-
-        .me-blank-text {
-            font-size: 0.88rem;
-            color: var(--mid);
-            line-height: 1.8;
-            font-style: italic;
-        }
 
         .me-interest-card {
             position: relative;
@@ -1075,11 +1063,14 @@
             gap: 0.75rem;
         }
 
+        /* the hub heading sits above a section label, not a .panel-sub */
+        .cat-hub-wrap > .panel-heading { margin-bottom: 1.75rem; }
+
         .cat-section {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
-            margin-bottom: 2.5rem;
+            gap: 0.6rem;
+            margin-bottom: 2.25rem;
         }
 
         .cat-section:last-child { margin-bottom: 0; }
@@ -1098,7 +1089,7 @@
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 1.75rem; /* uniform, so the logo sits evenly on all sides */
+            padding: 1.1rem 1.4rem 1.1rem 1.1rem;
             text-align: left;
             cursor: pointer;
             transition: border-color 0.15s, background 0.15s, transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -1107,7 +1098,12 @@
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            gap: 1rem;
+            gap: 1.1rem;
+        }
+
+        .cat-btn-body {
+            flex: 1;
+            min-width: 0; /* lets long titles wrap instead of pushing the arrow out */
         }
 
         .cat-btn:hover {
@@ -1128,16 +1124,13 @@
         }
 
         .cat-btn-sub {
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             color: var(--mid);
-            line-height: 1.5;
-            display: flex;
-            flex-wrap: wrap;
-            column-gap: 1.1rem;
+            line-height: 1.45;
         }
 
         .cat-btn-date {
-            margin-top: 0.4rem;
+            margin-top: 0.3rem;
             font-size: 0.65rem;
             font-weight: 600;
             text-transform: uppercase;
@@ -1157,10 +1150,30 @@
             transform: translateX(3px);
         }
 
+        /* skill tags, separated by accent dots */
+        .cat-btn-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 0.55rem;
+            font-size: 0.74rem;
+            color: var(--dim);
+            line-height: 1.5;
+        }
+
+        /* each tag wraps as a unit; the dot trails so wrapped lines start clean */
+        .cat-btn-tags span { white-space: nowrap; }
+
+        .cat-btn-tags span:not(:last-child)::after {
+            content: "·";
+            margin: 0 0.45em;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
         .cat-btn-logo {
-            width: 104px;
-            height: 104px;
-            border-radius: 10px;
+            width: 64px;
+            height: 64px;
+            border-radius: 9px;
             background: var(--logo-chip);
             border: 1px solid var(--border);
             flex-shrink: 0;
@@ -1176,8 +1189,9 @@
             object-fit: contain;
         }
 
-        .cat-btn-logo svg {
-            opacity: 0.15;
+        .cat-btn-logo-mark svg {
+            width: 60%;
+            height: 60%;
         }
 
         /* ── TECHNICAL SKILLS ── */
@@ -1311,12 +1325,6 @@
             flex-shrink: 0;
         }
 
-        /* ── LINK CLICK FEEDBACK (Me page) ── */
-        .me-section a {
-            transition: color 0.15s, transform 0.12s ease;
-        }
-        .me-section a:active { transform: scale(0.96); }
-
         /* ── LIGHTBOX ── */
         .lightbox {
             position: fixed;
@@ -1375,14 +1383,14 @@
 
         /* ── THE LAB (3D playground, #playground) ── */
         .lab-door {
-            margin-top: 3rem;
-            text-align: center;
+            margin-top: 2.5rem;
         }
 
         .lab-door-link {
             background: none;
             border: none;
             padding: 0.4rem 0.6rem;
+            margin-left: -0.6rem; /* text lines up with the paragraph above */
             font-family: inherit;
             font-size: 0.72rem;
             letter-spacing: 0.4px;
@@ -1613,22 +1621,6 @@
             .img-grid.cols-3 { grid-template-columns: 1fr 1fr; }
             .song-entries { grid-template-columns: 1fr; }
         }
-
-        /* Subordinate convenience link on the Me page — Ctrl+P works the same */
-        .print-summary-link {
-            background: none;
-            border: none;
-            padding: 0;
-            margin-top: 0.9rem;
-            font-family: inherit;
-            font-size: 0.75rem;
-            color: var(--dim);
-            text-decoration: underline;
-            text-decoration-style: dotted;
-            text-underline-offset: 3px;
-            cursor: pointer;
-        }
-        .print-summary-link:hover { color: var(--mid); }
 
         /* ── PRINT SUMMARY MODAL ──
            Same interaction pattern as .lightbox: overlay backdrop, .open
@@ -1996,16 +1988,29 @@
         <p class="panel-heading">Work &amp; Projects</p>
 
         <div class="cat-grid">
+            <!-- Groups in this order; newest first inside each group -->
             <div class="cat-section">
                 <p class="cat-section-label">Internships</p>
+                <button class="cat-btn" onclick="navigate('robim')">
+                    <div class="cat-btn-logo">
+                        <img src="Images/robim logo.png" alt="Robim">
+                    </div>
+                    <div class="cat-btn-body">
+                        <p class="cat-btn-title">Robim</p>
+                        <p class="cat-btn-sub">Robotics Software Engineering Intern</p>
+                        <p class="cat-btn-date">Sep 2026–Present</p>
+                    </div>
+                    <span class="cat-btn-arrow">→</span>
+                </button>
                 <button class="cat-btn" onclick="navigate('toyota')">
                     <div class="cat-btn-logo">
                         <img src="Images/Toyota Boshoku Logo.png" alt="Toyota Boshoku">
                     </div>
-                    <div style="flex:1;">
+                    <div class="cat-btn-body">
                         <p class="cat-btn-title">Toyota Boshoku</p>
-                        <p class="cat-btn-sub"><span>Co-op</span></p>
+                        <p class="cat-btn-sub">Robotics Engineering Intern</p>
                         <p class="cat-btn-date">Jan–May 2026</p>
+                        <p class="cat-btn-tags"><span>Computer vision</span><span>AMRs</span><span>PLC &amp; HMI</span></p>
                     </div>
                     <span class="cat-btn-arrow">→</span>
                 </button>
@@ -2014,12 +2019,13 @@
                 <p class="cat-section-label">Design Teams</p>
                 <button class="cat-btn" onclick="navigate('watonomous')">
                     <div class="cat-btn-logo">
-                        <img src="Images/Watonomous Logo.jpg" alt="Watonomous">
+                        <img src="Images/Watonomous Logo.jpg" alt="WATonomous">
                     </div>
-                    <div style="flex:1;">
-                        <p class="cat-btn-title">Watonomous</p>
-                        <p class="cat-btn-sub">Humanoid</p>
+                    <div class="cat-btn-body">
+                        <p class="cat-btn-title">WATonomous</p>
+                        <p class="cat-btn-sub">Humanoid team</p>
                         <p class="cat-btn-date">May 2026–Present</p>
+                        <p class="cat-btn-tags"><span>Reinforcement learning</span><span>Isaac Lab</span><span>Sim-to-real</span></p>
                     </div>
                     <span class="cat-btn-arrow">→</span>
                 </button>
@@ -2027,10 +2033,11 @@
                     <div class="cat-btn-logo">
                         <img src="Images/UWFE Logo.jpg" alt="UWFE">
                     </div>
-                    <div style="flex:1;">
+                    <div class="cat-btn-body">
                         <p class="cat-btn-title">uWaterloo Formula Electric</p>
-                        <p class="cat-btn-sub">Driveline</p>
-                        <p class="cat-btn-date">Sep 2025–Mar 2026</p>
+                        <p class="cat-btn-sub">Driveline team</p>
+                        <p class="cat-btn-date">Sep 2025–May 2026</p>
+                        <p class="cat-btn-tags"><span>SolidWorks</span><span>Jig design</span><span>GD&amp;T</span></p>
                     </div>
                     <span class="cat-btn-arrow">→</span>
                 </button>
@@ -2038,12 +2045,21 @@
             <div class="cat-section">
                 <p class="cat-section-label">Personal Projects</p>
                 <button class="cat-btn" onclick="navigate('personal')">
-                    <div class="cat-btn-logo">
-                        <img src="Images/Personal Projects Logo.png" alt="Personal Projects">
+                    <div class="cat-btn-logo cat-btn-logo-mark">
+                        <!-- Crossed wrench and screwdriver in the light-mode accent;
+                             the chip behind it stays light in both themes -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#b4592b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                            <g transform="rotate(-45 12 12)">
+                                <rect x="10.25" y="14.5" width="3.5" height="7" rx="1.4"/>
+                                <path d="M12 14.5V5.5M11 5.5h2"/>
+                            </g>
+                        </svg>
                     </div>
-                    <div style="flex:1;">
+                    <div class="cat-btn-body">
                         <p class="cat-btn-title">Personal Projects</p>
-                        <p class="cat-btn-sub">Side projects, experiments, and builds</p>
+                        <p class="cat-btn-sub">Side builds</p>
+                        <p class="cat-btn-tags"><span>Computer vision</span><span>Robotics</span><span>Game dev</span></p>
                     </div>
                     <span class="cat-btn-arrow">→</span>
                 </button>
@@ -2150,12 +2166,22 @@
         </div>
     </div>
 
+    <!-- ── ROBIM DETAIL ── (header only until the write-ups land) -->
+    <div id="cat-robim" class="cat-detail" style="display:none">
+    <div class="projects-wrap">
+
+        <p class="panel-heading">Robim</p>
+        <p class="panel-sub"><span>Robotics Software Engineering Intern</span><span class="panel-date">Sep 2026–Present</span></p>
+
+    </div>
+    </div><!-- /cat-robim -->
+
     <!-- ── TOYOTA DETAIL ── -->
     <div id="cat-toyota" class="cat-detail" style="display:none">
     <div class="projects-wrap">
 
         <p class="panel-heading">Toyota Boshoku</p>
-        <p class="panel-sub"><span>Co-op</span><span class="panel-date">Jan–May 2026</span></p>
+        <p class="panel-sub"><span>Robotics Engineering Intern</span><span class="panel-date">Jan–May 2026</span></p>
 
         <div class="group">
             <!-- AMR COMPUTER VISION -->
@@ -2275,7 +2301,7 @@
     <div class="projects-wrap">
 
         <p class="panel-heading">uWaterloo Formula Electric</p>
-        <p class="panel-sub"><span>Driveline</span><span class="panel-date">Sep 2025–Mar 2026</span></p>
+        <p class="panel-sub"><span>Driveline team</span><span class="panel-date">Sep 2025–May 2026</span></p>
 
         <div class="group">
             <!-- PUSH BAR SPACER -->
@@ -2583,8 +2609,8 @@
     <div id="cat-watonomous" class="cat-detail" style="display:none">
     <div class="projects-wrap">
 
-        <p class="panel-heading">Watonomous</p>
-        <p class="panel-sub"><span>Humanoid</span><span class="panel-date">May 2026–Present</span></p>
+        <p class="panel-heading">WATonomous</p>
+        <p class="panel-sub"><span>Humanoid team</span><span class="panel-date">May 2026–Present</span></p>
 
         <div class="group">
             <!-- SIM-TO-REAL RL ARM -->
@@ -2701,14 +2727,7 @@
     <!-- Name block -->
     <div class="me-name-block">
         <h1 class="me-name">Johnson Yep</h1>
-        <div style="display:flex; align-items:center; gap:0.6rem; margin-top:0.75rem;">
-            <!-- <img src="Images/UWaterloo Logo.png" alt="University of Waterloo" style="height:16px; opacity:0.6;"> -->
-            <img src="https://uwaterloo.ca/favicon.ico" alt="University of Waterloo" style="height:16px; opacity:0.8; background:var(--surface); border-radius:3px; padding:1px;">
-            <p class="me-tagline" style="color: var(--dim); font-size: 0.9rem; margin:0;">
-                Mechatronics Engineering @ uWaterloo
-            </p>
-        </div>
-        <p style="font-size:0.8rem; margin-top:0.5rem;"><button class="email-copy" type="button" aria-label="Copy email address">jyep@uwaterloo.ca</button></p>
+        <p class="me-tagline">Mechatronics Engineering · University of Waterloo</p>
         <div class="id-links">
             <a class="id-link" href="https://github.com/johnson-yep" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
@@ -2719,22 +2738,15 @@
                 LinkedIn
             </a>
             <a class="id-link" href="Johnson_Yep_Resume.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5L13.5 3z"/><path d="M13.5 3v5.5H19M9 13h6M9 16.5h6"/></svg>Resume</a>
+            <button class="id-link" type="button" onclick="openPrintModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3.5h10V9"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14.5h10V21H7z"/></svg>Print summary</button>
         </div>
-        <button class="print-summary-link" type="button" onclick="openPrintModal()">Print portfolio summary</button>
     </div>
 
-
-    <!-- About -->
-    <div class="me-section">
-        <p class="me-section-label">About</p>
-        <p class="me-blank-text">
-            I like building things where software has to meet hardware and actually work in the real world. Most of what I've picked up comes from taking on projects a bit past what I already knew how to do, and I'm always up for working with people who get excited about this stuff.
-        </p>
-    </div>
+    <p class="me-about">I write software for robots. Right now that's at Robim and on WATonomous's humanoid team, where I'm training a robot arm in simulation with reinforcement learning. Before that I spent a term at Toyota Boshoku building a computer vision system that lets mobile robots haul racks around the plant, over 100 a shift.</p>
 
     <!-- Quiet door to the 3D workshop — an easter egg, deliberately not a CTA -->
     <p class="lab-door">
-        <button class="lab-door-link" type="button" onclick="navigate('playground')">psst — my interests live in the lab →</button>
+        <button class="lab-door-link" type="button" onclick="navigate('playground')" aria-label="off the clock: open the Lab, a 3D room with my hobbies">off the clock →</button>
     </p>
 
 </div>
@@ -3043,7 +3055,7 @@
         el.addEventListener('animationend', () => el.classList.remove('anim-in'), { once: true });
     }
 
-    const validCats = ['toyota', 'uwfe', 'personal', 'watonomous'];
+    const validCats = ['robim', 'toyota', 'uwfe', 'personal', 'watonomous'];
 
     /* ── Pure view renderers — show/hide only, never touch history ── */
 
@@ -4520,7 +4532,8 @@
        out of sync. Plain Ctrl/Cmd+P works too: the summary is pre-built at
        load with the modal defaults (every project, Full). It is only ever
        shown through the @media print rules. */
-    const PRINT_CATEGORIES = ['cat-toyota', 'cat-watonomous', 'cat-uwfe', 'cat-personal'];
+    // Same order as the homepage; categories with no projects yet are skipped
+    const PRINT_CATEGORIES = ['cat-robim', 'cat-toyota', 'cat-watonomous', 'cat-uwfe', 'cat-personal'];
 
     // selectedIds: Set of project ids, or null for every project.
     // mode: 'full' (What/How/Impact + up to 3 images) or 'condensed'
