@@ -583,24 +583,31 @@
             margin-right: 0.4rem;
         }
 
+        /* A tag that links out: accent text and a soft accent border
+           instead of an underline */
         a.tag {
-            text-decoration: underline dotted var(--accent);
-            text-underline-offset: 3px;
-            transition: color 0.15s, border-color 0.15s;
+            text-decoration: none;
+            color: var(--accent);
+            border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+            transition: color 0.15s, border-color 0.15s, background 0.15s;
         }
-        a.tag:hover { color: var(--accent); border-color: var(--accent); }
+        a.tag:hover { border-color: var(--accent); background: var(--surface-hover); }
 
-        /* Wikipedia links for terms a non-technical reader may not know */
+        /* Wikipedia links for terms a non-technical reader may not know:
+           a thin solid underline in a faded accent that firms up on hover
+           (a dotted line read as a spellcheck squiggle) */
         .wiki {
-            color: inherit;
-            text-decoration: underline dotted var(--accent);
+            color: var(--text);
+            font-weight: 500;
+            text-decoration: underline solid;
+            text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
             text-decoration-thickness: 1px;
             text-underline-offset: 3px;
-            transition: color 0.15s;
+            transition: color 0.15s, text-decoration-color 0.15s;
         }
         .wiki:hover {
             color: var(--accent);
-            text-decoration-style: solid;
+            text-decoration-color: var(--accent);
         }
 
         /* Collapsible numbered steps inside a How block: the summary shows
@@ -635,23 +642,32 @@
             outline-offset: 2px;
         }
 
-        .step-num {
+        /* Icon tile in place of a step number; "Step N" sits above the title */
+        .step-icon {
             flex-shrink: 0;
-            width: 1.6rem;
-            height: 1.6rem;
-            margin-top: 0.05rem;
-            border-radius: 50%;
+            width: 2.4rem;
+            height: 2.4rem;
+            border-radius: 9px;
             border: 1px solid var(--border2);
             background: var(--bg);
             color: var(--accent);
-            font-size: 0.72rem;
-            font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: center;
         }
+        .step-icon svg { width: 22px; height: 22px; }
 
         .step-text { flex: 1; min-width: 0; }
+
+        .step-eyebrow {
+            display: block;
+            margin-bottom: 0.1rem;
+            font-size: 0.62rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+        }
 
         .step-title {
             display: block;
@@ -681,7 +697,7 @@
         .step[open] .step-chev { transform: rotate(180deg); }
 
         .step-body {
-            padding: 0 1.25rem 1.1rem 3.45rem;
+            padding: 0 1.25rem 1.1rem 4.25rem; /* lines up with the step text */
             font-size: 0.86rem;
             color: var(--body);
             line-height: 1.75;
@@ -690,10 +706,37 @@
         .step-body ul { list-style: disc; padding-left: 1.15rem; }
         .step-body li + li { margin-top: 0.3rem; }
 
+        /* Small labelled diagram at the top of some expanded steps. Inline
+           SVG, so strokes and labels follow the theme through these classes. */
+        .step-diagram {
+            display: block;
+            width: 100%;
+            max-width: 420px;
+            margin: 0.35rem auto 1rem;
+            color: var(--mid);
+        }
+        .step-diagram text {
+            fill: var(--dim);
+            stroke: none;
+            font-size: 12px;
+            font-family: inherit;
+        }
+        .step-diagram text.mid { fill: var(--text); font-weight: 500; }
+        .step-diagram text.acc-t { fill: var(--accent); font-weight: 600; }
+        .step-diagram .acc { stroke: var(--accent); }
+        .step-diagram .accf { fill: var(--accent); stroke: none; }
+        .step-diagram .dot { fill: currentColor; stroke: none; opacity: 0.75; }
+        .step-diagram .board { fill: var(--bg); }
+        .step-diagram .faint { opacity: 0.45; }
+        .step-diagram .dash { stroke-dasharray: 4 4; }
+        .step-diagram .thick { stroke-width: 3; }
+
         @media (max-width: 640px) {
             .context-card { padding: 1.25rem; }
             .context-grid { grid-template-columns: 1fr; gap: 1.25rem; }
             .step > summary { padding: 0.8rem 0.85rem; gap: 0.7rem; }
+            .step-icon { width: 2.15rem; height: 2.15rem; }
+            .step-icon svg { width: 20px; height: 20px; }
             .step-body { padding: 0 0.95rem 1rem 0.95rem; }
         }
 
@@ -2402,9 +2445,9 @@
                         <ol class="steps">
                             <li><details class="step">
                                 <summary>
-                                    <span class="step-num">1</span>
+                                    <span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="rotate(-20 12 12)"><rect x="5.5" y="9.5" width="13" height="5" rx="1"/><rect x="2.5" y="7" width="19" height="10" rx="2.5" stroke-dasharray="2 2.2"/></g></svg></span>
                                     <span class="step-text">
-                                        <span class="step-title">Recognise the boards</span>
+                                        <span class="step-eyebrow">Step 1</span><span class="step-title">Recognise the boards</span>
                                         <span class="step-lead">The survey starts by finding boards in a camera image with a segmentation model I trained.</span>
                                     </span>
                                     <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
@@ -2417,9 +2460,9 @@
                             </details></li>
                             <li><details class="step">
                                 <summary>
-                                    <span class="step-num">2</span>
+                                    <span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5.5V4.2A1.2 1.2 0 0 1 10.2 3h8.6A1.2 1.2 0 0 1 20 4.2v6.6a1.2 1.2 0 0 1-1.2 1.2H17.5"/><path d="M6.5 8.5V7.2A1.2 1.2 0 0 1 7.7 6h8.6a1.2 1.2 0 0 1 1.2 1.2v6.6a1.2 1.2 0 0 1-1.2 1.2H15"/><rect x="4" y="9" width="11" height="9" rx="1.2"/><path d="M6.5 13.5h6M6.5 15.8h3.5"/></svg></span>
                                     <span class="step-text">
-                                        <span class="step-title">Capture a clean depth image</span>
+                                        <span class="step-eyebrow">Step 2</span><span class="step-title">Capture a clean depth image</span>
                                         <span class="step-lead">The arm parks at a survey pose that looks over the work area, and the camera takes a short burst of frames.</span>
                                     </span>
                                     <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
@@ -2430,14 +2473,15 @@
                             </details></li>
                             <li><details class="step">
                                 <summary>
-                                    <span class="step-num">3</span>
+                                    <span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="5" rx="1" transform="rotate(-25 12 13.5)" opacity=".45"/><path d="M4.75 16.9 19.25 10.1M16.9 9.7l2.35.4-1.2 2.1"/><path d="M12 13.5V4.5M10.3 6.2 12 4.5l1.7 1.7"/><circle cx="12" cy="13.5" r="1" fill="currentColor" stroke="none"/></svg></span>
                                     <span class="step-text">
-                                        <span class="step-title">Fit the board's geometry</span>
+                                        <span class="step-eyebrow">Step 3</span><span class="step-title">Fit the board's geometry</span>
                                         <span class="step-lead">Each outline is turned into a 3D position, direction and size.</span>
                                     </span>
                                     <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
                                 </summary>
                                 <div class="step-body">
+                                    <svg class="step-diagram" viewBox="0 0 360 160" role="img" aria-label="A board-shaped cluster of measured points with arrows for its length, width and the normal pointing up out of its face" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path class="faint dash" d="M22.0 105.0 L242.0 61.0 L298.0 91.0 L78.0 135.0 Z"/><circle class="dot" cx="34.6" cy="104.8" r="1.7"/><circle class="dot" cx="48.5" cy="110.8" r="1.7"/><circle class="dot" cx="57.9" cy="116.8" r="1.7"/><circle class="dot" cx="71.8" cy="122.8" r="1.7"/><circle class="dot" cx="81.2" cy="128.8" r="1.7"/><circle class="dot" cx="53.3" cy="103.6" r="1.7"/><circle class="dot" cx="62.7" cy="109.6" r="1.7"/><circle class="dot" cx="76.6" cy="115.6" r="1.7"/><circle class="dot" cx="86.0" cy="121.6" r="1.7"/><circle class="dot" cx="99.9" cy="127.6" r="1.7"/><circle class="dot" cx="71.9" cy="98.8" r="1.7"/><circle class="dot" cx="81.3" cy="104.8" r="1.7"/><circle class="dot" cx="90.7" cy="110.8" r="1.7"/><circle class="dot" cx="104.6" cy="116.8" r="1.7"/><circle class="dot" cx="114.0" cy="122.8" r="1.7"/><circle class="dot" cx="86.1" cy="97.5" r="1.7"/><circle class="dot" cx="100.0" cy="103.5" r="1.7"/><circle class="dot" cx="109.4" cy="109.5" r="1.7"/><circle class="dot" cx="118.8" cy="115.5" r="1.7"/><circle class="dot" cx="132.7" cy="121.5" r="1.7"/><circle class="dot" cx="104.8" cy="92.7" r="1.7"/><circle class="dot" cx="114.2" cy="98.7" r="1.7"/><circle class="dot" cx="128.1" cy="104.7" r="1.7"/><circle class="dot" cx="137.5" cy="110.7" r="1.7"/><circle class="dot" cx="146.9" cy="116.7" r="1.7"/><circle class="dot" cx="118.9" cy="88.0" r="1.7"/><circle class="dot" cx="132.8" cy="94.0" r="1.7"/><circle class="dot" cx="142.2" cy="100.0" r="1.7"/><circle class="dot" cx="156.1" cy="106.0" r="1.7"/><circle class="dot" cx="165.5" cy="112.0" r="1.7"/><circle class="dot" cx="137.6" cy="86.7" r="1.7"/><circle class="dot" cx="147.0" cy="92.7" r="1.7"/><circle class="dot" cx="160.9" cy="98.7" r="1.7"/><circle class="dot" cx="170.3" cy="104.7" r="1.7"/><circle class="dot" cx="184.2" cy="110.7" r="1.7"/><circle class="dot" cx="156.3" cy="81.9" r="1.7"/><circle class="dot" cx="165.7" cy="87.9" r="1.7"/><circle class="dot" cx="175.1" cy="93.9" r="1.7"/><circle class="dot" cx="189.0" cy="99.9" r="1.7"/><circle class="dot" cx="198.4" cy="105.9" r="1.7"/><circle class="dot" cx="170.4" cy="80.7" r="1.7"/><circle class="dot" cx="184.3" cy="86.7" r="1.7"/><circle class="dot" cx="193.7" cy="92.7" r="1.7"/><circle class="dot" cx="203.1" cy="98.7" r="1.7"/><circle class="dot" cx="217.0" cy="104.7" r="1.7"/><circle class="dot" cx="189.1" cy="75.9" r="1.7"/><circle class="dot" cx="198.5" cy="81.9" r="1.7"/><circle class="dot" cx="212.4" cy="87.9" r="1.7"/><circle class="dot" cx="221.8" cy="93.9" r="1.7"/><circle class="dot" cx="231.2" cy="99.9" r="1.7"/><circle class="dot" cx="203.3" cy="71.1" r="1.7"/><circle class="dot" cx="217.2" cy="77.1" r="1.7"/><circle class="dot" cx="226.6" cy="83.1" r="1.7"/><circle class="dot" cx="240.5" cy="89.1" r="1.7"/><circle class="dot" cx="249.9" cy="95.1" r="1.7"/><circle class="dot" cx="221.9" cy="69.8" r="1.7"/><circle class="dot" cx="231.3" cy="75.8" r="1.7"/><circle class="dot" cx="245.2" cy="81.8" r="1.7"/><circle class="dot" cx="254.6" cy="87.8" r="1.7"/><circle class="dot" cx="268.5" cy="93.8" r="1.7"/><circle class="dot" cx="240.6" cy="65.1" r="1.7"/><circle class="dot" cx="250.0" cy="71.1" r="1.7"/><circle class="dot" cx="259.4" cy="77.1" r="1.7"/><circle class="dot" cx="273.3" cy="83.1" r="1.7"/><circle class="dot" cx="282.7" cy="89.1" r="1.7"/><path class="acc" d="M160.0 98.0 L305.2 69.0 M299.8 73.4 L305.2 69.0 L298.5 66.9"/><path class="acc" d="M160.0 98.0 L213.2 126.5 M206.2 126.5 L213.2 126.5 L209.3 120.7"/><path class="acc" d="M160.0 98.0 L160.0 26.0 M163.3 32.2 L160.0 26.0 L156.7 32.2"/><circle class="accf" cx="160.0" cy="98.0" r="3"/><text x="313" y="73">length</text><text x="221" y="132">width</text><text x="169" y="35">normal</text></svg>
                                     <ul>
                                         <li>Every pixel inside the mask is back-projected into a 3D point using its depth and the camera's <a class="wiki" href="https://en.wikipedia.org/wiki/Camera_resectioning#Intrinsic_parameters" target="_blank" rel="noopener">intrinsics</a>.</li>
                                         <li>Stray points far from the rest are dropped.</li>
@@ -2451,14 +2495,15 @@
                             </details></li>
                             <li><details class="step">
                                 <summary>
-                                    <span class="step-num">4</span>
+                                    <span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 15V4M7.3 5.7 9 4l1.7 1.7"/><path d="M9 15h11M18.3 13.3 20 15l-1.7 1.7"/><path d="M9 15l-5.5 5M5.9 19.7 3.5 20l.5-2.3"/><circle cx="9" cy="15" r="1" fill="currentColor" stroke="none"/></svg></span>
                                     <span class="step-text">
-                                        <span class="step-title">Convert to robot coordinates</span>
+                                        <span class="step-eyebrow">Step 4</span><span class="step-title">Convert to robot coordinates</span>
                                         <span class="step-lead">These measurements are in the camera's frame, but the robot plans in its own base frame.</span>
                                     </span>
                                     <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
                                 </summary>
                                 <div class="step-body">
+                                    <svg class="step-diagram" viewBox="0 0 360 90" role="img" aria-label="Camera to wrist through the hand-eye calibration, then wrist to robot base through the arm's tool pose" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect class="board" x="10" y="40" width="84" height="36" rx="8"/><text class="mid" x="52" y="62.5" text-anchor="middle">Camera</text><rect class="board" x="138" y="40" width="84" height="36" rx="8"/><text class="mid" x="180" y="62.5" text-anchor="middle">Wrist</text><rect class="board" x="266" y="40" width="84" height="36" rx="8"/><text class="mid" x="308" y="62.5" text-anchor="middle">Robot base</text><path class="acc" d="M98.0 58.0 L132.0 58.0 M125.8 61.3 L132.0 58.0 L125.8 54.7"/><path class="acc" d="M226.0 58.0 L260.0 58.0 M253.8 61.3 L260.0 58.0 L253.8 54.7"/><text x="115" y="30" text-anchor="middle">hand-eye</text><text x="243" y="30" text-anchor="middle">tool pose</text></svg>
                                     <p>The conversion chains two transforms: the arm's live tool pose, which the robot reports, and the camera's position on the wrist, which comes from <a class="wiki" href="https://en.wikipedia.org/wiki/Hand%E2%80%93eye_calibration_problem" target="_blank" rel="noopener">hand-eye calibration</a>.</p>
                                     <p>I automated that calibration:</p>
                                     <ul>
@@ -2468,20 +2513,13 @@
                                         <li><a class="wiki" href="https://en.wikipedia.org/wiki/Perspective-n-Point" target="_blank" rel="noopener">solvePnP</a> finds the board's pose in every image.</li>
                                         <li><a class="wiki" href="https://en.wikipedia.org/wiki/OpenCV" target="_blank" rel="noopener">OpenCV</a>'s hand-eye solver (Park's method) solves for the camera-to-tool transform.</li>
                                     </ul>
-                                    <p>The checkerboard is only ever seen from above, and side scans were landing slightly inside the top face's edge. So I added a refinement that uses real survey scans as the check:</p>
-                                    <ul>
-                                        <li>the side face should meet the top face's near edge;</li>
-                                        <li>the floor beside the board should sit at the same height in both passes;</li>
-                                        <li>the strip of top face visible from the side should match the top's height.</li>
-                                    </ul>
-                                    <p><a class="wiki" href="https://en.wikipedia.org/wiki/Levenberg%E2%80%93Marquardt_algorithm" target="_blank" rel="noopener">Levenberg-Marquardt</a> finds the small correction that makes those hold, while staying close to the checkerboard result.</p>
                                 </div>
                             </details></li>
                             <li><details class="step">
                                 <summary>
-                                    <span class="step-num">5</span>
+                                    <span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18"/><rect x="6" y="12.5" width="12" height="4" rx="0.8"/><path d="M12 3.5v6M9.8 7.3 12 9.5l2.2-2.2"/></svg></span>
                                     <span class="step-text">
-                                        <span class="step-title">Pick a board and correct its height</span>
+                                        <span class="step-eyebrow">Step 5</span><span class="step-title">Pick a board and correct its height</span>
                                         <span class="step-lead">The operator picks a board on the screen.</span>
                                     </span>
                                     <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
@@ -2497,9 +2535,9 @@
                             </details></li>
                             <li><details class="step">
                                 <summary>
-                                    <span class="step-num">6</span>
+                                    <span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="10" r="6"/><path d="M15.5 14.5 20.5 19.5"/><path d="M6.6 8.3h8.8M6.6 11.7h8.8"/></svg></span>
                                     <span class="step-text">
-                                        <span class="step-title">Take a close look</span>
+                                        <span class="step-eyebrow">Step 6</span><span class="step-title">Take a close look</span>
                                         <span class="step-lead">Even after that correction, the survey position can be several centimetres off.</span>
                                     </span>
                                     <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
@@ -2516,14 +2554,15 @@
                             </details></li>
                             <li><details class="step">
                                 <summary>
-                                    <span class="step-num">7</span>
+                                    <span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4.5" width="7" height="5" rx="1.2"/><circle cx="7.5" cy="7" r="1.3"/><path d="M14 7h6M18 5l2 2-2 2"/><rect x="2.5" y="14" width="19" height="4.5" rx="0.8"/></svg></span>
                                     <span class="step-text">
-                                        <span class="step-title">Sweep the board</span>
+                                        <span class="step-eyebrow">Step 7</span><span class="step-title">Sweep the board</span>
                                         <span class="step-lead">The arm moves the camera along the board in up to three passes: one over the top, and one along each side with the camera turned to face it, to capture the faces a top view can't see.</span>
                                     </span>
                                     <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
                                 </summary>
                                 <div class="step-body">
+                                    <svg class="step-diagram" viewBox="0 0 360 110" role="img" aria-label="The planned sweep line along a board: the middle stretch the arm can reach is solid, the out-of-reach ends are faded" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect class="board" x="20" y="74" width="320" height="20" rx="3"/><text x="180" y="88.5" text-anchor="middle">board</text><path class="faint dash" d="M20 48 L92 48"/><path class="faint dash" d="M268 48 L340 48"/><path class="acc thick" d="M100 48 L260 48"/><path class="acc" d="M100 41 L100 55 M260 41 L260 55"/><text x="56" y="34" text-anchor="middle">out of reach</text><text x="304" y="34" text-anchor="middle">out of reach</text><text class="acc-t" x="180" y="34" text-anchor="middle">reachable sweep</text></svg>
                                     <p>Before each pass, the controller checks reach:</p>
                                     <ul>
                                         <li>It samples poses along the line, solves <a class="wiki" href="https://en.wikipedia.org/wiki/Inverse_kinematics" target="_blank" rel="noopener">inverse kinematics</a> at each, and keeps the longest continuous reachable stretch.</li>
@@ -2536,14 +2575,15 @@
                             </details></li>
                             <li><details class="step">
                                 <summary>
-                                    <span class="step-num">8</span>
+                                    <span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="11" width="10" height="6.5" rx="0.6"/><path d="M2.5 20h19"/><path d="M13.5 11h2" stroke-dasharray="1 1.6" opacity=".6"/><path d="M17.5 11v6.5M15.9 15.9l1.6 1.6 1.6-1.6"/></svg></span>
                                     <span class="step-text">
-                                        <span class="step-title">Check the ends</span>
+                                        <span class="step-eyebrow">Step 8</span><span class="step-title">Check the ends</span>
                                         <span class="step-lead">At the end of each pass, the camera checks whether it's looking at the real end of the board.</span>
                                     </span>
                                     <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
                                 </summary>
                                 <div class="step-body">
+                                    <svg class="step-diagram" viewBox="0 0 360 130" role="img" aria-label="Side view of a board's end: the measured depth runs along the board's top, then drops to the floor just past the end" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 104 L350 104"/><text x="300" y="121" text-anchor="middle">floor</text><rect class="board" x="20" y="62" width="190" height="42" rx="3"/><text x="115" y="87.5" text-anchor="middle">board</text><path class="acc dash" d="M24 52 L210 52 L210 94 L340 94"/><path class="acc" d="M232.0 56.0 L232.0 98.0 M228.7 91.8 L232.0 98.0 L235.3 91.8"/><text class="acc-t" x="210" y="40" text-anchor="middle">end found</text><text x="242" y="74">depth drops</text></svg>
                                     <p>A mask can stop early because of a shadow, and the board can run past where the survey thought it ended. The check:</p>
                                     <ul>
                                         <li>fits the face's plane in the robot frame;</li>
@@ -2556,9 +2596,9 @@
                             </details></li>
                             <li><details class="step">
                                 <summary>
-                                    <span class="step-num">9</span>
+                                    <span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="3.5" cy="8.0" r="0.85" fill="currentColor" stroke="none"/><circle cx="6.6" cy="7.1" r="0.85" fill="currentColor" stroke="none"/><circle cx="9.7" cy="6.2" r="0.85" fill="currentColor" stroke="none"/><circle cx="12.8" cy="5.3" r="0.85" fill="currentColor" stroke="none"/><circle cx="15.9" cy="4.4" r="0.85" fill="currentColor" stroke="none"/><circle cx="4.9" cy="10.6" r="0.85" fill="currentColor" stroke="none"/><circle cx="8.0" cy="9.7" r="0.85" fill="currentColor" stroke="none"/><circle cx="11.1" cy="8.8" r="0.85" fill="currentColor" stroke="none"/><circle cx="14.2" cy="7.9" r="0.85" fill="currentColor" stroke="none"/><circle cx="17.3" cy="7.0" r="0.85" fill="currentColor" stroke="none"/><circle cx="6.3" cy="13.2" r="0.85" fill="currentColor" stroke="none"/><circle cx="9.4" cy="12.3" r="0.85" fill="currentColor" stroke="none"/><circle cx="12.5" cy="11.4" r="0.85" fill="currentColor" stroke="none"/><circle cx="15.6" cy="10.5" r="0.85" fill="currentColor" stroke="none"/><circle cx="18.7" cy="9.6" r="0.85" fill="currentColor" stroke="none"/><circle cx="7.7" cy="15.8" r="0.85" fill="currentColor" stroke="none"/><circle cx="10.8" cy="14.9" r="0.85" fill="currentColor" stroke="none"/><circle cx="13.9" cy="14.0" r="0.85" fill="currentColor" stroke="none"/><circle cx="17.0" cy="13.1" r="0.85" fill="currentColor" stroke="none"/><circle cx="20.1" cy="12.2" r="0.85" fill="currentColor" stroke="none"/></svg></span>
                                     <span class="step-text">
-                                        <span class="step-title">Build the point clouds</span>
+                                        <span class="step-eyebrow">Step 9</span><span class="step-title">Build the point clouds</span>
                                         <span class="step-lead">The arm keeps moving while frames come in, so each frame is paired with the arm's pose at the moment it was captured.</span>
                                     </span>
                                     <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
@@ -2602,9 +2642,9 @@
                         <ol class="steps">
                             <li><details class="step">
                                 <summary>
-                                    <span class="step-num">1</span>
+                                    <span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="12.5" width="18" height="5" rx="0.8"/><path d="M3 5.5v4M21 5.5v4M3.5 7.5h17M5.5 5.8 3.6 7.5l1.9 1.7M18.5 5.8l1.9 1.7-1.9 1.7"/></svg></span>
                                     <span class="step-text">
-                                        <span class="step-title">Measure every board</span>
+                                        <span class="step-eyebrow">Step 1</span><span class="step-title">Measure every board</span>
                                         <span class="step-lead">The survey measures lengths from across the work area, which isn't precise enough to put boards of similar length in order.</span>
                                     </span>
                                     <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
@@ -2615,36 +2655,38 @@
                             </details></li>
                             <li><details class="step">
                                 <summary>
-                                    <span class="step-num">2</span>
+                                    <span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="3.5" width="19" height="17" rx="2" stroke-dasharray="2 2.2"/><rect x="6" y="11" width="2.8" height="6.5" rx=".6"/><rect x="10.6" y="9" width="2.8" height="8.5" rx=".6"/><rect x="15.2" y="7" width="2.8" height="10.5" rx=".6"/></svg></span>
                                     <span class="step-text">
-                                        <span class="step-title">Plan the layout</span>
+                                        <span class="step-eyebrow">Step 2</span><span class="step-title">Plan the layout</span>
                                         <span class="step-lead">With those measurements, the controller works out a spot for every board, side by side in a fixed sorting zone, and checks them all before the first pick.</span>
                                     </span>
                                     <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
                                 </summary>
                                 <div class="step-body">
+                                    <svg class="step-diagram" viewBox="0 0 360 176" role="img" aria-label="The sorting zone with four boards in a row from shortest to longest, each with a dashed clearance margin" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect class="dash" x="10" y="10" width="340" height="156" rx="10"/><text x="24" y="30">sorting zone</text><rect class="faint dash" x="87" y="66" width="34" height="68" rx="5"/><rect class="board" x="96" y="75" width="16" height="50" rx="2"/><text class="acc-t" x="104" y="60" text-anchor="middle">1</text><rect class="faint dash" x="139" y="58" width="34" height="84" rx="5"/><rect class="board" x="148" y="67" width="16" height="66" rx="2"/><text class="acc-t" x="156" y="52" text-anchor="middle">2</text><rect class="faint dash" x="191" y="50" width="34" height="100" rx="5"/><rect class="board" x="200" y="59" width="16" height="82" rx="2"/><text class="acc-t" x="208" y="44" text-anchor="middle">3</text><rect class="faint dash" x="243" y="42" width="34" height="116" rx="5"/><rect class="board" x="252" y="51" width="16" height="98" rx="2"/><text class="acc-t" x="260" y="36" text-anchor="middle">4</text><text x="292" y="104">clearance</text><path class="faint" d="M288 100 L278 100"/></svg>
                                     <p>Each footprint is grown by a clearance margin and tested against the others, and against the boards still waiting, with a <a class="wiki" href="https://en.wikipedia.org/wiki/Hyperplane_separation_theorem" target="_blank" rel="noopener">separating-axis test</a>, which handles rectangles at any angle. That way, a board that won't fit is caught before anything moves.</p>
                                 </div>
                             </details></li>
                             <li><details class="step">
                                 <summary>
-                                    <span class="step-num">3</span>
+                                    <span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="9.5" width="19" height="5" rx=".8"/><circle cx="12" cy="12" r="3.2"/><path d="M12 4.5v3.3M12 16.2v3.3"/><circle cx="12" cy="12" r=".9" fill="currentColor" stroke="none"/></svg></span>
                                     <span class="step-text">
-                                        <span class="step-title">Plan the grip</span>
+                                        <span class="step-eyebrow">Step 3</span><span class="step-title">Plan the grip</span>
                                         <span class="step-lead">Right before each grip, the camera takes one more close look at the board, since it may have been nudged, and the grip is planned from what that look finds.</span>
                                     </span>
                                     <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
                                 </summary>
                                 <div class="step-body">
+                                    <svg class="step-diagram" viewBox="0 0 360 134" role="img" aria-label="Top view of a board with the gripper jaws closing across its centre; turning the wrist 180 degrees gives the same grip" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle class="faint dash" cx="135" cy="67" r="52"/><path class="faint" d="M184.2 68.7 L187.0 74.0 L189.8 68.7"/><rect class="board" x="20" y="52" width="230" height="30" rx="3"/><rect class="acc" x="115" y="30" width="40" height="12" rx="3"/><rect class="acc" x="115" y="92" width="40" height="12" rx="3"/><path class="acc" d="M135.0 42.0 L135.0 50.0 M131.7 43.8 L135.0 50.0 L138.3 43.8"/><path class="acc" d="M135.0 92.0 L135.0 84.0 M138.3 90.2 L135.0 84.0 L131.7 90.2"/><circle class="accf" cx="135" cy="67" r="3"/><text x="105" y="40" text-anchor="end">jaws</text><text x="105" y="71" text-anchor="end">grip point</text><text x="262" y="63">180° turn,</text><text x="262" y="78">same grip</text></svg>
                                     <p>The jaws close along a level line across the board at its centre, with the tool pointing straight down. Two wrist angles 180° apart give the same grip, and the controller picks the one closer to the wrist's current angle so the wrist doesn't turn more than it has to.</p>
                                     <p>The grip point is measured from the gripper's collision model. The controller works out how far the gripper's shapes reach below the flange, so the target sits at the real fingertips even after the gripper attachments change. How far the jaws go down the board comes from its thickness.</p>
                                 </div>
                             </details></li>
                             <li><details class="step">
                                 <summary>
-                                    <span class="step-num">4</span>
+                                    <span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5v3.5M10.4 4.4 12 6l1.6-1.6"/><path d="M5 18.5v-10h14v10"/><path d="M5 18.5l2 1.5M19 18.5l-2 1.5"/><rect x="9" y="13.5" width="6" height="6" rx=".6"/></svg></span>
                                     <span class="step-text">
-                                        <span class="step-title">Approach and close</span>
+                                        <span class="step-eyebrow">Step 4</span><span class="step-title">Approach and close</span>
                                         <span class="step-lead">The arm moves to a pose above the board and checks that it actually arrived.</span>
                                     </span>
                                     <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
@@ -2655,9 +2697,9 @@
                             </details></li>
                             <li><details class="step">
                                 <summary>
-                                    <span class="step-num">5</span>
+                                    <span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="9.5" width="7" height="2.5" rx=".6"/><path d="M6 7.5C7.5 3.5 15 3 17.5 9.5"/><path d="M18.8 7.6 17.5 9.5 15.4 8.7"/><rect x="14" y="17" width="7.5" height="2.5" rx=".6"/></svg></span>
                                     <span class="step-text">
-                                        <span class="step-title">Carry and place</span>
+                                        <span class="step-eyebrow">Step 5</span><span class="step-title">Carry and place</span>
                                         <span class="step-lead">Once gripped, the board is attached to the gripper in MoveIt's planning scene, so the carry is planned with the board's size included.</span>
                                     </span>
                                     <svg class="step-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
