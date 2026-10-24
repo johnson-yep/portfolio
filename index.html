@@ -401,12 +401,17 @@
         }
 
         .ph-label {
-            font-size: 0.7rem;
-            color: var(--dim);
-            font-weight: 500;
+            font-size: 0.62rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
             text-align: center;
             padding: 0 1rem;
         }
+
+        /* an image slot still waiting for its image isn't zoomable */
+        .img-slot:not(:has(img)) { cursor: default; }
 
         .img-slot:hover .ph { opacity: 0.7; }
         .img-slot:hover { border-color: var(--border2); }
@@ -582,16 +587,6 @@
             color: var(--dim);
             margin-right: 0.4rem;
         }
-
-        /* A tag that links out: accent text and a soft accent border
-           instead of an underline */
-        a.tag {
-            text-decoration: none;
-            color: var(--accent);
-            border-color: color-mix(in srgb, var(--accent) 35%, transparent);
-            transition: color 0.15s, border-color 0.15s, background 0.15s;
-        }
-        a.tag:hover { border-color: var(--accent); background: var(--surface-hover); }
 
         /* Wikipedia links for terms a non-technical reader may not know:
            a thin solid underline in a faded accent that firms up on hover
@@ -2423,7 +2418,7 @@
             </div>
             <div class="context-stack">
                 <span class="context-stack-label">Built with</span>
-                <a class="tag" href="https://en.wikipedia.org/wiki/Robot_Operating_System" target="_blank" rel="noopener">ROS 2</a>
+                <span class="tag">ROS 2</span>
                 <span class="tag">C++</span>
                 <span class="tag">MoveIt</span>
                 <span class="tag">Python</span>
@@ -2448,10 +2443,7 @@
                 </div>
 
                 <div class="btn-row">
-                    <span class="video-btn video-btn-pending" title="Video not added yet">
-                        <svg viewBox="0 0 10 10" fill="currentColor"><polygon points="1,0.5 9.5,5 1,9.5"/></svg>
-                        Watch Demo
-                    </span>
+                    <span class="video-btn video-btn-pending">Demo coming soon</span>
                 </div>
 
                 <div class="whi">
@@ -2650,10 +2642,7 @@
                 </div>
 
                 <div class="btn-row">
-                    <span class="video-btn video-btn-pending" title="Video not added yet">
-                        <svg viewBox="0 0 10 10" fill="currentColor"><polygon points="1,0.5 9.5,5 1,9.5"/></svg>
-                        Watch Demo
-                    </span>
+                    <span class="video-btn video-btn-pending">Demo coming soon</span>
                 </div>
 
                 <div class="whi">
@@ -2753,7 +2742,7 @@
                         <div class="img-slot" style="aspect-ratio: 4/3;">
                             <span class="ph">
                                 <svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m21 15-5-5L5 19.5"/></svg>
-                                <span class="ph-label">Image not added yet</span>
+                                <span class="ph-label">Coming soon</span>
                             </span>
                         </div>
                         <p class="img-caption">CAD model</p>
@@ -2762,7 +2751,7 @@
                         <div class="img-slot" style="aspect-ratio: 4/3;">
                             <span class="ph">
                                 <svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m21 15-5-5L5 19.5"/></svg>
-                                <span class="ph-label">Image not added yet</span>
+                                <span class="ph-label">Coming soon</span>
                             </span>
                         </div>
                         <p class="img-caption">On the robot</p>
