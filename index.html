@@ -75,7 +75,8 @@
 
         ::selection { background: var(--selection); }
 
-        .panel-heading, .project-title, .me-name, .cat-btn-title, .book-title {
+        .panel-heading, .project-title, .me-name, .cat-btn-title, .book-title,
+        .overview-lead, .overview-stat-num {
             font-family: 'Fraunces', Georgia, serif;
         }
 
@@ -321,6 +322,7 @@
             padding-bottom: 4rem;
             margin-bottom: 4rem;
             border-bottom: 1px solid var(--border);
+            scroll-margin-top: 7rem; /* clears the sticky nav when jumped to */
         }
 
         .project:last-child {
@@ -551,13 +553,44 @@
         }
 
         /* ── ROBIM PAGE ── */
-        /* Background card above the projects: four labelled parts + stack */
-        .context-card {
+        /* Overview above the projects, with a pitch, results, background and
+           the setup */
+        .overview { margin-bottom: 4rem; }
+
+        .overview-lead {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            letter-spacing: -0.2px;
+            color: var(--text);
+        }
+
+        .overview-name { color: var(--accent); font-weight: 600; }
+
+        .overview-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin: 1.75rem 0 2.25rem;
+        }
+
+        .overview-stat {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 1.6rem 1.75rem;
-            margin-bottom: 4rem;
+            padding: 1rem 1.15rem;
+            font-size: 0.8rem;
+            color: var(--mid);
+            line-height: 1.5;
+        }
+
+        .overview-stat-num {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 1.75rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+            color: var(--accent);
         }
 
         .context-grid {
@@ -572,21 +605,50 @@
             line-height: 1.75;
         }
 
-        .context-stack {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 0.35rem;
-            margin-top: 1.5rem;
-            padding-top: 1.25rem;
+        .overview-facts {
+            margin-top: 2rem;
             border-top: 1px solid var(--border);
         }
 
-        .context-stack-label {
-            font-size: 0.72rem;
-            color: var(--dim);
-            margin-right: 0.4rem;
+        .overview-facts > div {
+            display: grid;
+            grid-template-columns: 7rem minmax(0, 1fr);
+            gap: 1rem;
+            align-items: baseline;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid var(--border);
         }
+
+        .overview-facts dt {
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--dim);
+        }
+
+        .overview-facts dd {
+            font-size: 0.86rem;
+            color: var(--body);
+            line-height: 1.6;
+        }
+
+        .overview-tags, .overview-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+        }
+
+        .overview-links { column-gap: 1.25rem; }
+
+        .overview-links a {
+            color: var(--text);
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .overview-links a::after { content: " ↓"; color: var(--accent); }
+        .overview-links a:hover { color: var(--accent); }
 
         /* Wikipedia links for terms a non-technical reader may not know:
            a thin solid underline in a faded accent that firms up on hover
@@ -762,8 +824,10 @@
         .step-diagram .thick { stroke-width: 3; }
 
         @media (max-width: 640px) {
-            .context-card { padding: 1.25rem; }
+            .overview-lead { font-size: 1.15rem; }
+            .overview-stats { grid-template-columns: 1fr; }
             .context-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+            .overview-facts > div { grid-template-columns: 1fr; gap: 0.3rem; }
             /* Too narrow for a diagram beside the text. Steps go back to a
                list with icons, and a step's diagram shows under its text once
                opened. */
@@ -2424,36 +2488,31 @@
         <p class="panel-heading">RoBIM</p>
         <p class="panel-sub"><span>Robotics Software Engineering Intern</span><span class="panel-date">Sep 2026–Present</span></p>
 
-        <!-- Background for readers who don't know RoBIM. Wikipedia links
-             (.wiki) mark each hard term at its first appearance on the page. -->
-        <div class="context-card">
+        <!-- Overview for readers who don't know RoBIM. Wikipedia links (.wiki)
+             mark each hard term at its first appearance on the page. -->
+        <div class="overview">
+            <p class="overview-lead">I'm prototyping <span class="overview-name">HIVE Insight</span>, the vision software for a RoBIM HIVE that processes materials. With it, a robot arm finds boards of lumber, scans them in 3D and sorts them by length.</p>
+            <div class="overview-stats">
+                <p class="overview-stat"><span class="overview-stat-num">2.5×</span>faster scans of a 2.7 m board, from about 3 minutes to 75 seconds</p>
+                <p class="overview-stat"><span class="overview-stat-num">0.836</span>mask mAP50-95 on held-out images, for the board segmentation model I trained</p>
+            </div>
             <div class="context-grid">
                 <div class="context-part">
                     <p class="whi-label">RoBIM and the HIVE</p>
                     <p>RoBIM builds robots that prefabricate components for construction. Its robotic system for this is called a HIVE. A HIVE is modular and configurable. It can be moved and set up on a building site, with the robot mounted on a set of connected hexagonal plates.</p>
                 </div>
                 <div class="context-part">
-                    <p class="whi-label">What I'm building</p>
-                    <p>RoBIM is developing a HIVE for processing materials, and I'm prototyping its vision software. That software is called HIVE Insight, and it lets the robot use a camera to see and measure what's in front of it. Until the new HIVE is ready, I'm working on a UR20, an industrial robot arm made by Universal Robots.</p>
-                </div>
-                <div class="context-part">
-                    <p class="whi-label">Hardware</p>
-                    <p>The arm's wrist carries an OAK <a class="wiki" href="https://en.wikipedia.org/wiki/Computer_stereo_vision" target="_blank" rel="noopener">stereo depth camera</a>, which measures distance as well as colour, and a Zimmer gripper with an attachment I designed.</p>
-                </div>
-                <div class="context-part">
                     <p class="whi-label">Where I started</p>
                     <p>My work builds on an existing system that scans a board of lumber, measures it and grades its quality. I added the survey scan, which finds a board anywhere in the robot's work area and scans it where it lies, and pick and place, which picks boards up and sorts them.</p>
                 </div>
             </div>
-            <div class="context-stack">
-                <span class="context-stack-label">Built with</span>
-                <span class="tag">ROS 2</span>
-                <span class="tag">C++</span>
-                <span class="tag">MoveIt</span>
-                <span class="tag">Python</span>
-                <span class="tag">FastAPI</span>
-                <span class="tag">Next.js</span>
-            </div>
+            <dl class="overview-facts">
+                <div><dt>Robot</dt><dd>UR20, an industrial arm made by Universal Robots, until the new HIVE is ready</dd></div>
+                <div><dt>Camera</dt><dd>OAK <a class="wiki" href="https://en.wikipedia.org/wiki/Computer_stereo_vision" target="_blank" rel="noopener">stereo depth camera</a> on the wrist, which measures distance as well as colour</dd></div>
+                <div><dt>Gripper</dt><dd>Zimmer gripper with an attachment I designed</dd></div>
+                <div><dt>Built with</dt><dd class="overview-tags"><span class="tag">ROS 2</span><span class="tag">C++</span><span class="tag">MoveIt</span><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Next.js</span></dd></div>
+                <div><dt>Projects</dt><dd class="overview-links"><a href="#robim-survey">Survey Scan</a><a href="#robim-pick">Pick and Place</a><a href="#robim-gripper">Gripper Attachment</a></dd></div>
+            </dl>
         </div>
 
         <div class="group">
