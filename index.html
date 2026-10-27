@@ -781,9 +781,8 @@
         .step-body ul { list-style: disc; padding-left: 1.15rem; }
         .step-body li + li { margin-top: 0.3rem; }
 
-        /* Small labelled diagram for each step, also drawn on the RoBIM hub
-           card. Inline SVG, so strokes and labels follow the theme through
-           these classes. */
+        /* Small labelled diagram for each step. Inline SVG, so strokes and
+           labels follow the theme through these classes. */
         .step-diagram {
             display: block;
             width: 100%;
@@ -1381,11 +1380,14 @@
         /* the hub heading sits above a section label, not a .panel-sub */
         .cat-hub-wrap > .panel-heading { margin-bottom: 1.75rem; }
 
+        /* Timeline: each card's date sits in a column to its left, beside a
+           rail with a dot per card. The dots join within a group. */
         .cat-section {
             display: flex;
             flex-direction: column;
             gap: 0.6rem;
             margin-bottom: 2.25rem;
+            padding-left: 7.125rem;
         }
 
         .cat-section:last-child { margin-bottom: 0; }
@@ -1414,6 +1416,36 @@
             justify-content: space-between;
             width: 100%;
             gap: 1.1rem;
+            position: relative;
+        }
+
+        .cat-btn::after {
+            content: "";
+            position: absolute;
+            top: 1.45rem;
+            left: -15px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            background: var(--bg);
+        }
+
+        /* rail from this card's dot down to the next card's */
+        .cat-btn:not(:last-child)::before {
+            content: "";
+            position: absolute;
+            top: calc(1.45rem + 4px);
+            left: -11px;
+            width: 1px;
+            height: calc(100% + 0.6rem);
+            background: var(--border2);
+        }
+
+        /* the latest role gets a filled dot */
+        .cat-section:first-child .cat-btn:first-of-type::after {
+            background: var(--accent);
+            box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
         }
 
         .cat-btn-body {
@@ -1445,11 +1477,16 @@
         }
 
         .cat-btn-date {
-            margin-top: 0.3rem;
+            position: absolute;
+            top: 1.35rem;
+            right: calc(100% + 1.95rem);
+            width: 5.15rem;
+            text-align: right;
             font-size: 0.65rem;
             font-weight: 600;
+            line-height: 1.5;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.2px;
             color: var(--dim);
         }
 
@@ -1507,33 +1544,6 @@
         .cat-btn-logo-mark svg {
             width: 60%;
             height: 60%;
-        }
-
-        /* A picture of the work, so visitors see what's inside before clicking */
-        .cat-btn-media {
-            flex-shrink: 0;
-            width: 148px;
-            height: 90px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: var(--bg);
-            overflow: hidden;
-        }
-
-        .cat-btn-media img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .cat-btn:hover .cat-btn-media img { transform: scale(1.04); }
-
-        /* RoBIM has no photos yet, so its card shows a diagram of the arm */
-        .cat-btn-media .step-diagram {
-            height: 100%;
-            padding: 0.5rem 0.65rem;
         }
 
         /* ── TECHNICAL SKILLS ── */
@@ -1959,8 +1969,10 @@
                instead of pushing the tabs off-screen */
             .nav-left { flex-wrap: wrap; row-gap: 0.1rem; }
             .projects-wrap, .me-wrap, .cat-hub-wrap { padding: 3rem 1.25rem 5rem; }
-            .cat-btn { flex-wrap: wrap; }
-            .cat-btn-media { order: -1; width: 100%; height: 8.5rem; }
+            /* a slim timeline rail, with each date back inside its card */
+            .cat-section { padding-left: 1.25rem; }
+            .cat-btn-date { position: static; width: auto; margin-top: 0.3rem; text-align: left; }
+            .cat-btn-date br { display: none; }
             .img-grid.cols-2 { grid-template-columns: 1fr; }
             .img-grid.cols-3 { grid-template-columns: 1fr 1fr; }
             .song-entries { grid-template-columns: 1fr; }
@@ -2342,10 +2354,9 @@
                     <div class="cat-btn-body">
                         <p class="cat-btn-title">RoBIM</p>
                         <p class="cat-btn-sub">Robotics Software Engineering Intern</p>
-                        <p class="cat-btn-date">Sep 2026–Present</p>
+                        <p class="cat-btn-date">Sep 2026–<br>Present</p>
                         <p class="cat-btn-tags"><span>Computer vision</span><span>ROS 2</span><span>Motion planning</span></p>
                     </div>
-                    <span class="cat-btn-media"><svg class="step-diagram" viewBox="10 50 340 142" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 182 L350 182"/><path class="hatch" d="M20 182 l-6 7 M34 182 l-6 7 M48 182 l-6 7 M62 182 l-6 7 M76 182 l-6 7 M90 182 l-6 7 M104 182 l-6 7 M118 182 l-6 7 M132 182 l-6 7 M146 182 l-6 7 M160 182 l-6 7 M174 182 l-6 7 M188 182 l-6 7 M202 182 l-6 7 M216 182 l-6 7 M230 182 l-6 7 M244 182 l-6 7 M258 182 l-6 7 M272 182 l-6 7 M286 182 l-6 7 M300 182 l-6 7 M314 182 l-6 7 M328 182 l-6 7 M342 182 l-6 7 "/><rect class="board seg" x="196" y="168" width="128" height="14" rx="2"/><path class="grain" d="M202.4 175 Q247.2 172.5 285.6 175 T317.6 175"/><rect class="part" x="36" y="164" width="58" height="18" rx="3"/><rect class="part" x="52" y="134" width="26" height="30" rx="3"/><path class="arm" d="M65 128 L138 64 L226 78 L226 92"/><circle class="part" cx="65" cy="128" r="9"/><circle class="part" cx="138" cy="64" r="8"/><circle class="part" cx="226" cy="78" r="7"/><rect class="part" x="209" y="93" width="34" height="14" rx="3"/><rect class="part" x="212.3" y="107" width="7" height="3.5" rx="1"/><rect class="part" x="232.7" y="107" width="7" height="3.5" rx="1"/><path class="faint dash" d="M216 110 L196 166 M236 110 L262 166"/></svg></span>
                     <span class="cat-btn-arrow">→</span>
                 </button>
                 <button class="cat-btn" onclick="navigate('toyota')">
@@ -2355,10 +2366,9 @@
                     <div class="cat-btn-body">
                         <p class="cat-btn-title">Toyota Boshoku</p>
                         <p class="cat-btn-sub">Robotics Engineering Intern</p>
-                        <p class="cat-btn-date">Jan–May 2026</p>
+                        <p class="cat-btn-date">Jan–<br>May 2026</p>
                         <p class="cat-btn-tags"><span>Computer vision</span><span>AMRs</span><span>PLC &amp; HMI</span></p>
                     </div>
-                    <span class="cat-btn-media"><img src="Images/TBCA MiR CV Color Detection.jpg" alt=""></span>
                     <span class="cat-btn-arrow">→</span>
                 </button>
             </div>
@@ -2371,10 +2381,9 @@
                     <div class="cat-btn-body">
                         <p class="cat-btn-title">WATonomous</p>
                         <p class="cat-btn-sub">Humanoid team</p>
-                        <p class="cat-btn-date">May 2026–Present</p>
+                        <p class="cat-btn-date">May 2026–<br>Present</p>
                         <p class="cat-btn-tags"><span>Reinforcement learning</span><span>Isaac Lab</span><span>Sim-to-real</span></p>
                     </div>
-                    <span class="cat-btn-media"><img src="Images/Isaac_Lab_Training_Scene.png" alt=""></span>
                     <span class="cat-btn-arrow">→</span>
                 </button>
                 <button class="cat-btn" onclick="navigate('uwfe')">
@@ -2384,10 +2393,9 @@
                     <div class="cat-btn-body">
                         <p class="cat-btn-title">uWaterloo Formula Electric</p>
                         <p class="cat-btn-sub">Driveline team</p>
-                        <p class="cat-btn-date">Sep 2025–May 2026</p>
+                        <p class="cat-btn-date">Sep 2025–<br>May 2026</p>
                         <p class="cat-btn-tags"><span>SolidWorks</span><span>Jig design</span><span>GD&amp;T</span></p>
                     </div>
-                    <span class="cat-btn-media"><img src="Images/UWFE Radiator Physical.jpg" alt=""></span>
                     <span class="cat-btn-arrow">→</span>
                 </button>
             </div>
@@ -2410,7 +2418,6 @@
                         <p class="cat-btn-sub">Side builds</p>
                         <p class="cat-btn-tags"><span>Computer vision</span><span>Robotics</span><span>Game dev</span></p>
                     </div>
-                    <span class="cat-btn-media"><img src="Images/Checkers First Functioning Prototype.png" alt=""></span>
                     <span class="cat-btn-arrow">→</span>
                 </button>
             </div>
