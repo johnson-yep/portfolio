@@ -5,7 +5,7 @@ Snapshot as of 2026-10-31. The rules for building internship pages are in `_docs
 ## Status
 
 - Both pages are finished. On 2026-10-31 the two CAD screenshots of the gripper attachment were added to RoBIM's Gripper Attachment section, and all three of its images (two CAD views and the photo) were cropped to 3:4 so they match.
-- The pages went live on 2026-10-30. The CAD images are committed locally; push only when the user asks, since a push deploys johnsonyep.com.
+- The pages went live on 2026-10-30, and the CAD images went live on 2026-10-31. Push only when the user asks, since a push deploys johnsonyep.com.
 - `_config.yml` keeps `CLAUDE.md` off the website.
 
 ## Where things live in `index.html`
