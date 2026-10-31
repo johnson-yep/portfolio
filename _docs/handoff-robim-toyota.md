@@ -32,7 +32,7 @@ Search for these:
 - **Projects:**
   - Survey Scan: a 9-step stepper.
   - Pick and Place: a 5-step stepper.
-  - Gripper Attachment: three 3:4 images in a row: the CAD model from the front and the back, then the photo on the robot. The CAD screenshots were enlarged to 768×1024 so they open at the same size as the photo in the zoom view.
+  - Gripper Attachment: three 3:4 images in a row: the CAD model from the outside and the inside, then the photo on the robot. The CAD screenshots were enlarged to 768×1024 so they open at the same size as the photo in the zoom view.
 - **Diagrams:** RoBIM's 14 diagrams were drawn with an earlier generator that wasn't kept. Edit their SVG in place, or redraw one with `_docs/diagram_kit.py`.
 - **Content rules:** RoBIM has confidentiality rules for what the write-up may say. They're in the session's private memory, not in this public repo. Check them before editing RoBIM text, and ask the user if they aren't available.
 
