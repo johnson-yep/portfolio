@@ -5,8 +5,8 @@ Snapshot as of 2026-10-30. The rules for building internship pages are in `_docs
 ## Status
 
 - Both pages are finished except one image. The Gripper Attachment section on RoBIM still shows "Coming soon" in its CAD model slot, waiting on the user's CAD image.
-- About 26 commits sit on local `master` and haven't been pushed. The user is holding the push until the CAD image is in. After adding it, ask the user before pushing, since a push deploys johnsonyep.com.
-- `_config.yml` keeps `CLAUDE.md` off the website. It takes effect with that push.
+- Everything was pushed and went live on 2026-10-30, with the CAD slot still showing "Coming soon". When the image arrives, add it the way the guide's Media section describes, and commit. Push only when the user asks, since a push deploys johnsonyep.com.
+- `_config.yml` keeps `CLAUDE.md` off the website.
 
 ## Where things live in `index.html`
 
