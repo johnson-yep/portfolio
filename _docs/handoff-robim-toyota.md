@@ -1,11 +1,11 @@
 # Handoff: RoBIM and Toyota pages
 
-Snapshot as of 2026-10-30. The rules for building internship pages are in `_docs/internship-layout.md`; this file is the state of the two pages built so far, and why they look the way they do. Update it when that changes.
+Snapshot as of 2026-10-31. The rules for building internship pages are in `_docs/internship-layout.md`; this file is the state of the two pages built so far, and why they look the way they do. Update it when that changes.
 
 ## Status
 
-- Both pages are finished except one image. The Gripper Attachment section on RoBIM still shows "Coming soon" in its CAD model slot, waiting on the user's CAD image.
-- Everything was pushed and went live on 2026-10-30, with the CAD slot still showing "Coming soon". When the image arrives, add it the way the guide's Media section describes, and commit. Push only when the user asks, since a push deploys johnsonyep.com.
+- Both pages are finished. On 2026-10-31 the two CAD screenshots of the gripper attachment were added to RoBIM's Gripper Attachment section, and all three of its images (two CAD views and the photo) were cropped to 3:4 so they match.
+- The pages went live on 2026-10-30. The CAD images are committed locally; push only when the user asks, since a push deploys johnsonyep.com.
 - `_config.yml` keeps `CLAUDE.md` off the website.
 
 ## Where things live in `index.html`
@@ -32,7 +32,7 @@ Search for these:
 - **Projects:**
   - Survey Scan: a 9-step stepper.
   - Pick and Place: a 5-step stepper.
-  - Gripper Attachment: the photo on the robot, plus the CAD slot waiting for its image.
+  - Gripper Attachment: three 3:4 images in a row: the CAD model from the front and the back, then the photo on the robot. The CAD screenshots were enlarged to 768×1024 so they open at the same size as the photo in the zoom view.
 - **Diagrams:** RoBIM's 14 diagrams were drawn with an earlier generator that wasn't kept. Edit their SVG in place, or redraw one with `_docs/diagram_kit.py`.
 - **Content rules:** RoBIM has confidentiality rules for what the write-up may say. They're in the session's private memory, not in this public repo. Check them before editing RoBIM text, and ask the user if they aren't available.
 
