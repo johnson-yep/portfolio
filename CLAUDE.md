@@ -1,8 +1,12 @@
 # Project Instructions for Claude Code
 
-## Always Sync With GitHub Before Editing
+## Sync With GitHub at the Start of a Session
 
-Before starting **any** edits, file creation, or refactoring in this project, you MUST first sync the local repository with the latest version on GitHub. Do not skip this step, even for small changes.
+Sync the local repository with GitHub before your first edit in a session. After that, keep working without re-syncing until one of these happens:
+
+- A new session starts, including when I resume an old one.
+- About an hour or more has passed since you last worked in this repo.
+- I mention I pushed changes from somewhere else.
 
 ### Required steps (in order)
 
@@ -30,6 +34,5 @@ Before starting **any** edits, file creation, or refactoring in this project, yo
 
 ### Notes
 
-- This applies at the **start of every session/task**, not just once. If significant time has passed mid-session (or I mention I pushed changes from elsewhere), re-sync before continuing.
 - Never use `git push --force`, `git reset --hard origin/...`, or anything else that could destroy local or remote work without my explicit approval.
 - If the remote is unreachable (no network, auth failure), tell me and ask whether to proceed with edits anyway rather than silently continuing.
