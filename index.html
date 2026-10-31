@@ -1492,13 +1492,16 @@
            gap below; 1px right because the cards measure from inside their border */
         .cat-section-timeline + .cat-section-timeline .cat-section-label::before { top: -3rem; bottom: -0.6rem; left: calc(-1.5rem + 1px); }
 
+        /* pseudo-elements miss the global border-box rule, so set it here;
+           the 13px dot is then centred on the 1px line and the card */
         .cat-section-timeline .cat-btn::after {
             content: "";
             position: absolute;
-            top: calc(50% - 4.5px);
-            left: calc(-1.5rem - 4px);
-            width: 9px;
-            height: 9px;
+            box-sizing: border-box;
+            top: calc(50% - 6.5px);
+            left: calc(-1.5rem - 6px);
+            width: 13px;
+            height: 13px;
             border-radius: 50%;
             border: 2px solid var(--accent);
             background: var(--bg);
