@@ -1465,7 +1465,7 @@
             padding: 0.9rem 1.2rem 0.9rem 0.95rem;
             text-align: left;
             cursor: pointer;
-            transition: border-color 0.15s, background 0.15s, transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
             font-family: inherit;
             display: flex;
             align-items: center;
@@ -1533,14 +1533,18 @@
             min-width: 0; /* lets long titles wrap instead of pushing the arrow out */
         }
 
-        /* no lift on hover: it would jog the timeline line */
+        /* Hover and press change colour and shadow only: moving or scaling a
+           card would carry its piece of the timeline line with it */
         .cat-btn:hover {
             border-color: var(--border2);
             background: var(--surface-hover);
             box-shadow: 0 6px 20px var(--shadow-soft);
         }
 
-        .cat-btn:active { transform: scale(0.99); }
+        .cat-btn:active {
+            background: var(--surface);
+            box-shadow: none;
+        }
 
         .cat-btn-title {
             font-size: 1rem;
