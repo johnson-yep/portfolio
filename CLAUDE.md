@@ -1,5 +1,9 @@
 # Project Instructions for Claude Code
 
+## Internship Pages
+
+Before adding or changing an internship page (RoBIM, Toyota, or a new one), read `_docs/internship-layout.md`. For where the RoBIM and Toyota pages stand, read `_docs/handoff-robim-toyota.md`.
+
 ## Sync With GitHub at the Start of a Session
 
 Sync the local repository with GitHub before your first edit in a session. After that, keep working without re-syncing until one of these happens:

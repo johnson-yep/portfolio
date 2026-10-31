@@ -1,0 +1,4 @@
+# GitHub Pages settings. Folders starting with "_" (like _docs) are never
+# published; this keeps the instructions for Claude off the website too.
+exclude:
+  - CLAUDE.md
