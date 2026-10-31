@@ -877,6 +877,14 @@
         .step-diagram .hatch { stroke-width: 1; opacity: 0.45; }
         .step-diagram .bracket { stroke-width: 2; }
         .step-diagram .faint { opacity: 0.4; }
+        .step-diagram .hook { stroke-width: 3; }
+        .step-diagram .nogo { fill: color-mix(in srgb, currentColor 8%, transparent); stroke-dasharray: 3 3; }
+        .step-diagram .ok { fill: var(--ok); stroke: none; }
+        .step-diagram .tag-bg { fill: #fff; stroke: none; }
+        .step-diagram .tag-ink { fill: #1c1612; stroke: none; }
+        .step-diagram .tag-ring { stroke: #1c1612; stroke-width: 2.2; fill: none; }
+        .step-diagram text.on-accent { fill: var(--bg); font-size: 11px; font-weight: 600; }
+        .step-diagram text.small { font-size: 11px; }
 
         @media (max-width: 640px) {
             .overview-lead { font-size: 1.15rem; }
@@ -2900,27 +2908,169 @@
         <p class="panel-heading">Toyota Boshoku</p>
         <p class="panel-sub"><span>Robotics Engineering Intern</span><span class="panel-date">Jan–May 2026</span></p>
 
+        <!-- Overview for readers who don't know the plant. Wikipedia links (.wiki)
+             mark each hard term at its first appearance on the page. -->
+        <div class="overview">
+            <p class="overview-lead">At Toyota Boshoku, I automated how racks of freshly moulded door parts move around the plant. MiR robots carry the racks, operators call the robots with wireless buttons through the <a class="wiki" href="https://en.wikipedia.org/wiki/Programmable_logic_controller" target="_blank" rel="noopener">PLCs</a>, and an overhead camera finds free drop-off spots. I also built touchscreen panels that show how the robots and machines on the line are running.</p>
+            <div class="demo">
+                <div class="demo-tabs" role="tablist" aria-label="Demo videos">
+                    <button class="demo-tab" type="button" role="tab" id="demo-tab-amr" aria-controls="demo-amr" aria-selected="true">AMR Rack Delivery</button>
+                    <button class="demo-tab" type="button" role="tab" id="demo-tab-unload" aria-controls="demo-unload" aria-selected="false" tabindex="-1">Unload Station HMI</button>
+                    <button class="demo-tab" type="button" role="tab" id="demo-tab-screw" aria-controls="demo-screw" aria-selected="false" tabindex="-1">Screw Station HMI</button>
+                </div>
+                <div class="demo-panel" id="demo-amr" role="tabpanel" aria-labelledby="demo-tab-amr">
+                    <a class="demo-poster" href="https://youtu.be/E4gCH_hUtbA" target="_blank" data-video="E4gCH_hUtbA" aria-label="AMR Rack Delivery demo video">
+                        <img src="https://i.ytimg.com/vi/E4gCH_hUtbA/maxresdefault.jpg" alt="" loading="lazy">
+                        <span class="demo-play" aria-hidden="true"><svg viewBox="0 0 10 10" fill="currentColor"><polygon points="1,0.5 9.5,5 1,9.5"/></svg></span>
+                    </a>
+                </div>
+                <div class="demo-panel" id="demo-unload" role="tabpanel" aria-labelledby="demo-tab-unload" hidden>
+                    <a class="demo-poster" href="https://youtu.be/kJhTjPmvhJI" target="_blank" data-video="kJhTjPmvhJI" aria-label="Unload Station HMI demo video">
+                        <img src="https://i.ytimg.com/vi/kJhTjPmvhJI/maxresdefault.jpg" alt="" loading="lazy">
+                        <span class="demo-play" aria-hidden="true"><svg viewBox="0 0 10 10" fill="currentColor"><polygon points="1,0.5 9.5,5 1,9.5"/></svg></span>
+                    </a>
+                </div>
+                <div class="demo-panel" id="demo-screw" role="tabpanel" aria-labelledby="demo-tab-screw" hidden>
+                    <a class="demo-poster" href="https://youtu.be/6IlcjOIkYrk" target="_blank" data-video="6IlcjOIkYrk" aria-label="Screw Station HMI demo video">
+                        <img src="https://i.ytimg.com/vi/6IlcjOIkYrk/maxresdefault.jpg" alt="" loading="lazy">
+                        <span class="demo-play" aria-hidden="true"><svg viewBox="0 0 10 10" fill="currentColor"><polygon points="1,0.5 9.5,5 1,9.5"/></svg></span>
+                    </a>
+                </div>
+            </div>
+            <div class="context-part">
+                <p class="whi-label">Toyota Boshoku</p>
+                <p>Toyota Boshoku makes seats and interior parts for Toyota and other carmakers. At its plant in Elmira, Ontario, <a class="wiki" href="https://en.wikipedia.org/wiki/Injection_moulding" target="_blank" rel="noopener">injection moulding</a> machines make door parts, which go on racks until they're assembled.</p>
+            </div>
+            <dl class="overview-facts">
+                <div><dt>Robots</dt><dd>MiR <a class="wiki" href="https://en.wikipedia.org/wiki/Autonomous_mobile_robot" target="_blank" rel="noopener">autonomous mobile robots</a> with a hook that tows racks, and <a class="wiki" href="https://en.wikipedia.org/wiki/Ultrasonic_welding" target="_blank" rel="noopener">sonic weld</a> robots that install clips</dd></div>
+                <div><dt>Camera</dt><dd>An overhead camera on the roof trusses above the drop-off lanes</dd></div>
+                <div><dt>Controllers</dt><dd>Allen-Bradley PLCs, programmed in Studio 5000, and a Banner DXM100 wireless controller for the operator buttons</dd></div>
+                <div><dt>Screens</dt><dd>PanelView Plus touchscreens, built in FactoryTalk View</dd></div>
+                <div><dt>Built with</dt><dd class="overview-tags"><span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">Ladder Logic</span><span class="tag">Studio 5000</span><span class="tag">FactoryTalk View</span><span class="tag">MiR API</span><span class="tag">EtherNet/IP</span></dd></div>
+                <div><dt>Projects</dt><dd class="overview-links"><a href="#amr-delivery">AMR Rack Delivery</a><a href="#amr-cv">Drop-off Vision System</a><a href="#hmi">HMI Development</a></dd></div>
+            </dl>
+        </div>
+
         <div class="group">
-            <!-- AMR COMPUTER VISION -->
-            <div class="project" id="amr-cv">
-                <h2 class="project-title">AMR Computer Vision System</h2>
+            <!-- AMR RACK DELIVERY -->
+            <div class="project" id="amr-delivery">
+                <h2 class="project-title">AMR Rack Delivery</h2>
                 <div class="stack">
-                    <span class="tag">Python</span>
-                    <span class="tag">OpenCV</span>
-                    <span class="tag">RTSP Streaming</span>
-                    <span class="tag">Multithreading</span>
-                    <span class="tag">Ethernet/IP</span>
+                    <span class="tag">MiR AMRs</span>
+                    <span class="tag">MiR API</span>
                     <span class="tag">Allen-Bradley PLC</span>
                     <span class="tag">Studio 5000</span>
                     <span class="tag">Ladder Logic</span>
+                    <span class="tag">Banner DXM100</span>
+                    <span class="tag">AprilTags</span>
                 </div>
 
                 <div class="btn-row">
-                    <a href="https://youtu.be/E4gCH_hUtbA?si=0CwBHhj9RcS0rgQw" class="video-btn" target="_blank">
+                    <a href="https://youtu.be/E4gCH_hUtbA" class="video-btn" target="_blank">
                         <svg viewBox="0 0 10 10" fill="currentColor"><polygon points="1,0.5 9.5,5 1,9.5"/></svg>
                         Watch Demo
                     </a>
-                    <a href="https://github.com/PrestigeGiraffe/amr-rack-detection" class="video-btn" target="_blank">
+                </div>
+
+                <div class="whi">
+                    <div class="whi-block">
+                        <p class="whi-label">What</p>
+                        <p class="whi-text">A system that moves racks of door parts around the plant with MiR robots. Operators call a robot with a button, and it carries full racks from the injection moulding machines to the drop-off lanes, brings empty racks back to the machines, and delivers racks to other parts of the plant. I built all of it: the changes to the racks, the robot's map and missions, the PLC logic and buttons that call it, and the overhead camera that tells it where to drop each rack.</p>
+                    </div>
+                    <div class="whi-block">
+                        <p class="whi-label">How</p>
+                        <div class="stepper">
+                            <div class="stepper-tabs" role="tablist" aria-label="AMR Rack Delivery steps">
+                                <button class="stepper-tab" type="button" role="tab" id="amr-delivery-tab-1" aria-controls="amr-delivery-step-1" aria-selected="true" title="Ready the racks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="14" height="13" rx="1"/><path d="M6 10.5h14M2.5 15h3.5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span>1</span></button>
+                                <button class="stepper-tab" type="button" role="tab" id="amr-delivery-tab-2" aria-controls="amr-delivery-step-2" aria-selected="false" tabindex="-1" title="Map the plant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg><span>2</span></button>
+                                <button class="stepper-tab" type="button" role="tab" id="amr-delivery-tab-3" aria-controls="amr-delivery-step-3" aria-selected="false" tabindex="-1" title="Write the missions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13M14 5l3 3-3 3"/><path d="M20 16H7M10 13l-3 3 3 3"/></svg><span>3</span></button>
+                                <button class="stepper-tab" type="button" role="tab" id="amr-delivery-tab-4" aria-controls="amr-delivery-step-4" aria-selected="false" tabindex="-1" title="Call the robot with a button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="14" width="14" height="6" rx="1.5"/><path d="M8.5 14a3.5 3.5 0 0 1 7 0"/><path d="M7.5 8.5a6.5 6.5 0 0 1 9 0"/></svg><span>4</span></button>
+                                <button class="stepper-tab" type="button" role="tab" id="amr-delivery-tab-5" aria-controls="amr-delivery-step-5" aria-selected="false" tabindex="-1" title="Pick a drop-off spot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-5.5-5.4-5.5-9.5a5.5 5.5 0 0 1 11 0C17.5 15.6 12 21 12 21z"/><circle cx="12" cy="11.5" r="2"/></svg><span>5</span></button>
+                                <button class="stepper-tab" type="button" role="tab" id="amr-delivery-tab-6" aria-controls="amr-delivery-step-6" aria-selected="false" tabindex="-1" title="Show the robot's status"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M12 16v4M8.5 20h7M6.5 8h6M6.5 11.5h9"/></svg><span>6</span></button>
+                                <button class="stepper-tab" type="button" role="tab" id="amr-delivery-tab-7" aria-controls="amr-delivery-step-7" aria-selected="false" tabindex="-1" title="Plan the layout and roll it out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6.5h10M10 12h10M10 17.5h10"/><path d="M3.5 6.5l1.5 1.5 2.5-3M3.5 12l1.5 1.5 2.5-3M3.5 17.5l1.5 1.5 2.5-3"/></svg><span>7</span></button>
+                            </div>
+                            <div class="stepper-panel" id="amr-delivery-step-1" role="tabpanel" aria-labelledby="amr-delivery-tab-1" tabindex="0">
+                                <svg class="step-diagram" viewBox="0 0 360 140" role="img" aria-label="A robot with a hook beside a wheeled rack of door parts. The rack has a hook bar for the robot to grip and an AprilTag the robot reads to recognize it" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 128 H350"/><path class="hatch" d="M20 128 l-6 7 M32 128 l-6 7 M44 128 l-6 7 M56 128 l-6 7 M68 128 l-6 7 M80 128 l-6 7 M92 128 l-6 7 M104 128 l-6 7 M116 128 l-6 7 M128 128 l-6 7 M140 128 l-6 7 M152 128 l-6 7 M164 128 l-6 7 M176 128 l-6 7 M188 128 l-6 7 M200 128 l-6 7 M212 128 l-6 7 M224 128 l-6 7 M236 128 l-6 7 M248 128 l-6 7 M260 128 l-6 7 M272 128 l-6 7 M284 128 l-6 7 M296 128 l-6 7 M308 128 l-6 7 M320 128 l-6 7 M332 128 l-6 7 M344 128 l-6 7"/><path d="M170 44 V114 M320 44 V114 M170 44 H320 M170 114 H320"/><circle class="device" cx="180" cy="120" r="5.5"/><circle class="device" cx="310" cy="120" r="5.5"/><path class="frame" d="M176 75 L191.2 54 H214 Q216 54 216 57 V101 Q216 104 213 104 H179 Q176 104 176 101 Z"/><path class="faint" d="M192.8 58 H212 V73 H182 Z"/><path class="frame" d="M222 75 L237.2 54 H260 Q262 54 262 57 V101 Q262 104 259 104 H225 Q222 104 222 101 Z"/><path class="faint" d="M238.8 58 H258 V73 H228 Z"/><path class="frame" d="M268 75 L283.2 54 H306 Q308 54 308 57 V101 Q308 104 305 104 H271 Q268 104 268 101 Z"/><path class="faint" d="M284.8 58 H304 V73 H274 Z"/><rect class="key-head" x="150" y="92" width="22" height="7" rx="2"/><rect class="tag-bg" x="176" y="56" width="20" height="20"/><rect class="tag-ink" x="179.3" y="59.3" width="3.3" height="3.3"/><rect class="tag-ink" x="182.7" y="59.3" width="3.3" height="3.3"/><rect class="tag-ink" x="189.3" y="59.3" width="3.3" height="3.3"/><rect class="tag-ink" x="179.3" y="62.7" width="3.3" height="3.3"/><rect class="tag-ink" x="186" y="62.7" width="3.3" height="3.3"/><rect class="tag-ink" x="182.7" y="66" width="3.3" height="3.3"/><rect class="tag-ink" x="189.3" y="66" width="3.3" height="3.3"/><rect class="tag-ink" x="179.3" y="69.3" width="3.3" height="3.3"/><rect class="tag-ink" x="186" y="69.3" width="3.3" height="3.3"/><rect class="tag-ink" x="189.3" y="69.3" width="3.3" height="3.3"/><path class="tag-ring" d="M176 56 h20 v20 h-20 Z M179.3 59.3 v13.3 h13.3 v-13.3 Z"/><rect class="device" x="4" y="100" width="84" height="20" rx="4"/><circle class="device" cx="18" cy="122" r="5"/><circle class="device" cx="74" cy="122" r="5"/><rect class="faint" x="10" y="105" width="10" height="4" rx="1"/><path class="hook" d="M50 100 V88 H88 V96"/><text x="146" y="100" text-anchor="end" class="em">hook bar</text><text x="186" y="38" text-anchor="middle" class="em">AprilTag</text></svg>
+                                <p class="step-eyebrow">Step 1 of 7</p>
+                                <h3 class="step-title">Ready the racks</h3>
+                                <p class="step-lead">The robot tows racks with a hook, so each rack needed a bar to hook onto and a marker the robot can recognize.</p>
+                                <p>With the plant's <a class="wiki" href="https://en.wikipedia.org/wiki/Kaizen" target="_blank" rel="noopener">kaizen</a> (continuous improvement) team, I added hook bars to the racks and frames to hold markers. I set up and printed the <a class="wiki" href="https://en.wikipedia.org/wiki/Fiducial_marker" target="_blank" rel="noopener">AprilTags</a> that go in those frames, which the robot's camera reads to identify each rack and line up with it. I also set the hook and rack sizes in the robot so it grips and tows each rack correctly.</p>
+                            </div>
+                            <div class="stepper-panel" id="amr-delivery-step-2" role="tabpanel" aria-labelledby="amr-delivery-tab-2" tabindex="0" hidden>
+                                <svg class="step-diagram" viewBox="0 0 360 166" role="img" aria-label="A map of the plant floor with the robot&#x27;s path from the moulding machines to the drop-off lanes, docking points at each end, a slow zone and a no-go zone" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect class="frame" x="10" y="10" width="340" height="146" rx="8"/><rect class="device" x="24" y="34" width="56" height="46" rx="3"/><text x="52" y="98" text-anchor="middle">machines</text><rect class="view" x="140" y="24" width="74" height="42" rx="3"/><text x="177" y="49" text-anchor="middle">slow</text><rect class="nogo" x="140" y="104" width="74" height="38" rx="3"/><text x="177" y="128" text-anchor="middle" class="note">no-go</text><path class="key dash" d="M80 57 C 120 57 120 86 177 86 S 246 86 260 64"/><rect class="frame" x="270" y="26" width="66" height="14" rx="2"/><rect class="frame" x="270" y="44" width="66" height="14" rx="2"/><rect class="frame" x="270" y="62" width="66" height="14" rx="2"/><circle class="key-head" cx="80" cy="57" r="4"/><circle class="key-head" cx="262" cy="60" r="4"/><text x="303" y="98" text-anchor="middle">lanes</text><rect class="device" x="164" y="77" width="26" height="18" rx="4"/><path d="M184 82 L188 86 L184 90"/></svg>
+                                <p class="step-eyebrow">Step 2 of 7</p>
+                                <h3 class="step-title">Map the plant</h3>
+                                <p class="step-lead">Before the robot can drive anywhere on its own, it needs a map of the floor.</p>
+                                <p>I drove the robot around the plant to build its map, then set the positions and docking points it uses at the moulding machines and the drop-off lanes. On the map I drew zones for areas it has to stay out of, speed limits, preferred paths, and spots where it warns people with sounds and lights. I set up its charging too.</p>
+                                <p>I also set and adjusted its protective fields, the zones around the robot where its <a class="wiki" href="https://en.wikipedia.org/wiki/Lidar" target="_blank" rel="noopener">laser scanners</a> make it slow down or stop if something gets too close. I also replaced the scanners a few times when they broke.</p>
+                            </div>
+                            <div class="stepper-panel" id="amr-delivery-step-3" role="tabpanel" aria-labelledby="amr-delivery-tab-3" tabindex="0" hidden>
+                                <svg class="step-diagram" viewBox="0 0 360 148" role="img" aria-label="The robot&#x27;s missions as routes: full racks from the moulding machines to the drop-off lanes, racks to other areas of the plant, and empty racks back to the machines" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect class="device" x="118" y="52" width="88" height="46" rx="3"/><text x="162" y="79" text-anchor="middle">machines</text><rect class="frame" x="258" y="16" width="88" height="40" rx="3"/><text x="302" y="41" text-anchor="middle">lanes</text><rect class="frame" x="258" y="98" width="88" height="40" rx="3"/><text x="302" y="123" text-anchor="middle">other areas</text><path class="key" d="M206 64 L250.7 40.8"/><path class="key-head" d="M256 38 L250.1 46.1 L245.9 38.2 Z"/><path class="key" d="M206 86 L250.7 109.2"/><path class="key-head" d="M256 112 L245.9 111.8 L250.1 103.9 Z"/><path class="key" d="M24 75 L110 75"/><path class="key-head" d="M116 75 L107 79.5 L107 70.5 Z"/><text x="226" y="36" text-anchor="end" class="em">full racks</text><text x="226" y="128" text-anchor="end" class="em">other racks</text><text x="68" y="66" text-anchor="middle" class="em">empty racks</text></svg>
+                                <p class="step-eyebrow">Step 3 of 7</p>
+                                <h3 class="step-title">Write the missions</h3>
+                                <p class="step-lead">Each job the robot does is a mission, a sequence of moves and actions I programmed.</p>
+                                <p>I wrote missions to carry full racks from the moulding machines to the drop-off lanes, bring empty racks back to the machines, and deliver racks to other parts of the plant. When the robot gets stuck, the mission retries, and when it fails, the operators get an alert.</p>
+                            </div>
+                            <div class="stepper-panel" id="amr-delivery-step-4" role="tabpanel" aria-labelledby="amr-delivery-tab-4" tabindex="0" hidden>
+                                <svg class="step-diagram" viewBox="0 0 360 120" role="img" aria-label="A wireless button press goes to the DXM100, which is wired into the PLC, and the PLC starts the robot&#x27;s mission through the MiR API" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect class="device" x="23" y="78" width="26" height="14" rx="3"/><path class="key-head" d="M28 78 A8 8 0 0 1 44 78 Z"/><path class="key" d="M31.8 67.8 A6 6 0 0 1 40.2 67.8"/><path class="key" d="M28.3 64.3 A11 11 0 0 1 43.7 64.3"/><text x="36" y="112" text-anchor="middle">button</text><rect class="device" x="96" y="62" width="44" height="30" rx="3"/><path d="M130 62 V48"/><circle class="lens" cx="130" cy="47" r="2"/><rect class="frame" x="103" y="70" width="18" height="6" rx="1.5"/><circle class="lens" cx="106" cy="83" r="1.6"/><circle class="lens" cx="112" cy="83" r="1.6"/><text x="118" y="112" text-anchor="middle">DXM100</text><path class="key" d="M140 77 H176"/><rect class="device" x="178" y="57" width="56" height="40" rx="3"/><rect class="frame" x="183" y="63" width="9" height="28" rx="1.5"/><circle class="key-head" cx="187.5" cy="68" r="1.4"/><rect class="frame" x="195.5" y="63" width="9" height="28" rx="1.5"/><circle class="lens" cx="200" cy="68" r="1.4"/><rect class="frame" x="208" y="63" width="9" height="28" rx="1.5"/><circle class="lens" cx="212.5" cy="68" r="1.4"/><rect class="frame" x="220.5" y="63" width="9" height="28" rx="1.5"/><circle class="lens" cx="225" cy="68" r="1.4"/><text x="206" y="112" text-anchor="middle">PLC</text><path class="key" d="M240 77 L278 77"/><path class="key-head" d="M284 77 L275 81.5 L275 72.5 Z"/><text x="262" y="66" text-anchor="middle" class="em">MiR API</text><rect class="device" x="288" y="66" width="60" height="16" rx="4"/><circle class="device" cx="298" cy="85" r="4"/><circle class="device" cx="338" cy="85" r="4"/><text x="318" y="112" text-anchor="middle">robot</text></svg>
+                                <p class="step-eyebrow">Step 4 of 7</p>
+                                <h3 class="step-title">Call the robot with a button</h3>
+                                <p class="step-lead">Operators start a mission by pressing a wireless button.</p>
+                                <p>A Banner DXM100, a wireless controller wired into the PLC's inputs, receives each press and passes it to the PLC. <a class="wiki" href="https://en.wikipedia.org/wiki/Ladder_logic" target="_blank" rel="noopener">Ladder logic</a> I wrote queues the requests when several come in close together, then starts the matching mission on the robot through MiR's <a class="wiki" href="https://en.wikipedia.org/wiki/API" target="_blank" rel="noopener">API</a>.</p>
+                            </div>
+                            <div class="stepper-panel" id="amr-delivery-step-5" role="tabpanel" aria-labelledby="amr-delivery-tab-5" tabindex="0" hidden>
+                                <svg class="step-diagram" viewBox="0 0 360 168" role="img" aria-label="Three lanes of spots seen from above, with racks filling each lane from the far end. The robot drives into the top lane, the first with room, to its outermost free spot" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect class="frame" x="62" y="24" width="276" height="28" rx="3"/><path class="faint" d="M108 24 V52"/><path class="faint" d="M154 24 V52"/><path class="faint" d="M200 24 V52"/><path class="faint" d="M246 24 V52"/><path class="faint" d="M292 24 V52"/><rect class="device" x="250" y="28" width="38" height="20" rx="2"/><path class="faint" d="M253 31 L285 45 M285 31 L253 45"/><rect class="device" x="296" y="28" width="38" height="20" rx="2"/><path class="faint" d="M299 31 L331 45 M331 31 L299 45"/><rect class="key" x="202" y="26" width="42" height="24" rx="2"/><rect class="frame" x="62" y="64" width="276" height="28" rx="3"/><path class="faint" d="M108 64 V92"/><path class="faint" d="M154 64 V92"/><path class="faint" d="M200 64 V92"/><path class="faint" d="M246 64 V92"/><path class="faint" d="M292 64 V92"/><rect class="device" x="158" y="68" width="38" height="20" rx="2"/><path class="faint" d="M161 71 L193 85 M193 71 L161 85"/><rect class="device" x="204" y="68" width="38" height="20" rx="2"/><path class="faint" d="M207 71 L239 85 M239 71 L207 85"/><rect class="device" x="250" y="68" width="38" height="20" rx="2"/><path class="faint" d="M253 71 L285 85 M285 71 L253 85"/><rect class="device" x="296" y="68" width="38" height="20" rx="2"/><path class="faint" d="M299 71 L331 85 M331 71 L299 85"/><rect class="frame" x="62" y="104" width="276" height="28" rx="3"/><path class="faint" d="M108 104 V132"/><path class="faint" d="M154 104 V132"/><path class="faint" d="M200 104 V132"/><path class="faint" d="M246 104 V132"/><path class="faint" d="M292 104 V132"/><rect class="device" x="66" y="108" width="38" height="20" rx="2"/><path class="faint" d="M69 111 L101 125 M101 111 L69 125"/><rect class="device" x="112" y="108" width="38" height="20" rx="2"/><path class="faint" d="M115 111 L147 125 M147 111 L115 125"/><rect class="device" x="158" y="108" width="38" height="20" rx="2"/><path class="faint" d="M161 111 L193 125 M193 111 L161 125"/><rect class="device" x="204" y="108" width="38" height="20" rx="2"/><path class="faint" d="M207 111 L239 125 M239 111 L207 125"/><rect class="device" x="250" y="108" width="38" height="20" rx="2"/><path class="faint" d="M253 111 L285 125 M285 111 L253 125"/><rect class="device" x="296" y="108" width="38" height="20" rx="2"/><path class="faint" d="M299 111 L331 125 M331 111 L299 125"/><rect class="device" x="15" y="29" width="26" height="18" rx="4"/><path d="M35 34 L39 38 L35 42"/><path class="key" d="M44 38 L238 38"/><path class="key-head" d="M244 38 L235 42.5 L235 33.5 Z"/><text x="269" y="16" text-anchor="middle" class="em">drop here</text><text x="200" y="160" text-anchor="middle" class="note">lanes are checked from the top</text></svg>
+                                <p class="step-eyebrow">Step 5 of 7</p>
+                                <h3 class="step-title">Pick a drop-off spot</h3>
+                                <p class="step-lead">Full racks are dropped off in lanes on the floor, and the robot needs to know where the next free spot is.</p>
+                                <p>For each lane, the vision program sends the PLC the outermost free spot, the one the robot should drive to. PLC logic I wrote picks which lane the rack goes into, starting from the lane at the top of the camera's view, and sends the robot to that spot.</p>
+                                <p>The vision program also sends a <a class="wiki" href="https://en.wikipedia.org/wiki/Heartbeat_(computing)" target="_blank" rel="noopener">heartbeat</a>, a signal that flips on every update. If it stops, the PLC switches the robot back to its old way of finding a spot, driving up to each lane and checking each spot with its own sensors.</p>
+                            </div>
+                            <div class="stepper-panel" id="amr-delivery-step-6" role="tabpanel" aria-labelledby="amr-delivery-tab-6" tabindex="0" hidden>
+                                <svg class="step-diagram" viewBox="0 0 360 148" role="img" aria-label="An HMI touchscreen showing the robot&#x27;s status, its current mission and any faults" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect class="device" x="84" y="10" width="192" height="118" rx="6"/><rect class="frame" x="91" y="17" width="178" height="104" rx="3"/><path d="M168 128 V142 M146 142 H190"/><text x="110" y="46">status</text><rect class="key-head" x="178" y="35" width="74" height="15" rx="7.5"/><text x="215" y="46" text-anchor="middle" class="on-accent">running</text><text x="110" y="74">mission</text><rect class="frame" x="178" y="65" width="74" height="12" rx="3"/><text x="215" y="75" text-anchor="middle" class="small">to lanes</text><text x="110" y="102">faults</text><circle class="ok" cx="184" cy="98" r="5"/><text x="196" y="102" class="small">none</text></svg>
+                                <p class="step-eyebrow">Step 6 of 7</p>
+                                <h3 class="step-title">Show the robot's status</h3>
+                                <p class="step-lead">I built an <a class="wiki" href="https://en.wikipedia.org/wiki/User_interface" target="_blank" rel="noopener">HMI</a> screen for the system.</p>
+                                <p>It shows the robot's status, its current mission and any faults, so operators can see what it's doing.</p>
+                            </div>
+                            <div class="stepper-panel" id="amr-delivery-step-7" role="tabpanel" aria-labelledby="amr-delivery-tab-7" tabindex="0" hidden>
+                                <svg class="step-diagram" viewBox="0 0 360 100" role="img" aria-label="The rollout in order: planning the layout with the team and operators, testing on the line, training operators, and supporting the system in production" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path class="faint" d="M52 50 H308"/><circle class="device" cx="52" cy="50" r="15"/><path class="key" d="M46 50 l4.5 4.5 l8 -9"/><text x="52" y="88" text-anchor="middle">plan layout</text><circle class="device" cx="137.3" cy="50" r="15"/><path class="key" d="M131.3 50 l4.5 4.5 l8 -9"/><text x="137.3" y="88" text-anchor="middle">test</text><circle class="device" cx="222.6" cy="50" r="15"/><path class="key" d="M216.6 50 l4.5 4.5 l8 -9"/><text x="222.6" y="88" text-anchor="middle">train</text><circle class="device" cx="307.9" cy="50" r="15"/><path class="key" d="M301.9 50 l4.5 4.5 l8 -9"/><text x="307.9" y="88" text-anchor="middle">support</text></svg>
+                                <p class="step-eyebrow">Step 7 of 7</p>
+                                <h3 class="step-title">Plan the layout and roll it out</h3>
+                                <p class="step-lead">I planned where the robot picks up and drops off racks and the paths it drives between them.</p>
+                                <p>I worked with team members and operators to find the layout that worked best for production. Then I tested and commissioned the system on the line, trained the operators, wrote work instructions, and supported it once it was running.</p>
+                            </div>
+                            <div class="stepper-nav">
+                                <button class="stepper-prev" type="button" disabled><span aria-hidden="true">←</span> Previous</button>
+                                <button class="stepper-next" type="button">Next <span aria-hidden="true">→</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="whi-block">
+                        <p class="whi-label">Impact</p>
+                        <p class="whi-text">In production the system handled over 100 rack moves a shift across all its missions. That took the job of moving racks off the operators and cut the production delays that came with it. I also tracked how the system was used, including how many racks were moved in total and of each type, how far the robot travelled, and how long it spent on missions versus sitting idle.</p>
+                    </div>
+                </div>
+            </div><!-- /project -->
+
+            <!-- DROP-OFF VISION SYSTEM -->
+            <div class="project" id="amr-cv">
+                <h2 class="project-title">Drop-off Vision System</h2>
+                <div class="stack">
+                    <span class="tag">Python</span>
+                    <span class="tag">OpenCV</span>
+                    <span class="tag">NumPy</span>
+                    <span class="tag">RTSP Streaming</span>
+                    <span class="tag">Multithreading</span>
+                    <span class="tag">EtherNet/IP</span>
+                </div>
+
+                <div class="btn-row">
+                    <a href="https://youtu.be/E4gCH_hUtbA" class="video-btn" target="_blank">
+                        <svg viewBox="0 0 10 10" fill="currentColor"><polygon points="1,0.5 9.5,5 1,9.5"/></svg>
+                        Watch Demo
+                    </a>
+                    <a href="https://github.com/johnson-yep/amr-rack-detection" class="video-btn" target="_blank">
                         <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
                         View Code
                     </a>
@@ -2944,15 +3094,70 @@
                 <div class="whi">
                     <div class="whi-block">
                         <p class="whi-label">What</p>
-                        <p class="whi-text">A real-time computer vision system that automates rack detection for the autonomous mobile robots (AMRs) in Toyota Boshoku's plant and decides what they do next. It reads a live RTSP camera feed, corrects distortion and applies a homography to get a consistent bird's-eye view of the workspace, then uses HSV colour segmentation in configurable regions to work out which racks are occupied.</p>
+                        <p class="whi-text">The overhead camera system that tells the robot where to drop each rack. A Python program watches the drop-off lanes from above, works out which spots are full, and sends the PLC the outermost free spot in each lane. It replaced the robot's floor-level sensing, where the robot drove up to each lane and checked the spots itself.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">How</p>
-                        <p class="whi-text">Detection results go to Allen-Bradley PLCs over Ethernet/IP as boolean arrays, and the PLCs use them to trigger AMR actions directly. I built a calibration interface for tuning colour thresholds, detection sensitivity, and the geometric transforms on the live feed, with save and load so the system can be redeployed quickly. The camera pipeline is multithreaded, which keeps frame latency low and the system stable in production.</p>
+                        <div class="stepper">
+                            <div class="stepper-tabs" role="tablist" aria-label="Drop-off Vision System steps">
+                                <button class="stepper-tab" type="button" role="tab" id="amr-cv-tab-1" aria-controls="amr-cv-step-1" aria-selected="true" title="Watch the lanes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="2"/><circle cx="12" cy="14" r="3.5"/><path d="M7 8V6h5v2"/></svg><span>1</span></button>
+                                <button class="stepper-tab" type="button" role="tab" id="amr-cv-tab-2" aria-controls="amr-cv-step-2" aria-selected="false" tabindex="-1" title="Get a bird's-eye view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 5h10l3.5 14h-17z"/><path d="M10.5 5l-1.5 14M13.5 5l1.5 14"/></svg><span>2</span></button>
+                                <button class="stepper-tab" type="button" role="tab" id="amr-cv-tab-3" aria-controls="amr-cv-step-3" aria-selected="false" tabindex="-1" title="Find the racks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5s6 6.5 6 10.5a6 6 0 0 1-12 0c0-4 6-10.5 6-10.5z"/></svg><span>3</span></button>
+                                <button class="stepper-tab" type="button" role="tab" id="amr-cv-tab-4" aria-controls="amr-cv-step-4" aria-selected="false" tabindex="-1" title="Check each spot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M9 7v10M15 7v10"/><path d="M16.8 12l1.2 1.3 1.9-2.3"/></svg><span>4</span></button>
+                                <button class="stepper-tab" type="button" role="tab" id="amr-cv-tab-5" aria-controls="amr-cv-step-5" aria-selected="false" tabindex="-1" title="Send the free spot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="15" y="6" width="6" height="12" rx="1"/><path d="M3 12h9M9 9l3 3-3 3"/></svg><span>5</span></button>
+                                <button class="stepper-tab" type="button" role="tab" id="amr-cv-tab-6" aria-controls="amr-cv-step-6" aria-selected="false" tabindex="-1" title="Tune it on the floor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="1.8" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="7" cy="17" r="1.8" fill="currentColor" stroke="none"/></svg><span>6</span></button>
+                            </div>
+                            <div class="stepper-panel" id="amr-cv-step-1" role="tabpanel" aria-labelledby="amr-cv-tab-1" tabindex="0">
+                                <svg class="step-diagram" viewBox="0 0 360 160" role="img" aria-label="A camera hanging from the roof trusses looks down on racks in the drop-off lanes and streams video to a nearby maintenance computer" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 10 H346 M14 24 H346"/><path class="faint" d="M14 10 L26 24 L38 10 M38 10 L50 24 L62 10 M62 10 L74 24 L86 10 M86 10 L98 24 L110 10 M110 10 L122 24 L134 10 M134 10 L146 24 L158 10 M158 10 L170 24 L182 10 M182 10 L194 24 L206 10 M206 10 L218 24 L230 10 M230 10 L242 24 L254 10 M254 10 L266 24 L278 10 M278 10 L290 24 L302 10 M302 10 L314 24 L326 10"/><path d="M180 24 V36"/><rect class="device" x="167" y="37" width="9" height="5" rx="1.5"/><rect class="device" x="163" y="41" width="34" height="22" rx="4"/><circle class="device" cx="180" cy="52" r="7"/><circle class="lens" cx="180" cy="52" r="3"/><path class="view" d="M180 62 L112 148 L248 148 Z"/><path d="M10 148 H350"/><path class="hatch" d="M20 148 l-6 7 M32 148 l-6 7 M44 148 l-6 7 M56 148 l-6 7 M68 148 l-6 7 M80 148 l-6 7 M92 148 l-6 7 M104 148 l-6 7 M116 148 l-6 7 M128 148 l-6 7 M140 148 l-6 7 M152 148 l-6 7 M164 148 l-6 7 M176 148 l-6 7 M188 148 l-6 7 M200 148 l-6 7 M212 148 l-6 7 M224 148 l-6 7 M236 148 l-6 7 M248 148 l-6 7 M260 148 l-6 7 M272 148 l-6 7 M284 148 l-6 7 M296 148 l-6 7 M308 148 l-6 7 M320 148 l-6 7 M332 148 l-6 7 M344 148 l-6 7"/><path d="M120 92 V136 M176 92 V136 M120 92 H176 M120 136 H176"/><circle class="device" cx="130" cy="142" r="5.5"/><circle class="device" cx="166" cy="142" r="5.5"/><path class="frame" d="M126 112.1 L132.1 102 H140 Q142 102 142 105 V123 Q142 126 139 126 H129 Q126 126 126 123 Z"/><path class="faint" d="M132.7 106 H138 V111.1 H132 Z"/><path class="frame" d="M148 112.1 L154.1 102 H162 Q164 102 164 105 V123 Q164 126 161 126 H151 Q148 126 148 123 Z"/><path class="faint" d="M154.7 106 H160 V111.1 H154 Z"/><path d="M184 92 V136 M240 92 V136 M184 92 H240 M184 136 H240"/><circle class="device" cx="194" cy="142" r="5.5"/><circle class="device" cx="230" cy="142" r="5.5"/><path class="frame" d="M190 112.1 L196.1 102 H204 Q206 102 206 105 V123 Q206 126 203 126 H193 Q190 126 190 123 Z"/><path class="faint" d="M196.7 106 H202 V111.1 H196 Z"/><path class="frame" d="M212 112.1 L218.1 102 H226 Q228 102 228 105 V123 Q228 126 225 126 H215 Q212 126 212 123 Z"/><path class="faint" d="M218.7 106 H224 V111.1 H218 Z"/><rect class="device" x="290" y="90" width="50" height="32" rx="3"/><rect class="frame" x="295" y="95" width="40" height="22" rx="2"/><path d="M315 122 V128"/><path d="M282 128 H348 M288 128 V148 M342 128 V148"/><path class="key dash" d="M197 52 C 236 52 266 92 288 104"/><text x="14" y="44" class="note">roof truss</text><text x="244" y="48" class="em">video</text><text x="315" y="80" text-anchor="middle">computer</text></svg>
+                                <p class="step-eyebrow">Step 1 of 6</p>
+                                <h3 class="step-title">Watch the lanes</h3>
+                                <p class="step-lead">A camera on the roof trusses streams live video of the drop-off lanes.</p>
+                                <p>The program reads the stream over <a class="wiki" href="https://en.wikipedia.org/wiki/Real-Time_Streaming_Protocol" target="_blank" rel="noopener">RTSP</a>. A separate <a class="wiki" href="https://en.wikipedia.org/wiki/Thread_(computing)" target="_blank" rel="noopener">thread</a> keeps only the newest frame and reconnects if the stream drops, so detection always runs on current video. The program runs unattended on a maintenance computer nearby that's on around the clock.</p>
+                            </div>
+                            <div class="stepper-panel" id="amr-cv-step-2" role="tabpanel" aria-labelledby="amr-cv-tab-2" tabindex="0" hidden>
+                                <svg class="step-diagram" viewBox="0 0 360 142" role="img" aria-label="The camera&#x27;s angled view of the lanes, with four corner points, warped by a homography into a straight-down bird&#x27;s-eye view where the lanes are square" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect class="frame" x="10" y="14" width="128" height="100" rx="6"/><path d="M44 32 L104 32 L126 98 L22 98 Z"/><path class="faint" d="M64 32 Q 58 66 57 98 M84 32 Q 90 66 91 98"/><path class="key" d="M146 66 L208 66"/><path class="key-head" d="M214 66 L205 70.5 L205 61.5 Z"/><text x="180" y="56" text-anchor="middle" class="em">homography</text><rect class="frame" x="222" y="14" width="128" height="100" rx="6"/><rect x="240" y="32" width="92" height="66"/><path class="faint" d="M270.7 32 V98 M301.3 32 V98"/><text x="74" y="132" text-anchor="middle">camera view</text><text x="286" y="132" text-anchor="middle">bird&#x27;s-eye view</text><circle class="key-head" cx="44" cy="32" r="4"/><circle class="key-head" cx="104" cy="32" r="4"/><circle class="key-head" cx="126" cy="98" r="4"/><circle class="key-head" cx="22" cy="98" r="4"/></svg>
+                                <p class="step-eyebrow">Step 2 of 6</p>
+                                <h3 class="step-title">Get a bird's-eye view</h3>
+                                <p class="step-lead">From the trusses, the camera sees the lanes at an angle, and its lens bends straight lines.</p>
+                                <p>The program first corrects the <a class="wiki" href="https://en.wikipedia.org/wiki/Distortion_(optics)" target="_blank" rel="noopener">lens distortion</a>. Then a <a class="wiki" href="https://en.wikipedia.org/wiki/Homography_(computer_vision)" target="_blank" rel="noopener">homography</a>, set from four points on the floor, warps the image so the lanes look as if seen from straight above, with every spot the same size.</p>
+                            </div>
+                            <div class="stepper-panel" id="amr-cv-step-3" role="tabpanel" aria-labelledby="amr-cv-tab-3" tabindex="0" hidden>
+                                <svg class="step-diagram" viewBox="0 0 360 134" role="img" aria-label="A camera frame of racks, and the same frame after picking out pixels in the racks&#x27; colour range, where only the racks remain" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect class="frame" x="10" y="14" width="140" height="92" rx="6"/><rect class="frame" x="210" y="14" width="140" height="92" rx="6"/><rect class="device" x="28" y="30" width="34" height="24" rx="2"/><path class="faint" d="M31 33 L59 51 M59 33 L31 51"/><rect class="mask" x="228" y="30" width="34" height="24" rx="2"/><rect class="device" x="78" y="30" width="34" height="24" rx="2"/><path class="faint" d="M81 33 L109 51 M109 33 L81 51"/><rect class="mask" x="278" y="30" width="34" height="24" rx="2"/><rect class="device" x="52" y="66" width="34" height="24" rx="2"/><path class="faint" d="M55 69 L83 87 M83 69 L55 87"/><rect class="mask" x="252" y="66" width="34" height="24" rx="2"/><rect class="device" x="102" y="66" width="34" height="24" rx="2"/><path class="faint" d="M105 69 L133 87 M133 69 L105 87"/><rect class="mask" x="302" y="66" width="34" height="24" rx="2"/><path class="key" d="M158 60 L196 60"/><path class="key-head" d="M202 60 L193 64.5 L193 55.5 Z"/><text x="180" y="50" text-anchor="middle" class="em">HSV</text><text x="80" y="124" text-anchor="middle">frame</text><text x="280" y="124" text-anchor="middle" class="em">rack pixels</text></svg>
+                                <p class="step-eyebrow">Step 3 of 6</p>
+                                <h3 class="step-title">Find the racks</h3>
+                                <p class="step-lead">The racks are picked out by their colour.</p>
+                                <p>Each frame is converted to <a class="wiki" href="https://en.wikipedia.org/wiki/HSL_and_HSV" target="_blank" rel="noopener">HSV</a>, which describes a colour's hue separately from how bright it is, so changes in lighting matter less. Pixels within the racks' colour range are marked as rack.</p>
+                            </div>
+                            <div class="stepper-panel" id="amr-cv-step-4" role="tabpanel" aria-labelledby="amr-cv-tab-4" tabindex="0" hidden>
+                                <svg class="step-diagram" viewBox="0 0 360 104" role="img" aria-label="One lane split into six spots, each labelled with its share of rack-coloured pixels. Spots above the threshold count as full" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect class="frame" x="30" y="30" width="300" height="40" rx="3"/><path class="faint" d="M80 30 V70"/><path class="faint" d="M130 30 V70"/><path class="faint" d="M180 30 V70"/><path class="faint" d="M230 30 V70"/><path class="faint" d="M280 30 V70"/><rect class="mask" x="188" y="36" width="34" height="28" rx="2"/><rect class="mask" x="238" y="36" width="34" height="28" rx="2"/><rect class="mask" x="288" y="36" width="34" height="28" rx="2"/><rect class="mask" x="110" y="52" width="10" height="8" rx="1"/><text x="55" y="88" text-anchor="middle">2%</text><text x="105" y="88" text-anchor="middle">4%</text><text x="155" y="88" text-anchor="middle">1%</text><text x="205" y="88" text-anchor="middle" class="em">68%</text><text x="255" y="88" text-anchor="middle" class="em">81%</text><text x="305" y="88" text-anchor="middle" class="em">77%</text><text x="105" y="20" text-anchor="middle">free</text><text x="255" y="20" text-anchor="middle" class="em">full</text><path class="dash" d="M180 26 V96"/></svg>
+                                <p class="step-eyebrow">Step 4 of 6</p>
+                                <h3 class="step-title">Check each spot</h3>
+                                <p class="step-lead">A grid over each lane splits it into spots.</p>
+                                <p>A spot counts as full when the share of rack-coloured pixels in it passes a threshold I can tune. Where the lighting makes that unreliable, a second mode compares each spot with readings saved earlier instead.</p>
+                            </div>
+                            <div class="stepper-panel" id="amr-cv-step-5" role="tabpanel" aria-labelledby="amr-cv-tab-5" tabindex="0" hidden>
+                                <svg class="step-diagram" viewBox="0 0 360 106" role="img" aria-label="A lane with racks in its last three spots. The program sends the outermost free spot, spot 3, to the PLC, along with a heartbeat signal that flips on every write" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect class="frame" x="14" y="40" width="210" height="32" rx="3"/><path class="faint" d="M49 40 V72"/><path class="faint" d="M84 40 V72"/><path class="faint" d="M119 40 V72"/><path class="faint" d="M154 40 V72"/><path class="faint" d="M189 40 V72"/><rect class="device" x="123" y="44" width="27" height="24" rx="2"/><path class="faint" d="M126 47 L147 65 M147 47 L126 65"/><rect class="device" x="158" y="44" width="27" height="24" rx="2"/><path class="faint" d="M161 47 L182 65 M182 47 L161 65"/><rect class="device" x="193" y="44" width="27" height="24" rx="2"/><path class="faint" d="M196 47 L217 65 M217 47 L196 65"/><rect class="key" x="86" y="42" width="31" height="28" rx="2"/><path class="key" d="M232 50 L270 50"/><path class="key-head" d="M276 50 L267 54.5 L267 45.5 Z"/><text x="254" y="40" text-anchor="middle" class="em">spot 3</text><path d="M232 74 h8 v-7 h8 v7 h8 v-7 h8 v7 h6"/><text x="254" y="94" text-anchor="middle">heartbeat</text><rect class="device" x="282" y="40" width="56" height="40" rx="3"/><rect class="frame" x="287" y="46" width="9" height="28" rx="1.5"/><circle class="key-head" cx="291.5" cy="51" r="1.4"/><rect class="frame" x="299.5" y="46" width="9" height="28" rx="1.5"/><circle class="lens" cx="304" cy="51" r="1.4"/><rect class="frame" x="312" y="46" width="9" height="28" rx="1.5"/><circle class="lens" cx="316.5" cy="51" r="1.4"/><rect class="frame" x="324.5" y="46" width="9" height="28" rx="1.5"/><circle class="lens" cx="329" cy="51" r="1.4"/><text x="310" y="96" text-anchor="middle">PLC</text><text x="101.5" y="92" text-anchor="middle" class="em">outermost free</text></svg>
+                                <p class="step-eyebrow">Step 5 of 6</p>
+                                <h3 class="step-title">Send the free spot</h3>
+                                <p class="step-lead">For each lane, the program works out the outermost free spot and sends it to the PLC.</p>
+                                <p>It writes the spots over <a class="wiki" href="https://en.wikipedia.org/wiki/EtherNet/IP" target="_blank" rel="noopener">EtherNet/IP</a>, along with the heartbeat bit that flips on every write so the PLC knows the program is still running. Writes are spaced out and reconnect on their own, so a brief network drop doesn't stop the system.</p>
+                            </div>
+                            <div class="stepper-panel" id="amr-cv-step-6" role="tabpanel" aria-labelledby="amr-cv-tab-6" tabindex="0" hidden>
+                                <svg class="step-diagram" viewBox="0 0 360 180" role="img" aria-label="The calibration screen: the live view with four draggable corner points for the bird&#x27;s-eye view, and sliders for the colour range, lens correction and detection threshold" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect class="frame" x="70" y="8" width="220" height="102" rx="6"/><path d="M128 26 L232 26 L262 94 L98 94 Z"/><path class="faint" d="M163 26 L153 94 M197 26 L207 94"/><circle class="key-head" cx="128" cy="26" r="4.5"/><circle class="key-head" cx="232" cy="26" r="4.5"/><circle class="key-head" cx="262" cy="94" r="4.5"/><circle class="key-head" cx="98" cy="94" r="4.5"/><text x="150" y="134" text-anchor="end">colour</text><path class="faint" d="M162 130 H290"/><circle class="device" cx="206.8" cy="130" r="5"/><text x="150" y="154" text-anchor="end">lens</text><path class="faint" d="M162 150 H290"/><circle class="device" cx="238.8" cy="150" r="5"/><text x="150" y="174" text-anchor="end">threshold</text><path class="faint" d="M162 170 H290"/><circle class="device" cx="219.6" cy="170" r="5"/><text x="180" y="19" text-anchor="middle" class="em">corner points</text></svg>
+                                <p class="step-eyebrow">Step 6 of 6</p>
+                                <h3 class="step-title">Tune it on the floor</h3>
+                                <p class="step-lead">I built a calibration screen for setting the system up on site.</p>
+                                <p>It adjusts the colour ranges, the lens correction, the four floor points for the bird's-eye view, the lane grids and the detection threshold, all on the live video. The settings are saved to files, so a calibrated setup loads again when the program restarts.</p>
+                            </div>
+                            <div class="stepper-nav">
+                                <button class="stepper-prev" type="button" disabled><span aria-hidden="true">←</span> Previous</button>
+                                <button class="stepper-next" type="button">Next <span aria-hidden="true">→</span></button>
+                            </div>
+                        </div>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">Impact</p>
-                        <p class="whi-text">The AMRs no longer need manual input from operators. They make decisions in real time based on which racks are actually available. In production the system handled over 100 rack moves a shift, which took that job off the operators and cut the production delays that came with it.</p>
+                        <p class="whi-text">The robot drives straight to a free spot instead of checking each lane with its own sensors, a check it now only falls back on if the camera system stops. Its drop-off choices are based on which spots are actually free right now.</p>
                     </div>
                 </div>
             </div><!-- /project -->
@@ -2967,12 +3172,12 @@
                     <span class="tag">Allen-Bradley PLC</span>
                 </div>
 
-                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:2rem;">
-                    <a href="https://youtu.be/kJhTjPmvhJI" class="video-btn" style="margin-bottom:0;" target="_blank">
+                <div class="btn-row">
+                    <a href="https://youtu.be/kJhTjPmvhJI" class="video-btn" target="_blank">
                         <svg viewBox="0 0 10 10" fill="currentColor"><polygon points="1,0.5 9.5,5 1,9.5"/></svg>
-                        Servo History
+                        Unload Station
                     </a>
-                    <a href="https://youtu.be/6IlcjOIkYrk" class="video-btn" style="margin-bottom:0;" target="_blank">
+                    <a href="https://youtu.be/6IlcjOIkYrk" class="video-btn" target="_blank">
                         <svg viewBox="0 0 10 10" fill="currentColor"><polygon points="1,0.5 9.5,5 1,9.5"/></svg>
                         Screw Station
                     </a>
@@ -2996,15 +3201,15 @@
                 <div class="whi">
                     <div class="whi-block">
                         <p class="whi-label">What</p>
-                        <p class="whi-text">HMI screens for machines and robots across the plant. They show live servo speed and torque for the sonic weld robots that install clips, keep a count of the screws and clips installed, and let operators bypass vision-based defect detection for specific screws.</p>
+                        <p class="whi-text">Touchscreen panels for machines and robots around the plant. They show live <a class="wiki" href="https://en.wikipedia.org/wiki/Servomotor" target="_blank" rel="noopener">servo</a> speed and torque for the sonic weld robots that install clips, count the screws and clips installed, and let operators skip the camera-based defect check for specific screws.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">How</p>
-                        <p class="whi-text">I built them in FactoryTalk View Studio and Studio 5000. Ladder logic in the Allen-Bradley PLC captures and stores production and diagnostic data as it happens, and structured tags and arrays pass it to the HMI. I laid out the screens so operators and maintenance staff can read a machine's status at a glance without digging through raw PLC data.</p>
+                        <p class="whi-text">I built them in FactoryTalk View Studio and Studio 5000. Ladder logic in the Allen-Bradley PLC records production and diagnostic data as it happens and passes it to the screens through structured tags and arrays. I laid the screens out so operators and maintenance staff can read a machine's status at a glance, without digging through raw PLC data.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">Impact</p>
-                        <p class="whi-text">Seeing how the robots were performing made faults quicker to diagnose and maintenance easier to schedule. Tool usage is tracked, so worn parts get replaced before they fail, which cuts unexpected downtime. The operator bypasses also stopped the line from halting when it didn't need to, without removing the quality checks.</p>
+                        <p class="whi-text">Seeing how the robots were performing made faults quicker to diagnose and maintenance easier to plan. Tool use is tracked, so worn parts get replaced before they fail, which cuts unexpected downtime. The bypasses also stopped the line from halting when it didn't need to, while the quality checks stayed in place.</p>
                     </div>
                 </div>
             </div><!-- /project -->
@@ -4843,13 +5048,13 @@
         }));
     });
 
-    /* ── RoBIM demo player ── */
+    /* ── Demo players (RoBIM, Toyota) ── */
     // Each video's thumbnail links to YouTube. A plain click swaps it for
     // YouTube's player, so the player loads only when asked for. Switching
-    // videos, or leaving the RoBIM page, stops the one playing.
-    const demo = document.querySelector('.demo');
+    // videos, or leaving the page, stops the one playing.
+    const demos = document.querySelectorAll('.demo');
 
-    function stopDemos(keep) {
+    function stopDemos(demo, keep) {
         demo.querySelectorAll('.demo-panel').forEach((panel) => {
             if (panel === keep) return;
             panel.querySelector('iframe')?.remove();
@@ -4857,9 +5062,11 @@
         });
     }
 
-    setupTabs(demo.querySelector('[role="tablist"]'), (i, panels) => stopDemos(panels[i]));
+    demos.forEach((demo) => {
+        setupTabs(demo.querySelector('[role="tablist"]'), (i, panels) => stopDemos(demo, panels[i]));
+    });
 
-    demo.addEventListener('click', (e) => {
+    document.addEventListener('click', (e) => {
         const poster = e.target.closest('.demo-poster');
         // A modified or middle click still opens YouTube in a new tab. So does
         // any click on a page opened from disk, where YouTube's player
@@ -4878,8 +5085,10 @@
         player.focus();
     });
 
-    // A hidden player keeps playing sound, so stop it once the page is left
-    window.addEventListener('hashchange', () => { if (!demo.offsetParent) stopDemos(); });
+    // A hidden player keeps playing sound, so stop it once its page is left
+    window.addEventListener('hashchange', () => {
+        demos.forEach((demo) => { if (!demo.offsetParent) stopDemos(demo); });
+    });
 
     /* ── Lightbox ── */
     // One reusable overlay for every .img-slot image, current and future.
@@ -4975,6 +5184,24 @@
         'Linear_interpolation': ['Interpolation', 'Estimating a value between two known samples by assuming it changes in a straight line between them.'],
         'Point_cloud': ['Point cloud', 'A set of 3D points measured on an object\'s surface. Together they capture its shape.'],
         'Hyperplane_separation_theorem': ['Separating-axis test', 'A quick check of whether two shapes overlap. If there\'s any direction in which their shadows don\'t overlap, the shapes don\'t either, which works for rectangles at any angle.'],
+        'Programmable_logic_controller': ['PLC', 'Short for programmable logic controller, a rugged industrial computer that runs a factory machine. It reads inputs like sensors and buttons and switches outputs like motors and lights, over and over in a fast loop.'],
+        'Injection_moulding': ['Injection moulding', 'Making plastic parts by melting plastic and forcing it into a metal mould, where it cools into the finished shape.'],
+        'Autonomous_mobile_robot': ['Autonomous mobile robot (AMR)', 'A robot that drives itself around a building, using its sensors and a map to plan routes and steer around people and obstacles.'],
+        'Ultrasonic_welding': ['Sonic welding', 'Joining plastic parts with high-frequency vibration, which heats the contact point until the plastic melts and fuses.'],
+        'Kaizen': ['Kaizen', 'Japanese for continuous improvement. In a factory, the kaizen team looks for small, ongoing ways to make the work safer, faster or easier.'],
+        'Fiducial_marker': ['AprilTag', 'A square black-and-white marker, like a simple QR code, that a camera can find and identify quickly. Robots use them to recognize objects and line up with them precisely.'],
+        'Lidar': ['Laser scanner', 'A sensor that sweeps a laser beam around and times its reflections to measure the distance to everything nearby. On mobile robots, it watches for people and obstacles.'],
+        'API': ['API', 'Short for application programming interface, the set of commands a program offers so other programs can control it. Here, the PLC uses the MiR robot\'s API to start its missions.'],
+        'Ladder_logic': ['Ladder logic', 'The graphical language most PLCs are programmed in. Programs look like electrical wiring diagrams, with rungs of contacts and coils that switch outputs when their conditions are met.'],
+        'Heartbeat_(computing)': ['Heartbeat', 'A signal one system sends another at a regular interval to show it\'s still running. If the beats stop, the receiver knows something has failed.'],
+        'User_interface': ['HMI', 'Short for human-machine interface, the touchscreen or panel operators use to watch and control a machine.'],
+        'Real-Time_Streaming_Protocol': ['RTSP', 'Short for Real-Time Streaming Protocol, the standard way network cameras stream live video to other devices.'],
+        'Thread_(computing)': ['Thread', 'A separate line of work inside a program that runs alongside the rest. Here, one thread does nothing but read new camera frames.'],
+        'Distortion_(optics)': ['Lens distortion', 'The bending of straight lines in an image caused by the camera\'s lens, strongest near the edges of wide-angle lenses.'],
+        'Homography_(computer_vision)': ['Homography', 'A transform that maps one flat view of a surface onto another. Given four matching points, it can turn an angled picture of a floor into a straight-down view.'],
+        'HSL_and_HSV': ['HSV', 'A way of describing colours by hue (the colour itself), saturation (how strong it is) and value (how bright it is). Keeping hue apart from brightness makes a colour easier to pick out as the light changes.'],
+        'EtherNet/IP': ['EtherNet/IP', 'An industrial network protocol that lets PLCs and other factory devices exchange data over ordinary Ethernet.'],
+        'Servomotor': ['Servo', 'A motor with a sensor and controller that moves to and holds a precise position, speed or torque. Robots use them in their joints.'],
     };
 
     const wikiTip = document.getElementById('wiki-tip');
