@@ -82,7 +82,7 @@
         ::selection { background: var(--selection); }
 
         .panel-heading, .project-title, .me-name, .cat-btn-title, .book-title,
-        .overview-lead, .overview-stat-num {
+        .overview-lead {
             font-family: 'Fraunces', Georgia, serif;
         }
 
@@ -547,8 +547,8 @@
         }
 
         /* ── ROBIM PAGE ── */
-        /* Overview above the projects, with a pitch, results, background and
-           the setup */
+        /* Overview above the projects, with a pitch, the demo videos,
+           background and the setup */
         .overview { margin-bottom: 4rem; }
 
         .overview-lead {
@@ -560,31 +560,78 @@
 
         .overview-name { color: var(--accent); font-weight: 600; }
 
-        .overview-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
+        /* Demo player: a switch between the two demo videos above a 16:9
+           frame. Each video shows its YouTube thumbnail until it's clicked,
+           and its tabs share the look of the step tabs below. */
+        .demo {
             margin: 1.75rem 0 2.25rem;
-        }
-
-        .overview-stat {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 1rem 1.15rem;
-            font-size: 0.8rem;
-            color: var(--mid);
-            line-height: 1.5;
+            overflow: hidden;
         }
 
-        .overview-stat-num {
-            display: block;
-            margin-bottom: 0.3rem;
-            font-size: 1.75rem;
+        .demo-tabs {
+            display: flex;
+            gap: 0.3rem;
+            padding: 0.6rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .demo-tab {
+            flex: 1 1 0;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            background: none;
+            color: var(--dim);
+            font-family: inherit;
+            font-size: 0.82rem;
             font-weight: 600;
-            letter-spacing: -0.5px;
-            line-height: 1.1;
-            color: var(--accent);
+            cursor: pointer;
+            transition: color 0.15s, background 0.15s, border-color 0.15s;
+        }
+
+        .demo-panel {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+
+        .demo-poster { position: absolute; inset: 0; }
+        .demo-poster:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
+        .demo-poster img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .demo-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4.5rem;
+            height: 4.5rem;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+            transform: translate(-50%, -50%);
+            transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .demo-play svg { width: 1.4rem; height: 1.4rem; margin-left: 0.2rem; }
+        .demo-poster:hover .demo-play { transform: translate(-50%, -50%) scale(1.08); }
+
+        .demo-panel iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
 
         .context-grid {
@@ -741,14 +788,14 @@
             transition: color 0.15s, background 0.15s, border-color 0.15s;
         }
         .stepper-tab svg { width: 20px; height: 20px; }
-        .stepper-tab:hover { color: var(--accent); }
-        .stepper-tab[aria-selected="true"] {
+        .stepper-tab:hover, .demo-tab:hover { color: var(--accent); }
+        .stepper-tab[aria-selected="true"], .demo-tab[aria-selected="true"] {
             background: var(--bg);
             border-color: var(--border2);
             color: var(--accent);
         }
 
-        .stepper-tab:focus-visible, .stepper-nav button:focus-visible {
+        .stepper-tab:focus-visible, .demo-tab:focus-visible, .stepper-nav button:focus-visible {
             outline: 2px solid var(--accent);
             outline-offset: 2px;
         }
@@ -833,7 +880,7 @@
 
         @media (max-width: 640px) {
             .overview-lead { font-size: 1.15rem; }
-            .overview-stats { grid-template-columns: 1fr; }
+            .demo-play { width: 3.5rem; height: 3.5rem; }
             .context-grid { grid-template-columns: 1fr; gap: 1.25rem; }
             .overview-facts > div { grid-template-columns: 1fr; gap: 0.3rem; }
             .stepper-tabs { display: grid; grid-template-columns: repeat(5, 1fr); }
@@ -2528,9 +2575,23 @@
              mark each hard term at its first appearance on the page. -->
         <div class="overview">
             <p class="overview-lead">I'm prototyping <span class="overview-name">HIVE Insight</span>, the vision software for a RoBIM HIVE that processes materials. With it, a robot arm finds boards of lumber, scans them in 3D and sorts them by length.</p>
-            <div class="overview-stats">
-                <p class="overview-stat"><span class="overview-stat-num">2.5×</span>faster scans of a 2.7 m board, from about 3 minutes to 75 seconds</p>
-                <p class="overview-stat"><span class="overview-stat-num">0.836</span>mask mAP50-95 on held-out images, for the board segmentation model I trained</p>
+            <div class="demo">
+                <div class="demo-tabs" role="tablist" aria-label="Demo videos">
+                    <button class="demo-tab" type="button" role="tab" id="demo-tab-scan" aria-controls="demo-scan" aria-selected="true">Survey Scan</button>
+                    <button class="demo-tab" type="button" role="tab" id="demo-tab-pick" aria-controls="demo-pick" aria-selected="false" tabindex="-1">Pick and Place</button>
+                </div>
+                <div class="demo-panel" id="demo-scan" role="tabpanel" aria-labelledby="demo-tab-scan">
+                    <a class="demo-poster" href="https://youtu.be/F_VfVuz9AY4" target="_blank" data-video="F_VfVuz9AY4" aria-label="Survey Scan demo video">
+                        <img src="https://i.ytimg.com/vi/F_VfVuz9AY4/maxresdefault.jpg" alt="" loading="lazy">
+                        <span class="demo-play" aria-hidden="true"><svg viewBox="0 0 10 10" fill="currentColor"><polygon points="1,0.5 9.5,5 1,9.5"/></svg></span>
+                    </a>
+                </div>
+                <div class="demo-panel" id="demo-pick" role="tabpanel" aria-labelledby="demo-tab-pick" hidden>
+                    <a class="demo-poster" href="https://youtu.be/uozDVVu6wXg" target="_blank" data-video="uozDVVu6wXg" aria-label="Pick and Place demo video">
+                        <img src="https://i.ytimg.com/vi/uozDVVu6wXg/maxresdefault.jpg" alt="" loading="lazy">
+                        <span class="demo-play" aria-hidden="true"><svg viewBox="0 0 10 10" fill="currentColor"><polygon points="1,0.5 9.5,5 1,9.5"/></svg></span>
+                    </a>
+                </div>
             </div>
             <div class="context-grid">
                 <div class="context-part">
@@ -4722,14 +4783,13 @@
     window.addEventListener('hashchange', applyRoute);
     applyRoute();
 
-    /* ── Steppers ── */
-    // A How block's steps show one at a time. The tabs follow the WAI-ARIA
-    // tabs pattern, so arrow keys, Home and End move between them.
-    document.querySelectorAll('.stepper').forEach((stepper) => {
-        const tabs = [...stepper.querySelectorAll('[role="tab"]')];
+    /* ── Tabs ── */
+    // Tabs that follow the WAI-ARIA tabs pattern: a click, the arrow keys,
+    // Home or End select a tab and show its panel, then onShow runs. Used by
+    // the RoBIM demo player and the step-by-step How blocks.
+    function setupTabs(tablist, onShow) {
+        const tabs = [...tablist.querySelectorAll('[role="tab"]')];
         const panels = tabs.map((tab) => document.getElementById(tab.getAttribute('aria-controls')));
-        const prev = stepper.querySelector('.stepper-prev');
-        const next = stepper.querySelector('.stepper-next');
         let current = 0;
 
         function show(i) {
@@ -4739,13 +4799,12 @@
                 tab.tabIndex = k === i ? 0 : -1;
                 panels[k].hidden = k !== i;
             });
-            prev.disabled = i === 0;
-            next.disabled = i === tabs.length - 1;
+            onShow(i, panels);
         }
 
         tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)));
 
-        stepper.querySelector('[role="tablist"]').addEventListener('keydown', (e) => {
+        tablist.addEventListener('keydown', (e) => {
             const target = { ArrowLeft: current - 1, ArrowRight: current + 1, Home: 0, End: tabs.length - 1 }[e.key];
             if (target === undefined) return;
             e.preventDefault();
@@ -4753,8 +4812,22 @@
             tabs[current].focus();
         });
 
+        return { show, current: () => current };
+    }
+
+    /* ── Steppers ── */
+    // A How block's steps show one at a time, picked with the tabs or the
+    // Previous and Next buttons.
+    document.querySelectorAll('.stepper').forEach((stepper) => {
+        const prev = stepper.querySelector('.stepper-prev');
+        const next = stepper.querySelector('.stepper-next');
+        const steps = setupTabs(stepper.querySelector('[role="tablist"]'), (i, panels) => {
+            prev.disabled = i === 0;
+            next.disabled = i === panels.length - 1;
+        });
+
         [prev, next].forEach((button) => button.addEventListener('click', () => {
-            show(current + (button === next ? 1 : -1));
+            steps.show(steps.current() + (button === next ? 1 : -1));
             // a disabled button drops focus, so hand it to the other one
             if (button.disabled) (button === next ? prev : next).focus();
             // a taller step before this one can leave the new step's diagram
@@ -4765,6 +4838,44 @@
             }
         }));
     });
+
+    /* ── RoBIM demo player ── */
+    // Each video's thumbnail links to YouTube. A plain click swaps it for
+    // YouTube's player, so the player loads only when asked for. Switching
+    // videos, or leaving the RoBIM page, stops the one playing.
+    const demo = document.querySelector('.demo');
+
+    function stopDemos(keep) {
+        demo.querySelectorAll('.demo-panel').forEach((panel) => {
+            if (panel === keep) return;
+            panel.querySelector('iframe')?.remove();
+            panel.querySelector('.demo-poster').hidden = false;
+        });
+    }
+
+    setupTabs(demo.querySelector('[role="tablist"]'), (i, panels) => stopDemos(panels[i]));
+
+    demo.addEventListener('click', (e) => {
+        const poster = e.target.closest('.demo-poster');
+        // A modified or middle click still opens YouTube in a new tab. So does
+        // any click on a page opened from disk, where YouTube's player
+        // refuses to run (Error 153) because the page has no web address.
+        if (!poster || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ||
+            location.protocol === 'file:') return;
+        e.preventDefault();
+        const player = document.createElement('iframe');
+        player.src = `https://www.youtube-nocookie.com/embed/${poster.dataset.video}?autoplay=1&rel=0&playsinline=1`;
+        player.title = poster.getAttribute('aria-label');
+        player.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        player.allowFullscreen = true;
+        player.referrerPolicy = 'strict-origin-when-cross-origin';
+        poster.hidden = true;
+        poster.after(player);
+        player.focus();
+    });
+
+    // A hidden player keeps playing sound, so stop it once the page is left
+    window.addEventListener('hashchange', () => { if (!demo.offsetParent) stopDemos(); });
 
     /* ── Lightbox ── */
     // One reusable overlay for every .img-slot image, current and future.
