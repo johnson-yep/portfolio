@@ -34,7 +34,12 @@ Inside `<div id="cat-<id>" class="cat-detail" style="display:none">`, in this or
 
 ## Registering a new page
 
-- **Homepage card:** a `.cat-btn` in the right group of `#cat-hub` (Internships, newest first). It needs the logo, the full company name, the role, a `.cat-btn-date` with a `<br>` after the dash, and exactly three skill tags. The homepage is a timeline with no pictures on the cards, by the user's choice.
+- **Homepage card:** a `.cat-btn` in the Internships group of `#cat-hub`, newest first. It needs:
+  - the logo, the full company name, the role, and exactly three skill tags
+  - a `.cat-btn-date` with `.date-start` ("Sep 2026") and `.date-end` ("to now", or "to May 2026") spans
+  - for a current role, the `is-now` class on the button and a `.now-chip` after the title
+
+  The Internships and Design Teams groups are `.cat-section-timeline`, which puts their cards on one continuous line. Personal Projects stays off it. The homepage has no page heading and no pictures on the cards, by the user's choice.
 - **Router:** add the id to `validCats`.
 - **Print summary:** add `cat-<id>` to `PRINT_CATEGORIES`.
 - The resume links to `johnsonyep.com/#<id>`, so a page's id never changes once published.

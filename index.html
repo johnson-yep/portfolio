@@ -82,7 +82,7 @@
         ::selection { background: var(--selection); }
 
         .panel-heading, .project-title, .me-name, .cat-btn-title, .book-title,
-        .overview-lead {
+        .overview-lead, .date-start {
             font-family: 'Fraunces', Georgia, serif;
         }
 
@@ -1426,17 +1426,18 @@
             gap: 0.75rem;
         }
 
-        /* the hub heading sits above a section label, not a .panel-sub */
-        .cat-hub-wrap > .panel-heading { margin-bottom: 1.75rem; }
-
-        /* Timeline: each card's date sits in a column to its left, beside a
-           rail with a dot per card. The dots join within a group. */
+        /* Timeline: the Internships and Design Teams groups share one line,
+           with a dot at the middle of each card and its dates to the left.
+           Each card draws the line along its own height plus half the gap
+           on each side, and a later group's label carries it across the
+           space between groups, so it runs unbroken from the first dot to
+           the last. Personal Projects sits below, off the line. */
         .cat-section {
             display: flex;
             flex-direction: column;
             gap: 0.6rem;
             margin-bottom: 2.25rem;
-            padding-left: 7.125rem;
+            padding-left: 9.25rem;
         }
 
         .cat-section:last-child { margin-bottom: 0; }
@@ -1451,11 +1452,17 @@
             border-bottom: 1px solid var(--border);
         }
 
+        .cat-section-timeline .cat-section-label {
+            position: relative;
+            padding-bottom: 0.15rem;
+            border-bottom: none;
+        }
+
         .cat-btn {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 1.1rem 1.4rem 1.1rem 1.1rem;
+            padding: 0.9rem 1.2rem 0.9rem 0.95rem;
             text-align: left;
             cursor: pointer;
             transition: border-color 0.15s, background 0.15s, transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -1464,15 +1471,32 @@
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            gap: 1.1rem;
+            gap: 1rem;
             position: relative;
         }
 
-        .cat-btn::after {
+        .cat-section-timeline .cat-btn::before,
+        .cat-section-timeline + .cat-section-timeline .cat-section-label::before {
             content: "";
             position: absolute;
-            top: 1.45rem;
-            left: -15px;
+            left: -1.5rem;
+            width: 1px;
+            background: var(--border2);
+        }
+
+        /* half the 0.6rem card gap, plus the card's 1px border */
+        .cat-section-timeline .cat-btn::before { top: calc(-0.3rem - 1px); bottom: calc(-0.3rem - 1px); }
+        .cat-section-timeline:first-child .cat-btn:first-of-type::before { top: 50%; }
+        .cat-section-timeline:not(:has(+ .cat-section-timeline)) .cat-btn:last-child::before { bottom: 50%; }
+        /* the group's 2.25rem margin plus the grid's 0.75rem gap above, the label
+           gap below; 1px right because the cards measure from inside their border */
+        .cat-section-timeline + .cat-section-timeline .cat-section-label::before { top: -3rem; bottom: -0.6rem; left: calc(-1.5rem + 1px); }
+
+        .cat-section-timeline .cat-btn::after {
+            content: "";
+            position: absolute;
+            top: calc(50% - 4.5px);
+            left: calc(-1.5rem - 4px);
             width: 9px;
             height: 9px;
             border-radius: 50%;
@@ -1480,21 +1504,25 @@
             background: var(--bg);
         }
 
-        /* rail from this card's dot down to the next card's */
-        .cat-btn:not(:last-child)::before {
-            content: "";
-            position: absolute;
-            top: calc(1.45rem + 4px);
-            left: -11px;
-            width: 1px;
-            height: calc(100% + 0.6rem);
-            background: var(--border2);
-        }
-
-        /* the latest role gets a filled dot */
-        .cat-section:first-child .cat-btn:first-of-type::after {
+        /* current roles get a filled dot and a "Now" chip */
+        .cat-btn.is-now::after {
             background: var(--accent);
             box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
+        }
+
+        .now-chip {
+            display: inline-block;
+            vertical-align: 2px;
+            margin-left: 0.35rem;
+            padding: 0.08rem 0.45rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.58rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+            border-radius: 999px;
         }
 
         .cat-btn-body {
@@ -1502,21 +1530,21 @@
             min-width: 0; /* lets long titles wrap instead of pushing the arrow out */
         }
 
+        /* no lift on hover: it would jog the timeline line */
         .cat-btn:hover {
             border-color: var(--border2);
             background: var(--surface-hover);
-            transform: translateY(-2px);
             box-shadow: 0 6px 20px var(--shadow-soft);
         }
 
-        .cat-btn:active { transform: translateY(0) scale(0.99); }
+        .cat-btn:active { transform: scale(0.99); }
 
         .cat-btn-title {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 600;
             color: var(--text);
             letter-spacing: -0.3px;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.15rem;
         }
 
         .cat-btn-sub {
@@ -1527,15 +1555,26 @@
 
         .cat-btn-date {
             position: absolute;
-            top: 1.35rem;
-            right: calc(100% + 1.95rem);
-            width: 5.15rem;
+            top: 50%;
+            transform: translateY(-50%);
+            right: calc(100% + 2.75rem);
+            width: 6.5rem;
             text-align: right;
-            font-size: 0.65rem;
+            line-height: 1.35;
+        }
+
+        .date-start {
+            display: block;
+            font-size: 1.02rem;
             font-weight: 600;
-            line-height: 1.5;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
+            letter-spacing: -0.2px;
+            color: var(--text);
+        }
+
+        .date-end {
+            display: block;
+            margin-top: 0.15rem;
+            font-size: 0.72rem;
             color: var(--dim);
         }
 
@@ -1572,8 +1611,8 @@
         }
 
         .cat-btn-logo {
-            width: 64px;
-            height: 64px;
+            width: 48px;
+            height: 48px;
             border-radius: 9px;
             background: var(--logo-chip);
             border: 1px solid var(--border);
@@ -2025,10 +2064,22 @@
                instead of pushing the tabs off-screen */
             .nav-left { flex-wrap: wrap; row-gap: 0.1rem; }
             .projects-wrap, .me-wrap, .cat-hub-wrap { padding: 3rem 1.25rem 5rem; }
-            /* a slim timeline rail, with each date back inside its card */
-            .cat-section { padding-left: 1.25rem; }
-            .cat-btn-date { position: static; width: auto; margin-top: 0.3rem; text-align: left; }
-            .cat-btn-date br { display: none; }
+            /* the line hugs the left edge, and each date moves inside its card */
+            .cat-section { padding-left: 2rem; }
+            .cat-btn-logo { width: 44px; height: 44px; }
+            .cat-btn-date { position: static; transform: none; width: auto; margin-top: 0.3rem; text-align: left; }
+            .date-start, .date-end {
+                display: inline;
+                margin: 0;
+                font-family: inherit;
+                font-size: 0.65rem;
+                font-weight: 600;
+                letter-spacing: 1.2px;
+                text-transform: uppercase;
+                color: var(--dim);
+            }
+            /* the filled dot and "to now" already mark current roles */
+            .now-chip { display: none; }
             .img-grid.cols-2 { grid-template-columns: 1fr; }
             .img-grid.cols-3 { grid-template-columns: 1fr 1fr; }
             .song-entries { grid-template-columns: 1fr; }
@@ -2397,20 +2448,19 @@
 
     <!-- ── CATEGORY HUB ── -->
     <div id="cat-hub" class="cat-hub-wrap">
-        <p class="panel-heading">Work &amp; Projects</p>
-
         <div class="cat-grid">
-            <!-- Groups in this order; newest first inside each group -->
-            <div class="cat-section">
+            <!-- Groups in this order; newest first inside each group. The
+                 timeline groups share one line; Personal Projects sits below it. -->
+            <div class="cat-section cat-section-timeline">
                 <p class="cat-section-label">Internships</p>
-                <button class="cat-btn" onclick="navigate('robim')">
+                <button class="cat-btn is-now" onclick="navigate('robim')">
                     <div class="cat-btn-logo">
                         <img src="Images/robim logo.jpeg" alt="RoBIM Technologies">
                     </div>
                     <div class="cat-btn-body">
-                        <p class="cat-btn-title">RoBIM Technologies</p>
+                        <p class="cat-btn-title">RoBIM Technologies <span class="now-chip">Now</span></p>
                         <p class="cat-btn-sub">Robotics &amp; Software Engineering Intern</p>
-                        <p class="cat-btn-date">Sep 2026–<br>Present</p>
+                        <p class="cat-btn-date"><span class="date-start">Sep 2026</span> <span class="date-end">to now</span></p>
                         <p class="cat-btn-tags"><span>Computer vision</span><span>ROS 2</span><span>Motion planning</span></p>
                     </div>
                     <span class="cat-btn-arrow">→</span>
@@ -2422,22 +2472,22 @@
                     <div class="cat-btn-body">
                         <p class="cat-btn-title">Toyota Boshoku</p>
                         <p class="cat-btn-sub">Robotics Engineering Intern</p>
-                        <p class="cat-btn-date">Jan–<br>May 2026</p>
+                        <p class="cat-btn-date"><span class="date-start">Jan 2026</span> <span class="date-end">to May 2026</span></p>
                         <p class="cat-btn-tags"><span>Computer vision</span><span>AMRs</span><span>PLC &amp; HMI</span></p>
                     </div>
                     <span class="cat-btn-arrow">→</span>
                 </button>
             </div>
-            <div class="cat-section">
+            <div class="cat-section cat-section-timeline">
                 <p class="cat-section-label">Design Teams</p>
-                <button class="cat-btn" onclick="navigate('watonomous')">
+                <button class="cat-btn is-now" onclick="navigate('watonomous')">
                     <div class="cat-btn-logo">
                         <img src="Images/Watonomous Logo.jpg" alt="WATonomous">
                     </div>
                     <div class="cat-btn-body">
-                        <p class="cat-btn-title">WATonomous</p>
+                        <p class="cat-btn-title">WATonomous <span class="now-chip">Now</span></p>
                         <p class="cat-btn-sub">Humanoid team</p>
-                        <p class="cat-btn-date">May 2026–<br>Present</p>
+                        <p class="cat-btn-date"><span class="date-start">May 2026</span> <span class="date-end">to now</span></p>
                         <p class="cat-btn-tags"><span>Reinforcement learning</span><span>Isaac Lab</span><span>Sim-to-real</span></p>
                     </div>
                     <span class="cat-btn-arrow">→</span>
@@ -2449,7 +2499,7 @@
                     <div class="cat-btn-body">
                         <p class="cat-btn-title">uWaterloo Formula Electric</p>
                         <p class="cat-btn-sub">Driveline team</p>
-                        <p class="cat-btn-date">Sep 2025–<br>May 2026</p>
+                        <p class="cat-btn-date"><span class="date-start">Sep 2025</span> <span class="date-end">to May 2026</span></p>
                         <p class="cat-btn-tags"><span>SolidWorks</span><span>Jig design</span><span>GD&amp;T</span></p>
                     </div>
                     <span class="cat-btn-arrow">→</span>
