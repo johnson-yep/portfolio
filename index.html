@@ -673,6 +673,51 @@
             text-decoration-color: var(--accent);
         }
 
+        /* Definition box for a Wikipedia link, shown when the link is
+           hovered, tabbed onto, or tapped once on a touch screen, so readers
+           get the gist without leaving the page. Placed by script next to
+           the link. */
+        .wiki-tip {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 160; /* above the sticky nav (100), below the lightbox (200) */
+            width: max-content;
+            max-width: min(18rem, calc(100vw - 1rem));
+            padding: 0.7rem 0.85rem 0.75rem;
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: 10px;
+            box-shadow: 0 10px 28px var(--shadow-mid);
+            font-size: 0.8rem;
+            line-height: 1.55;
+            color: var(--body);
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.15s, transform 0.15s, visibility 0s 0.15s;
+        }
+        .wiki-tip.open {
+            visibility: visible;
+            opacity: 1;
+            transform: none;
+            transition: opacity 0.15s, transform 0.15s;
+        }
+        .wiki-tip-title {
+            margin-bottom: 0.2rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* only touch users need telling how to reach the article */
+        .wiki-tip-hint {
+            display: none;
+            margin-top: 0.45rem;
+            font-size: 0.72rem;
+            color: var(--dim);
+        }
+        .wiki-tip.touch .wiki-tip-hint { display: block; }
+
         /* Numbered steps inside a How block, shown one at a time. Tabs with
            each step's icon and number sit above the open step, and Previous
            and Next buttons below it. */
@@ -3599,6 +3644,9 @@
     <img id="lightbox-img" src="" alt="">
 </div>
 
+<!-- Definition box for Wikipedia links (.wiki), filled and placed by script -->
+<div class="wiki-tip" id="wiki-tip" role="tooltip"><p class="wiki-tip-title"></p><p class="wiki-tip-text"></p><p class="wiki-tip-hint">Tap the word again to open the full article.</p></div>
+
 <!-- Print summary options: project checkboxes + Full/Condensed toggle -->
 <div class="print-modal" id="print-modal" role="dialog" aria-modal="true" aria-label="Print portfolio summary options">
     <div class="print-modal-panel">
@@ -4769,7 +4817,8 @@
     document.addEventListener('keydown', (e) => {
         if (e.key !== 'Escape') return;
         if (lightbox.classList.contains('open') || lab.classList.contains('open') ||
-            document.getElementById('print-modal').classList.contains('open')) return;
+            document.getElementById('print-modal').classList.contains('open') ||
+            document.getElementById('wiki-tip').classList.contains('open')) return;
         if (document.getElementById('global-back').style.display !== 'none') navigate('');
     });
 
@@ -4782,6 +4831,129 @@
             lightboxClose.focus();
         }
     });
+
+    /* ── Wikipedia definitions ── */
+    // A short definition for each Wikipedia link (.wiki), keyed by the
+    // article's path, shown in a box when the link is hovered, tabbed onto,
+    // or tapped once on a touch screen. A link with no entry is a plain link.
+    const WIKI_DEFS = {
+        'Computer_stereo_vision': ['Stereo depth camera', 'A camera with two lenses side by side. It works out how far away each point is from how much the point shifts between the two views, the way a pair of eyes judges depth.'],
+        'Wood_warping': ['Warping', 'A board bending or twisting out of flat, usually because it dried or took on moisture unevenly. It shows up as bow, cup, crook or twist.'],
+        'Wall_plate': ['Base plate', 'The horizontal board along the bottom of a wood-framed wall. The vertical studs stand on it.'],
+        'Blocking_(construction)': ['Blocking', 'Short pieces of lumber fitted between studs or joists to brace them, or to give something solid to fasten things to.'],
+        'Wall_stud': ['Stud', 'One of the vertical boards in a framed wall, running between the bottom and top plates. Studs carry the load and leave space for wiring and insulation.'],
+        'Image_segmentation': ['Segmentation model', 'A model that labels every pixel of an image by what it belongs to, so it traces an object\'s exact outline instead of drawing a box around it.'],
+        'Depth_map': ['Depth image', 'An image where each pixel stores how far that point is from the camera, instead of its colour.'],
+        'Pose_(computer_vision)': ['Pose', 'An object\'s position and orientation together, meaning where it is and which way it\'s facing.'],
+        'Roboflow': ['Roboflow', 'An online platform for labelling images and turning them into datasets for training computer vision models.'],
+        'You_Only_Look_Once': ['YOLO', 'Short for You Only Look Once, a family of fast neural networks that find objects in an image in a single pass. Newer versions can also outline them pixel by pixel.'],
+        'Fine-tuning_(deep_learning)': ['Fine-tuning', 'Training a model that has already learned from a large general dataset a little further on a smaller, task-specific one. It picks up the new task faster and from fewer examples.'],
+        'Pinhole_camera_model': ['Back-projection', 'The pinhole camera model describes how a point in 3D space lands on a pixel. Back-projection runs it in reverse, turning a pixel and its measured depth into a 3D point.'],
+        'Camera_resectioning#Intrinsic_parameters': ['Camera intrinsics', 'A camera\'s internal properties, like its focal length, optical centre and lens distortion. They set how directions in space map to pixels in the image.'],
+        'Singular_value_decomposition': ['SVD', 'Singular value decomposition breaks a matrix into simpler parts. Applied to a cloud of points, it finds the plane or direction that fits them best.'],
+        'Principal_component_analysis': ['PCA', 'Principal component analysis finds the directions in which a set of points spreads out the most and the least.'],
+        'Normal_(geometry)': ['Normal', 'The direction pointing straight out of a surface, at right angles to it. A board lying flat has a normal pointing straight up.'],
+        'Transformation_matrix': ['Transform', 'A rotation plus a shift that converts coordinates from one frame of reference to another. Chaining transforms combines them into one.'],
+        'Hand%E2%80%93eye_calibration_problem': ['Hand-eye calibration', 'Finding exactly where a camera sits on a robot\'s hand. The arm moves through many poses, and what the camera sees is compared with where the robot reports its hand to be.'],
+        'Chessboard_detection': ['Checkerboard', 'A printed grid of black and white squares. Its corners are easy to locate precisely in an image, which makes it a standard target for calibrating cameras.'],
+        'Perspective-n-Point': ['solvePnP', 'OpenCV\'s function for the Perspective-n-Point problem. It finds a camera\'s position and orientation from known 3D points and where they appear in the image.'],
+        'OpenCV': ['OpenCV', 'A widely used open-source library of computer vision tools, from image filtering to camera calibration and 3D reconstruction.'],
+        'Frame_of_reference': ['Robot\'s frame', 'A coordinate system fixed to the robot\'s base. Positions given in it say where things are relative to the robot itself.'],
+        'Inverse_kinematics': ['Inverse kinematics', 'Working out the joint angles a robot arm needs to put its hand at a chosen position and orientation.'],
+        'Bisection_method': ['Bisection', 'Finding a boundary by repeatedly halving the range it must lie in, keeping the half where the change happens.'],
+        'Motion_planning': ['Motion planning', 'Computing a path that takes the robot from where it is to its goal without hitting anything along the way.'],
+        'Collision_detection': ['Collision scene', 'A 3D model of everything around the robot. The planner checks each move against it so the arm, and whatever it carries, stays clear of obstacles.'],
+        'Linear_interpolation': ['Interpolation', 'Estimating a value between two known samples by assuming it changes in a straight line between them.'],
+        'Point_cloud': ['Point cloud', 'A set of 3D points measured on an object\'s surface. Together they capture its shape.'],
+        'Hyperplane_separation_theorem': ['Separating-axis test', 'A quick check of whether two shapes overlap. If there\'s any direction in which their shadows don\'t overlap, the shapes don\'t either, which works for rectangles at any angle.'],
+    };
+
+    const wikiTip = document.getElementById('wiki-tip');
+    let wikiLink = null;   // the link the box describes
+    let wikiLine = 0;      // which line of a wrapped link the box hangs from
+    let wikiSource = null; // what opened the box: 'mouse', 'keyboard' or 'touch'
+    let wikiTouch = false; // the latest press came from a finger or pen
+    let wikiTimer = null;
+
+    function placeWikiTip() {
+        const line = wikiLink.getClientRects()[wikiLine] || wikiLink.getBoundingClientRect();
+        const box = wikiTip.getBoundingClientRect();
+        const below = line.bottom + 8 + box.height <= innerHeight - 8;
+        wikiTip.style.top = `${below ? line.bottom + 8 : line.top - 8 - box.height}px`;
+        wikiTip.style.left = `${Math.min(Math.max(8, line.left + line.width / 2 - box.width / 2), innerWidth - box.width - 8)}px`;
+    }
+
+    function showWikiTip(link, pointerY, source) {
+        const entry = WIKI_DEFS[link.getAttribute('href').split('/wiki/')[1]];
+        if (!entry) return false;
+        clearTimeout(wikiTimer);
+        if (wikiLink && wikiLink !== link) wikiLink.removeAttribute('aria-describedby');
+        wikiLink = link;
+        wikiSource = source;
+        wikiLine = Math.max(0, [...link.getClientRects()].findIndex((r) => pointerY >= r.top && pointerY <= r.bottom));
+        wikiTip.querySelector('.wiki-tip-title').textContent = entry[0];
+        wikiTip.querySelector('.wiki-tip-text').textContent = entry[1];
+        wikiTip.classList.toggle('touch', source === 'touch');
+        link.setAttribute('aria-describedby', 'wiki-tip');
+        placeWikiTip();
+        wikiTip.classList.add('open');
+        return true;
+    }
+
+    function hideWikiTip(delay = 0) {
+        clearTimeout(wikiTimer);
+        wikiTimer = setTimeout(() => {
+            wikiTip.classList.remove('open');
+            if (wikiLink) wikiLink.removeAttribute('aria-describedby');
+            wikiLink = null;
+            wikiSource = null;
+        }, delay);
+    }
+
+    // Mouse: hovering a link shows its box after a short pause, so passing
+    // over a paragraph doesn't flash boxes
+    document.addEventListener('pointerover', (e) => {
+        const link = e.pointerType === 'mouse' && e.target.closest('a.wiki');
+        if (!link) return;
+        clearTimeout(wikiTimer);
+        wikiTimer = setTimeout(() => showWikiTip(link, e.clientY, 'mouse'), wikiLink ? 0 : 120);
+    });
+    document.addEventListener('pointerout', (e) => {
+        const link = e.pointerType === 'mouse' && e.target.closest('a.wiki');
+        if (link && !link.contains(e.relatedTarget)) hideWikiTip(150);
+    });
+    // The box stays open while the mouse is over it, so it can be read
+    wikiTip.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') clearTimeout(wikiTimer); });
+    wikiTip.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') hideWikiTip(150); });
+
+    // Touch: the first tap on a link shows its box, a second tap opens the
+    // article, and a tap anywhere else closes the box
+    document.addEventListener('pointerdown', (e) => {
+        wikiTouch = e.pointerType !== 'mouse';
+        if (wikiSource === 'touch' && !e.target.closest('a.wiki, .wiki-tip')) hideWikiTip();
+    });
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a.wiki');
+        if (!link || !wikiTouch || e.detail === 0) return;
+        if (link === wikiLink && wikiSource === 'touch') hideWikiTip();
+        else if (showWikiTip(link, e.clientY, 'touch')) e.preventDefault();
+    });
+
+    // Keyboard: tabbing onto a link shows its box until focus moves on
+    document.addEventListener('focusin', (e) => {
+        const link = e.target.closest('a.wiki');
+        if (link && link.matches(':focus-visible')) showWikiTip(link, -1, 'keyboard');
+    });
+    document.addEventListener('focusout', (e) => {
+        if (wikiSource === 'keyboard' && e.target.closest('a.wiki')) hideWikiTip();
+    });
+    // Runs after the Escape-to-hub handler above, which leaves an open box alone
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && wikiTip.classList.contains('open')) hideWikiTip();
+    });
+    window.addEventListener('scroll', () => { if (wikiLink) placeWikiTip(); }, { passive: true });
+    window.addEventListener('resize', () => { if (wikiLink) placeWikiTip(); });
+    window.addEventListener('hashchange', () => hideWikiTip());
 
     /* ── Click-to-copy email ── */
     // Enhances every .email-copy button (nav, Me page) from its plain text:
