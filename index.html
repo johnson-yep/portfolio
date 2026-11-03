@@ -812,6 +812,18 @@
         .stepper-panel li + li { margin-top: 0.3rem; }
         .stepper-panel > .step-diagram { max-width: 520px; margin: 0 auto 1.2rem; }
 
+        /* a looping clip in place of a step's diagram */
+        .stepper-panel > .step-clip { max-width: 520px; margin: 0 auto 1.2rem; }
+        .step-clip video {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+
         .step-eyebrow {
             font-size: 0.62rem;
             font-weight: 600;
@@ -3049,7 +3061,10 @@
                                 <button class="stepper-tab" type="button" role="tab" id="amr-delivery-tab-7" aria-controls="amr-delivery-step-7" aria-selected="false" tabindex="-1" title="Plan the layout and roll it out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6.5h10M10 12h10M10 17.5h10"/><path d="M3.5 6.5l1.5 1.5 2.5-3M3.5 12l1.5 1.5 2.5-3M3.5 17.5l1.5 1.5 2.5-3"/></svg><span>7</span></button>
                             </div>
                             <div class="stepper-panel" id="amr-delivery-step-1" role="tabpanel" aria-labelledby="amr-delivery-tab-1" tabindex="0">
-                                <svg class="step-diagram" viewBox="0 0 360 140" role="img" aria-label="A robot with a hook beside a wheeled rack of door parts. The rack has a hook bar for the robot to grip and an AprilTag the robot reads to recognize it" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 128 H350"/><path class="hatch" d="M20 128 l-6 7 M32 128 l-6 7 M44 128 l-6 7 M56 128 l-6 7 M68 128 l-6 7 M80 128 l-6 7 M92 128 l-6 7 M104 128 l-6 7 M116 128 l-6 7 M128 128 l-6 7 M140 128 l-6 7 M152 128 l-6 7 M164 128 l-6 7 M176 128 l-6 7 M188 128 l-6 7 M200 128 l-6 7 M212 128 l-6 7 M224 128 l-6 7 M236 128 l-6 7 M248 128 l-6 7 M260 128 l-6 7 M272 128 l-6 7 M284 128 l-6 7 M296 128 l-6 7 M308 128 l-6 7 M320 128 l-6 7 M332 128 l-6 7 M344 128 l-6 7"/><path d="M170 44 V114 M320 44 V114 M170 44 H320 M170 114 H320"/><circle class="device" cx="180" cy="120" r="5.5"/><circle class="device" cx="310" cy="120" r="5.5"/><path class="frame" d="M176 75 L191.2 54 H214 Q216 54 216 57 V101 Q216 104 213 104 H179 Q176 104 176 101 Z"/><path class="faint" d="M192.8 58 H212 V73 H182 Z"/><path class="frame" d="M222 75 L237.2 54 H260 Q262 54 262 57 V101 Q262 104 259 104 H225 Q222 104 222 101 Z"/><path class="faint" d="M238.8 58 H258 V73 H228 Z"/><path class="frame" d="M268 75 L283.2 54 H306 Q308 54 308 57 V101 Q308 104 305 104 H271 Q268 104 268 101 Z"/><path class="faint" d="M284.8 58 H304 V73 H274 Z"/><rect class="key-head" x="150" y="92" width="22" height="7" rx="2"/><rect class="tag-bg" x="176" y="56" width="20" height="20"/><rect class="tag-ink" x="179.3" y="59.3" width="3.3" height="3.3"/><rect class="tag-ink" x="182.7" y="59.3" width="3.3" height="3.3"/><rect class="tag-ink" x="189.3" y="59.3" width="3.3" height="3.3"/><rect class="tag-ink" x="179.3" y="62.7" width="3.3" height="3.3"/><rect class="tag-ink" x="186" y="62.7" width="3.3" height="3.3"/><rect class="tag-ink" x="182.7" y="66" width="3.3" height="3.3"/><rect class="tag-ink" x="189.3" y="66" width="3.3" height="3.3"/><rect class="tag-ink" x="179.3" y="69.3" width="3.3" height="3.3"/><rect class="tag-ink" x="186" y="69.3" width="3.3" height="3.3"/><rect class="tag-ink" x="189.3" y="69.3" width="3.3" height="3.3"/><path class="tag-ring" d="M176 56 h20 v20 h-20 Z M179.3 59.3 v13.3 h13.3 v-13.3 Z"/><rect class="device" x="4" y="100" width="84" height="20" rx="4"/><circle class="device" cx="18" cy="122" r="5"/><circle class="device" cx="74" cy="122" r="5"/><rect class="faint" x="10" y="105" width="10" height="4" rx="1"/><path class="hook" d="M50 100 V88 H88 V96"/><text x="146" y="100" text-anchor="end" class="em">hook bar</text><text x="186" y="38" text-anchor="middle" class="em">AprilTag</text></svg>
+                                <figure class="step-clip">
+                                    <video src="Media/Toyota AMR Hook Demo.mp4" poster="Media/Toyota AMR Hook Demo poster.jpg" width="1280" height="720" muted loop playsinline controls preload="none" aria-label="Video at 2.5× speed of a MiR robot hooking onto a rack and towing it away."></video>
+                                    <figcaption class="img-caption">2.5× speed</figcaption>
+                                </figure>
                                 <p class="step-eyebrow">Step 1 of 7</p>
                                 <h3 class="step-title">Ready the racks</h3>
                                 <p class="step-lead">The robot tows racks with a hook, so each rack needed a bar to hook onto and a marker the robot can recognize.</p>
@@ -5105,6 +5120,29 @@
                 stepper.scrollIntoView({ block: 'start', behavior: reduce ? 'instant' : 'smooth' });
             }
         }));
+    });
+
+    /* ── Step clips ── */
+    // A looping clip in place of a step's diagram plays muted only while it's
+    // on screen. Switching steps or pages hides it, which the observer also
+    // reports, so it pauses then. With reduced motion turned on it stays on
+    // its still frame and shows controls instead. The HTML carries controls
+    // so the clip still plays without this script.
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    document.querySelectorAll('.step-clip video').forEach((video) => {
+        let onScreen = false;
+        const update = () => {
+            video.controls = reduceMotion.matches;
+            if (!onScreen) video.pause();
+            else if (!reduceMotion.matches) video.play().catch(() => {});
+        };
+        video.muted = true;
+        new IntersectionObserver(([entry]) => {
+            onScreen = entry.isIntersecting;
+            update();
+        }).observe(video);
+        reduceMotion.addEventListener('change', update);
+        update();
     });
 
     /* ── Demo players (RoBIM, Toyota) ── */

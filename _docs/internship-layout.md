@@ -85,6 +85,16 @@ The player only loads YouTube when clicked. On a page opened from disk, YouTube 
   - Name it `Images/<Company> <What>.jpg`.
   - A portrait photo in a landscape slot uses `style="height: 100%; object-fit: contain;"` so it shows whole.
 - **Videos:** use the user's YouTube link as they gave it.
+- **Clips in steppers:** a short clip with no sound can take a step's diagram slot. AMR Rack Delivery step 1 is the example; copy its `figure.step-clip` markup. The script under `/* ── Step clips ── */` plays it muted on a loop only while it's on screen, and with reduced motion turned on it shows the still frame and controls instead.
+  - Convert it with ffmpeg to H.264 MP4 at 1280×720 and 30 fps, with no audio, no metadata (the location especially) and `-movflags +faststart`.
+  - iPhone clips are HDR (HLG). Tone-map them to standard colour, or they look washed out in browsers. This is the filter chain step 1 used, after `setpts=PTS/2.5,fps=30` for the speed-up:
+
+    ```
+    zscale=tin=arib-std-b67:min=bt2020nc:pin=bt2020:t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=hable:desat=0,zscale=t=bt709:m=bt709:r=tv,scale=1280:720,format=yuv420p
+    ```
+  - Save the clip's first frame beside it as the `poster`, named `<name> poster.jpg`.
+  - Name the clip `Media/<Company> <What>.mp4`, and keep the original in `References/`, which git ignores.
+  - If the clip is sped up, say so in an `.img-caption` under it ("2.5× speed"), and give the video an `aria-label` that describes it in one sentence.
 
 ## Checks
 

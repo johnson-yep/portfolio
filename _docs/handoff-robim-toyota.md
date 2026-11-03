@@ -1,10 +1,11 @@
 # Handoff: RoBIM and Toyota pages
 
-Snapshot as of 2026-10-31. The rules for building internship pages are in `_docs/internship-layout.md`; this file is the state of the two pages built so far, and why they look the way they do. Update it when that changes.
+Snapshot as of 2026-11-03. The rules for building internship pages are in `_docs/internship-layout.md`; this file is the state of the two pages built so far, and why they look the way they do. Update it when that changes.
 
 ## Status
 
 - Both pages are finished. On 2026-10-31 the two CAD screenshots of the gripper attachment were added to RoBIM's Gripper Attachment section, and all three of its images (two CAD views and the photo) were cropped to 3:4 so they match.
+- On 2026-11-03 the diagram in step 1 of Toyota's AMR Rack Delivery ("Ready the racks") was replaced with a looping clip of the robot hooking onto a rack and towing it away. The clip and a same-day wording fix (the robot serves one moulding machine, not several) are committed locally; push only when the user asks.
 - The pages went live on 2026-10-30, and the CAD images went live on 2026-10-31. Push only when the user asks, since a push deploys johnsonyep.com.
 - `_config.yml` keeps `CLAUDE.md` off the website.
 
@@ -45,27 +46,27 @@ Search for these:
   - "Toyota Boshoku", naming the plant in Elmira, Ontario, which the user allowed
   - the setup list
 - **Projects:**
-  - AMR Rack Delivery: a 7-step stepper.
+  - AMR Rack Delivery: a 7-step stepper. Step 1 shows a looping clip, `Media/Toyota AMR Hook Demo.mp4`, at 2.5× speed with a "2.5× speed" caption. The original 39-second iPhone video is in `References/`, which git ignores. The user may still want it trimmed after seeing it.
   - Drop-off Vision System: a 6-step stepper, with the two camera images and the View Code button.
   - HMI Development: paragraphs only, since its How is too short for steps.
-- **Diagrams:** `_docs/diagram_kit.py` reproduces all 13 exactly.
+- **Diagrams:** `_docs/diagram_kit.py` reproduces all 13 exactly. The page shows 12 of them now, since the step 1 diagram was replaced by the clip; the kit still has it.
 - **Code:** the vision program is at github.com/johnson-yep/amr-rack-detection. The GitHub account was renamed from PrestigeGiraffe, and the old address only redirects.
 
 Facts the user confirmed (2026-10-30), so later edits don't undersell or overstate the work:
 
 - **What the user built:** the whole AMR rack-delivery system, not just the vision program.
 - **Robot work:**
-  - MiR missions: full racks of freshly injection-moulded door parts go from the moulding machines to the drop-off lanes, empty racks go back, and other racks go elsewhere in the plant. Missions retry when stuck and alert operators on failure.
+  - MiR missions: full racks of freshly injection-moulded door parts go from the injection moulding machine to the drop-off lanes, empty racks go back, and other racks go elsewhere in the plant. Missions retry when stuck and alert operators on failure. The robot mainly serves that one machine, which makes all the door parts (confirmed 2026-11-03).
   - The robot's map, docking points, zones and charging.
   - Setting and adjusting the protective fields. They also replaced broken laser scanners a few times.
   - The hook and rack sizes, and printing the AprilTags.
-  - Hook bars and tag frames on the racks, with the kaizen team.
+  - Hook bars and tag frames on the racks, with the kaizen team: 7 rack types that the robot recognizes and tows (confirmed 2026-11-03).
 - **Controls:**
   - Wireless buttons through a Banner DXM100 wired into the PLC's inputs.
   - Ladder logic that queues requests and calls missions through the MiR API.
   - An HMI status screen for the robot.
 - **Lane choice:** the vision program sends the outermost free spot in each lane. PLC logic picks the lane, starting from the lane at the top of the camera's view. If the heartbeat stops, the robot falls back to checking each lane with its own sensors.
-- **Rollout:** planning the layout (pick-up, drop-off and paths) with team members and operators, commissioning, training, work instructions and production support. They also tracked analytics (racks moved in total and by type, distance, mission and idle time), but have no figures to share. "Over 100 rack moves a shift" counts all missions.
+- **Rollout:** planning the layout (pick-up, drop-off and paths) with team members and operators, commissioning, training, work instructions and production support. Training went to 2 to 5 team leaders, who trained the other operators as needed (confirmed 2026-11-03). They also tracked analytics (racks moved in total and by type, distance, mission and idle time), but no longer have access to the figures. "Over 100 rack moves a shift" counts all missions.
 - **Not the user's:** choosing, mounting and cabling the camera. Maintenance did that. The vision program runs on a maintenance computer that was already running.
 
 ## Known quirks
