@@ -7,7 +7,7 @@ below, and the screen-reader description. svg(fn) wraps it as the
 
 The look comes from the .step-diagram rules in index.html (the classes used
 here: device, frame, view, key, key-head, em, note, dash, faint, mask, hook,
-nogo, ok, tag-bg, tag-ink, tag-ring). Add a new class there, with theme colours from CSS
+nogo, ok, tag-bg, tag-ink, tag-ring, zone, field, field-outer, wall). Add a new class there, with theme colours from CSS
 variables, rather than hard-coding colours here.
 
 The Toyota diagrams below double as examples. RoBIM's diagrams were drawn
@@ -194,30 +194,71 @@ def amr_1():
                       "to grip and an AprilTag the robot reads to recognize it")
 
 
+def hatch_rect(x, y, w, h, step=9):
+    """45-degree hatching clipped to a rectangle."""
+    segs = []
+    c = step
+    while c < w + h:
+        x0, y0 = (x + c, y) if c <= w else (x + w, y + c - w)
+        x1, y1 = (x, y + c) if c <= h else (x + c - h, y + h)
+        segs.append(f'M{pt(x0, y0)} L{pt(x1, y1)}')
+        c += step
+    return path(' '.join(segs), 'key hatch')
+
+
+def machine_top(x, y, w, h):
+    """Injection moulding machine from above: the body, with the hopper."""
+    return rect(x, y, w, h, 'device', 3) + circle(x + w / 2, y + 16, 7, 'frame') + circle(x + w / 2, y + 16, 2.5, 'lens')
+
+
+def self_loop(x, y):
+    """Arrow that leaves a row's right edge at y and comes back into it 10 lower."""
+    return path(f'M{pt(x, y)} C{pt(x + 20, y)} {pt(x + 20, y + 10)} {pt(x + 7, y + 10)}', 'key') + \
+        path(f'M{pt(x, y + 10)} L{pt(x + 9, y + 5.5)} L{pt(x + 9, y + 14.5)} Z', 'key-head')
+
+
+def leader(x1, y1, x2, y2):
+    return path(f'M{pt(x1, y1)} L{pt(x2, y2)}', 'faint')
+
+
 def amr_2():
-    out = [rect(10, 10, 340, 146, 'frame', 8),
-           rect(24, 34, 56, 46, 'device', 3), text(52, 98, 'machines'),
-           rect(140, 24, 74, 42, 'view', 3), text(177, 49, 'slow'),
-           rect(140, 104, 74, 38, 'nogo', 3), text(177, 128, 'no-go', cls='note'),
-           path('M80 57 C 120 57 120 86 177 86 S 246 86 260 64', 'key dash')]
-    for i in range(3):
-        out.append(rect(270, 26 + i * 18, 66, 14, 'frame', 2))
-    out += [circle(80, 57, 4, 'key-head'), circle(262, 60, 4, 'key-head'), text(303, 98, 'lanes'),
-            robot_top(177, 86)]
-    return 166, out, ("A map of the plant floor with the robot's path from the moulding machines to the drop-off lanes, "
-                      "docking points at each end, a slow zone and a no-go zone")
+    out = [path('M214 10 H10 V206 H350 V10 H244', 'wall'),          # scanned walls, with a doorway
+           rect(26, 160, 10, 10, 'lens'), rect(320, 150, 10, 10, 'lens'),  # pillars
+           machine_top(24, 26, 60, 62), text(54, 76, 'machine')]
+    for i, full in enumerate([[1, 2], [2], [0, 1, 2]]):
+        out.append(lane_grid(262, 28 + i * 24, 80, 18, 3, full))
+    out += [text(302, 112, 'lanes'),
+            # the zones drawn on the map
+            rect(104, 24, 102, 80, 'zone', 3), hatch_rect(104, 24, 102, 80), text(155, 120, 'no-go', cls='em'),
+            rect(76, 136, 62, 36, 'zone', 3),
+            # the route between the two docking points
+            path('M54 106 V136 Q54 154 72 154 H226 Q244 154 244 136 V76 Q244 61 250 61', 'dash'),
+            circle(54, 106, 4.5, 'key-head'), circle(250, 61, 4.5, 'key-head'),
+            # the robot with its protective fields, reaching ahead of it
+            rect(150, 134, 80, 40, 'field-outer', 13), rect(154, 140, 52, 28, 'field', 9),
+            robot_top(176, 154, 34, 22),
+            text(107, 194, 'speed limit', cls='em'),
+            text(186, 194, 'stop', cls='em'), leader(190, 183, 190, 169),
+            text(254, 194, 'slow down', cls='em'), leader(230, 183, 220, 175)]
+    return 216, out, ("A top-down map of the plant floor. The robot's route runs from a docking point at the moulding "
+                      "machine, around a no-go zone and through a speed-limit zone, to a docking point at the drop-off "
+                      "lanes. Around the robot are its two protective fields: an outer one where it slows down and an "
+                      "inner one where it stops")
 
 
 def amr_3():
-    out = [rect(118, 52, 88, 46, 'device', 3), text(162, 79, 'machines'),
-           rect(258, 16, 88, 40, 'frame', 3), text(302, 41, 'lanes'),
-           rect(258, 98, 88, 40, 'frame', 3), text(302, 123, 'other areas'),
-           arrow(206, 64, 256, 38), arrow(206, 86, 256, 112),
-           arrow(24, 75, 116, 75),
-           text(226, 36, 'full racks', anchor='end', cls='em'), text(226, 128, 'other racks', anchor='end', cls='em'),
-           text(68, 66, 'empty racks', cls='em')]
-    return 148, out, ("The robot's missions as routes: full racks from the moulding machines to the drop-off lanes, "
-                      "racks to other areas of the plant, and empty racks back to the machines")
+    rows = ['drive to the machine', 'hook the rack', 'drive to the free spot', 'release the rack']
+    out = [rect(10, 10, 234, 160, 'frame', 8), text(22, 29, 'full racks to the lanes', anchor='start', cls='note')]
+    for i, r in enumerate(rows):
+        y = 40 + i * 32
+        out += [rect(22, y, 162, 24, 'device', 4), text(33, y + 16, r, anchor='start')]
+        if r.startswith('drive'):
+            out += [self_loop(184, y + 7), text(208, y + 16, 'retry', anchor='start', cls='em')]
+    out += [arrow(244, 90, 280, 90), text(262, 81, 'fails', cls='em'),
+            rect(284, 70, 66, 40, 'device', 4), text(317, 87, 'alert'), text(317, 102, 'operators')]
+    return 180, out, ("The full-rack mission as a list of actions: drive to the machine, hook the rack, drive to the "
+                      "free spot, and release the rack. Both drive actions retry if the robot gets stuck, and if the "
+                      "mission fails, the operators get an alert")
 
 
 def amr_4():
