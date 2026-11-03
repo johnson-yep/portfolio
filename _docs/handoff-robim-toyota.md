@@ -5,7 +5,7 @@ Snapshot as of 2026-11-03. The rules for building internship pages are in `_docs
 ## Status
 
 - Both pages are finished. On 2026-10-31 the two CAD screenshots of the gripper attachment were added to RoBIM's Gripper Attachment section, and all three of its images (two CAD views and the photo) were cropped to 3:4 so they match.
-- On 2026-11-03 the diagram in step 1 of Toyota's AMR Rack Delivery ("Ready the racks") was replaced with a looping clip of the robot hooking onto a rack and towing it away. The same day, its step 2 and 3 diagrams were redrawn. The clip, the redrawn diagrams and a same-day wording fix (the robot serves one molding machine, not several) are committed locally; push only when the user asks.
+- On 2026-11-03 the diagram in step 1 of Toyota's AMR Rack Delivery ("Ready the racks") was replaced with a looping clip of the robot hooking onto a rack and towing it away. The same day, its step 2 and 3 diagrams were redrawn, and step 4's diagram was replaced with a clip of the call buttons. The clips, the redrawn diagrams and a same-day wording fix (the robot serves one molding machine, not several) are committed locally; push only when the user asks.
 - The pages went live on 2026-10-30, and the CAD images went live on 2026-10-31. Push only when the user asks, since a push deploys johnsonyep.com.
 - `_config.yml` keeps `CLAUDE.md` off the website.
 
@@ -47,9 +47,10 @@ Search for these:
   - the setup list
 - **Projects:**
   - AMR Rack Delivery: a 7-step stepper. Step 1 shows a looping clip, `Media/Toyota AMR Hook Demo.mp4`, at 2.5× speed with a "2.5× speed" caption. The original 39-second iPhone video is in `References/`, which git ignores. The user may still want it trimmed after seeing it.
+    - Step 4 shows `Media/Toyota AMR Call Buttons Demo.mp4`, the whole 14-second clip at normal speed: a call button is pressed, flashes red, turns solid green, then flashes green. Under it, a `.clip-legend` key gives each light's meaning, in the user's words: no light means no mission queued or running, red means the touch was sensed and the request sent, solid green means a mission is queued, and flashing green means it's running.
   - Drop-off Vision System: a 6-step stepper, with the two camera images and the View Code button.
   - HMI Development: paragraphs only, since its How is too short for steps.
-- **Diagrams:** `_docs/diagram_kit.py` reproduces all 13 exactly. The page shows 12 of them now, since the step 1 diagram was replaced by the clip; the kit still has it.
+- **Diagrams:** `_docs/diagram_kit.py` reproduces all 13 exactly. The page shows 11 of them now, since the step 1 and 4 diagrams were replaced by clips; the kit still has both.
   - AMR Rack Delivery steps 2 and 3 were redrawn on 2026-11-03, because the user found the old ones said too little. Step 2 is a made-up floor map, not the plant's real layout. It shows the route between two docking points, a no-go zone, a speed-limit zone, and the robot with its two protective fields, "slow down" and "stop". Step 3 is the full-rack mission as a list of four actions, with a retry loop on each drive and a branch to "alert operators" when the mission fails. How operators got the alert isn't recorded, so no device is drawn; if the user names it, draw that device.
   - The kit runs with Python 3.13, installed for the user with winget on 2026-11-03 (`python` or `py` in a new terminal).
 - **Code:** the vision program is at github.com/johnson-yep/amr-rack-detection. The GitHub account was renamed from PrestigeGiraffe, and the old address only redirects.

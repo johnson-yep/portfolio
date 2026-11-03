@@ -95,6 +95,7 @@ The player only loads YouTube when clicked. On a page opened from disk, YouTube 
   - Save the clip's first frame beside it as the `poster`, named `<name> poster.jpg`.
   - Name the clip `Media/<Company> <What>.mp4`, and keep the original in `References/`, which git ignores.
   - If the clip is sped up, say so in an `.img-caption` under it ("2.5× speed"), and give the video an `aria-label` that describes it in one sentence.
+  - When the reader needs a key to follow the clip, put a `ul.clip-legend` in the `figcaption`, one item per state with a coloured `.light` dot. AMR Rack Delivery step 4 is the example, with the call buttons' lights.
 
 ## Checks
 

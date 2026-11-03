@@ -824,6 +824,28 @@
             border-radius: 10px;
         }
 
+        /* a key under a clip, one item per light state */
+        .clip-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
+            gap: 0.35rem 1.2rem;
+            margin-top: 0.75rem;
+            font-size: 0.78rem;
+            line-height: 1.45;
+            color: var(--dim);
+        }
+        .stepper-panel .clip-legend { list-style: none; padding-left: 0; }
+        .stepper-panel .clip-legend li + li { margin-top: 0; }
+        .clip-legend li { display: flex; align-items: center; gap: 0.55rem; }
+        .clip-legend b { color: var(--mid); font-weight: 600; }
+        .light { flex: none; width: 0.62rem; height: 0.62rem; border-radius: 50%; }
+        .light-off { border: 1.5px solid var(--border2); }
+        .light-red { background: #e5484d; }
+        .light-green { background: #2fb35f; }
+        .light-flash { animation: light-flash 1.2s steps(1, end) infinite; }
+        @keyframes light-flash { 50% { opacity: 0.2; } }
+        @media (prefers-reduced-motion: reduce) { .light-flash { animation: none; opacity: 0.55; } }
+
         .step-eyebrow {
             font-size: 0.62rem;
             font-weight: 600;
@@ -3085,7 +3107,17 @@
                                 <p>I wrote missions to carry full racks from the molding machine to the drop-off lanes, bring empty racks back to the machine, and deliver racks to other parts of the plant. When the robot gets stuck, the mission retries, and when it fails, the operators get an alert.</p>
                             </div>
                             <div class="stepper-panel" id="amr-delivery-step-4" role="tabpanel" aria-labelledby="amr-delivery-tab-4" tabindex="0" hidden>
-                                <svg class="step-diagram" viewBox="0 0 360 120" role="img" aria-label="A wireless button press goes to the DXM100, which is wired into the PLC, and the PLC starts the robot&#x27;s mission through the MiR API" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect class="device" x="23" y="78" width="26" height="14" rx="3"/><path class="key-head" d="M28 78 A8 8 0 0 1 44 78 Z"/><path class="key" d="M31.8 67.8 A6 6 0 0 1 40.2 67.8"/><path class="key" d="M28.3 64.3 A11 11 0 0 1 43.7 64.3"/><text x="36" y="112" text-anchor="middle">button</text><rect class="device" x="96" y="62" width="44" height="30" rx="3"/><path d="M130 62 V48"/><circle class="lens" cx="130" cy="47" r="2"/><rect class="frame" x="103" y="70" width="18" height="6" rx="1.5"/><circle class="lens" cx="106" cy="83" r="1.6"/><circle class="lens" cx="112" cy="83" r="1.6"/><text x="118" y="112" text-anchor="middle">DXM100</text><path class="key" d="M140 77 H176"/><rect class="device" x="178" y="57" width="56" height="40" rx="3"/><rect class="frame" x="183" y="63" width="9" height="28" rx="1.5"/><circle class="key-head" cx="187.5" cy="68" r="1.4"/><rect class="frame" x="195.5" y="63" width="9" height="28" rx="1.5"/><circle class="lens" cx="200" cy="68" r="1.4"/><rect class="frame" x="208" y="63" width="9" height="28" rx="1.5"/><circle class="lens" cx="212.5" cy="68" r="1.4"/><rect class="frame" x="220.5" y="63" width="9" height="28" rx="1.5"/><circle class="lens" cx="225" cy="68" r="1.4"/><text x="206" y="112" text-anchor="middle">PLC</text><path class="key" d="M240 77 L278 77"/><path class="key-head" d="M284 77 L275 81.5 L275 72.5 Z"/><text x="262" y="66" text-anchor="middle" class="em">MiR API</text><rect class="device" x="288" y="66" width="60" height="16" rx="4"/><circle class="device" cx="298" cy="85" r="4"/><circle class="device" cx="338" cy="85" r="4"/><text x="318" y="112" text-anchor="middle">robot</text></svg>
+                                <figure class="step-clip">
+                                    <video src="Media/Toyota AMR Call Buttons Demo.mp4" poster="Media/Toyota AMR Call Buttons Demo poster.jpg" width="1280" height="720" muted loop playsinline controls preload="none" aria-label="Video of an operator pressing a wireless call button, whose light flashes red, turns solid green, then flashes green."></video>
+                                    <figcaption>
+                                        <ul class="clip-legend">
+                                            <li><span class="light light-off" aria-hidden="true"></span><span><b>No light:</b> no mission queued or running</span></li>
+                                            <li><span class="light light-red" aria-hidden="true"></span><span><b>Red:</b> touch sensed, request sent</span></li>
+                                            <li><span class="light light-green" aria-hidden="true"></span><span><b>Solid green:</b> mission queued</span></li>
+                                            <li><span class="light light-green light-flash" aria-hidden="true"></span><span><b>Flashing green:</b> mission running</span></li>
+                                        </ul>
+                                    </figcaption>
+                                </figure>
                                 <p class="step-eyebrow">Step 4 of 7</p>
                                 <h3 class="step-title">Call the robot with a button</h3>
                                 <p class="step-lead">Operators start a mission by pressing a wireless button.</p>
