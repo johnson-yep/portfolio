@@ -824,15 +824,22 @@
             border-radius: 10px;
         }
 
-        /* a key under a clip, one item per light state */
+        /* a key under a clip, one item per light state. Items fill the left
+           column first (no light, red), then the right (the two greens);
+           on phones they stack in source order */
         .clip-legend {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            grid-auto-flow: column;
             gap: 0.35rem 1.2rem;
             margin-top: 0.75rem;
             font-size: 0.78rem;
             line-height: 1.45;
             color: var(--dim);
+        }
+        @media (max-width: 640px) {
+            .clip-legend { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; }
         }
         .stepper-panel .clip-legend { list-style: none; padding-left: 0; }
         .stepper-panel .clip-legend li + li { margin-top: 0; }
