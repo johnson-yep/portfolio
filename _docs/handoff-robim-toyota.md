@@ -5,7 +5,7 @@ Snapshot as of 2026-11-03. The rules for building internship pages are in `_docs
 ## Status
 
 - Both pages are finished. On 2026-10-31 the two CAD screenshots of the gripper attachment were added to RoBIM's Gripper Attachment section, and all three of its images (two CAD views and the photo) were cropped to 3:4 so they match.
-- On 2026-11-03 the diagram in step 1 of Toyota's AMR Rack Delivery ("Ready the racks") was replaced with a looping clip of the robot hooking onto a rack and towing it away. The same day, its step 2 and 3 diagrams were redrawn. The clip, the redrawn diagrams and a same-day wording fix (the robot serves one moulding machine, not several) are committed locally; push only when the user asks.
+- On 2026-11-03 the diagram in step 1 of Toyota's AMR Rack Delivery ("Ready the racks") was replaced with a looping clip of the robot hooking onto a rack and towing it away. The same day, its step 2 and 3 diagrams were redrawn. The clip, the redrawn diagrams and a same-day wording fix (the robot serves one molding machine, not several) are committed locally; push only when the user asks.
 - The pages went live on 2026-10-30, and the CAD images went live on 2026-10-31. Push only when the user asks, since a push deploys johnsonyep.com.
 - `_config.yml` keeps `CLAUDE.md` off the website.
 
@@ -58,7 +58,7 @@ Facts the user confirmed (2026-10-30), so later edits don't undersell or oversta
 
 - **What the user built:** the whole AMR rack-delivery system, not just the vision program.
 - **Robot work:**
-  - MiR missions: full racks of freshly injection-moulded door parts go from the injection moulding machine to the drop-off lanes, empty racks go back, and other racks go elsewhere in the plant. Missions retry when stuck and alert operators on failure. The robot mainly serves that one machine, which makes all the door parts (confirmed 2026-11-03).
+  - MiR missions: full racks of freshly injection-molded door parts go from the injection molding machine to the drop-off lanes, empty racks go back, and other racks go elsewhere in the plant. Missions retry when stuck and alert operators on failure. The robot mainly serves that one machine, which makes all the door parts (confirmed 2026-11-03).
   - The robot's map, docking points, zones and charging.
   - Setting and adjusting the protective fields. They also replaced broken laser scanners a few times.
   - The hook and rack sizes, and printing the AprilTags.

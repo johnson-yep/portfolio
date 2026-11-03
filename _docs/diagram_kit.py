@@ -81,7 +81,7 @@ def camera(cx, cy):
 
 
 def door_part(x, y, w, h):
-    """A moulded car door seen from the side: slanted window frame at the
+    """A molded car door seen from the side: slanted window frame at the
     front and a window opening above the panel."""
     return (path(f'M{pt(x, y + h * 0.42)} L{pt(x + w * 0.38, y)} H{n(x + w - 2)} Q{pt(x + w, y)} {pt(x + w, y + 3)} '
                  f'V{n(y + h - 3)} Q{pt(x + w, y + h)} {pt(x + w - 3, y + h)} H{n(x + 3)} Q{pt(x, y + h)} {pt(x, y + h - 3)} Z', 'frame')
@@ -207,7 +207,7 @@ def hatch_rect(x, y, w, h, step=9):
 
 
 def machine_top(x, y, w, h):
-    """Injection moulding machine from above: the body, with the hopper."""
+    """Injection molding machine from above: the body, with the hopper."""
     return rect(x, y, w, h, 'device', 3) + circle(x + w / 2, y + 16, 7, 'frame') + circle(x + w / 2, y + 16, 2.5, 'lens')
 
 
@@ -240,7 +240,7 @@ def amr_2():
             text(107, 194, 'speed limit', cls='em'),
             text(186, 194, 'stop', cls='em'), leader(190, 183, 190, 169),
             text(254, 194, 'slow down', cls='em'), leader(230, 183, 220, 175)]
-    return 216, out, ("A top-down map of the plant floor. The robot's route runs from a docking point at the moulding "
+    return 216, out, ("A top-down map of the plant floor. The robot's route runs from a docking point at the molding "
                       "machine, around a no-go zone and through a speed-limit zone, to a docking point at the drop-off "
                       "lanes. Around the robot are its two protective fields: an outer one where it slows down and an "
                       "inner one where it stops")
