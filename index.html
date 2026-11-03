@@ -1438,12 +1438,11 @@
             gap: 0.75rem;
         }
 
-        /* Timeline: the Internships and Design Teams groups share one line,
-           with a dot at the middle of each card and its dates to the left.
-           Each card draws the line along its own height plus half the gap
-           on each side, and a later group's label carries it across the
-           space between groups, so it runs unbroken from the first dot to
-           the last. Personal Projects sits below, off the line. */
+        /* Timeline: the Internships and Design Teams groups each get their
+           own line, with a dot at the middle of each card and its dates to
+           the left. Each card draws the line along its own height plus half
+           the gap on each side, trimmed to start at the group's first dot
+           and end at its last. Personal Projects sits below, off the line. */
         .cat-section {
             display: flex;
             flex-direction: column;
@@ -1465,7 +1464,6 @@
         }
 
         .cat-section-timeline .cat-section-label {
-            position: relative;
             padding-bottom: 0.15rem;
             border-bottom: none;
         }
@@ -1487,8 +1485,7 @@
             position: relative;
         }
 
-        .cat-section-timeline .cat-btn::before,
-        .cat-section-timeline + .cat-section-timeline .cat-section-label::before {
+        .cat-section-timeline .cat-btn::before {
             content: "";
             position: absolute;
             left: -1.5rem;
@@ -1498,11 +1495,8 @@
 
         /* half the 0.6rem card gap, plus the card's 1px border */
         .cat-section-timeline .cat-btn::before { top: calc(-0.3rem - 1px); bottom: calc(-0.3rem - 1px); }
-        .cat-section-timeline:first-child .cat-btn:first-of-type::before { top: 50%; }
-        .cat-section-timeline:not(:has(+ .cat-section-timeline)) .cat-btn:last-child::before { bottom: 50%; }
-        /* the group's 2.25rem margin plus the grid's 0.75rem gap above, the label
-           gap below; 1px right because the cards measure from inside their border */
-        .cat-section-timeline + .cat-section-timeline .cat-section-label::before { top: -3rem; bottom: -0.6rem; left: calc(-1.5rem + 1px); }
+        .cat-section-timeline .cat-btn:first-of-type::before { top: 50%; }
+        .cat-section-timeline .cat-btn:last-child::before { bottom: 50%; }
 
         /* pseudo-elements miss the global border-box rule, so set it here;
            the 13px dot is then centred on the 1px line and the card */
@@ -2469,7 +2463,8 @@
     <div id="cat-hub" class="cat-hub-wrap">
         <div class="cat-grid">
             <!-- Groups in this order; newest first inside each group. The
-                 timeline groups share one line; Personal Projects sits below it. -->
+                 timeline groups each have their own line; Personal Projects
+                 sits below them, off the line. -->
             <div class="cat-section cat-section-timeline">
                 <p class="cat-section-label">Internships</p>
                 <button class="cat-btn is-now" onclick="navigate('robim')">

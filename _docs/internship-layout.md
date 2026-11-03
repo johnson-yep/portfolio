@@ -39,7 +39,7 @@ Inside `<div id="cat-<id>" class="cat-detail" style="display:none">`, in this or
   - a `.cat-btn-date` with `.date-start` ("Sep 2026") and `.date-end` ("to now", or "to May 2026") spans
   - for a current role, the `is-now` class on the button and a `.now-chip` after the title
 
-  The Internships and Design Teams groups are `.cat-section-timeline`, which puts their cards on one continuous line. Personal Projects stays off it. The homepage has no page heading and no pictures on the cards, by the user's choice.
+  The Internships and Design Teams groups are `.cat-section-timeline`, which gives each group its own line, running from its first card's dot to its last. Personal Projects stays off the line. The homepage has no page heading and no pictures on the cards, by the user's choice.
 - **Router:** add the id to `validCats`.
 - **Print summary:** add `cat-<id>` to `PRINT_CATEGORIES`.
 - The resume links to `johnsonyep.com/#<id>`, so a page's id never changes once published.
