@@ -1,0 +1,117 @@
+\documentclass[letterpaper,10pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{fontawesome5}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage[letterpaper,margin=0.6in]{geometry}
+\usepackage{hyperref}
+
+\definecolor{darkblue}{RGB}{0, 70, 200}
+\hypersetup{colorlinks=true, linkcolor=darkblue, urlcolor=darkblue}
+\pagestyle{empty}
+\raggedright
+\setlength{\parindent}{0pt}
+\setlist[itemize]{leftmargin=1.4em, topsep=1pt, itemsep=0pt, parsep=0pt, partopsep=0pt}
+
+% Section title in small caps with a rule under it.
+\newcommand{\header}[1]{%
+    \vspace{4pt}%
+    {\textsc{#1}}\par\vspace{-7pt}%
+    \rule{\linewidth}{0.4pt}\par\vspace{1pt}%
+}
+
+% Role: title and dates on the first line, organization and link on the second.
+\newcommand{\role}[4]{%
+    \vspace{2pt}%
+    \textbf{#1} \hfill #2\\
+    \textit{#3} \hfill #4\par
+}
+
+% Project: name and tech on one line with its link.
+\newcommand{\project}[3]{%
+    \vspace{2pt}%
+    \textbf{#1} $|$ \textit{#2} \hfill #3\par
+}
+
+\begin{document}
+
+%==== Profile ====%
+\vspace*{-12pt}
+{\centering
+    {\Huge \scshape Johnson Yep}\par
+    \vspace{4pt}
+    {\small
+    \faEnvelope\ \href{mailto:jyep@uwaterloo.ca}{jyep@uwaterloo.ca} $\cdot$
+    \faPhone\ 647-564-2338 $\cdot$
+    \faGithub\ \href{https://github.com/johnson-yep}{GitHub} $\cdot$
+    \faLinkedin\ \href{https://www.linkedin.com/in/johnson-yep-680101277/}{LinkedIn} $\cdot$
+    \faGlobe\ \href{https://johnsonyep.com/}{johnsonyep.com}\par}
+}
+
+%==== Education ====%
+\header{Education}
+\textbf{University of Waterloo} \hfill Waterloo, ON\\
+BASc Candidate, Honours Mechatronics Engineering, Co-op \hfill Expected Apr 2030\\
+Cumulative Average: 90.3\% $\cdot$ President's Scholarship of Distinction $\cdot$ Term Distinction (2 terms)\par
+
+%==== Skills ====%
+\header{Skills}
+\textbf{Languages:} Python, C++, TypeScript, Java\\
+\textbf{Robotics:} ROS 2, MoveIt, Isaac Lab, Isaac Sim, Foxglove, UR20, MiR AMRs, Hand-Eye Calibration\\
+\textbf{Perception \& ML:} PyTorch, OpenCV, YOLO, Roboflow, MediaPipe, Point Clouds, Reinforcement Learning\\
+\textbf{Controls \& CAD:} Allen-Bradley PLCs, Ladder Logic, EtherNet/IP, SolidWorks, AutoCAD, GD\&T\\
+\textbf{Tools:} Git, Linux, Docker, GitHub Actions, Next.js, React, Jest\par
+
+%==== Experience ====%
+\header{Experience}
+
+\role{Robotics \& Software Engineering Intern}{Sep 2026 -- Present}
+     {RoBIM Technologies}{\href{https://johnsonyep.com/\#robim}{View Work}}
+\begin{itemize}
+    \item Developed machine vision software for RoBIM's robotic wall-panel prefabrication cells, prototyping lumber inspection and sorting on a UR20 arm with an eye-in-hand camera.
+    \item Fine-tuned a YOLO instance segmentation model on a custom Roboflow-annotated dataset to segment boards in the live camera stream, reaching \textbf{0.836 mask mAP50-95} on a held-out test set.
+    \item Integrated the model into a ROS 2 and MoveIt inspection pipeline in Python and C++ that estimates board pose anywhere in the workcell and scans each board into a 3D point cloud for warp and surface defect detection, measuring dimensions to \textbf{$\pm$5 mm} of tape-measure ground truth across 50+ boards.
+    \item Extended the pose estimation into a vision-guided pick-and-place application that sorts boards by length, and designed its end-of-arm tooling (EOAT) in SolidWorks.
+    \item Built an operator HMI in Next.js, React, and TypeScript, tested with Jest, that runs scan and sort jobs and shows a live camera stream with segmentation overlays, robot controls, and job progress.
+\end{itemize}
+
+\role{Robotics Engineering Intern}{Jan 2026 -- Apr 2026}
+     {Toyota Boshoku}{\href{https://johnsonyep.com/\#toyota}{View Work}}
+\begin{itemize}
+    \item Automated \textbf{100+ rack transfers} per shift by commissioning a MiR autonomous mobile robot (AMR) to tow AprilTag-marked racks, mapping its routes and stations, and programming its mission logic.
+    \item Integrated wireless operator call buttons with an Allen-Bradley programmable logic controller (PLC), writing ladder logic that queues requests and dispatches AMR missions through the MiR API.
+    \item Built a Python and OpenCV vision system that finds open drop-off slots by using a homography to rectify an overhead camera feed to a top-down view and classifying occupancy with HSV thresholding.
+    \item Cut drop-off cycle time by \textbf{30+ seconds} by sending open slots to the PLC over EtherNet/IP so the AMR routes straight to a free slot, with a heartbeat watchdog that falls back to its onboard sensors.
+\end{itemize}
+
+%==== Design Teams ====%
+\header{Design Teams}
+
+\role{Humanoid Robotics Team}{May 2026 -- Present}
+     {WATonomous}{\href{https://johnsonyep.com/\#watonomous}{View Work}}
+\begin{itemize}
+    \item Trained a PPO policy in Isaac Lab for non-prehensile pushing with an SO-ARM101 arm, using 11 shaped reward terms and a performance-gated curriculum to reach \textbf{85\% success} from randomized object poses.
+    \item Built an open-source 32$\times$16-taxel tactile sensor array with a real-time visualization pipeline.
+\end{itemize}
+
+\role{Driveline Team}{Sep 2025 -- May 2026}
+     {uWaterloo Formula Electric}{\href{https://johnsonyep.com/\#uwfe}{View Work}}
+\begin{itemize}
+    \item Designed and machined drill jigs and motor-mount fixtures to \textbf{$\pm$0.1 mm} using SolidWorks and GD\&T.
+\end{itemize}
+
+%==== Projects ====%
+\header{Projects}
+
+\project{Autonomous Checkers Robot}{C++, VEX}{\href{https://johnsonyep.com/\#checkers}{View Project}}
+\begin{itemize}
+    \item Built a robot that detects checkers pieces with optical and distance sensors, selects a legal move in C++ firmware that stores the board as a 2D array, and executes it with a claw on an X-Y gantry.
+\end{itemize}
+
+\project{Hand Tracking Computer Vision Guitar}{Python, OpenCV, MediaPipe, Pygame}{\href{https://johnsonyep.com/\#guitar-cv}{View Project}}
+\begin{itemize}
+    \item Built a webcam air guitar that maps MediaPipe hand landmarks to chords on the left hand and notes on the right, with swipe gestures to switch chord groups and pinch-controlled volume.
+\end{itemize}
+
+\end{document}
