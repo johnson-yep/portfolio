@@ -86,7 +86,11 @@ The player only loads YouTube when clicked. On a page opened from disk, YouTube 
   - A portrait photo in a landscape slot uses `style="height: 100%; object-fit: contain;"` so it shows whole.
 - **Videos:** use the user's YouTube link as they gave it.
 - **Clips in steppers:** a short clip with no sound can take a step's diagram slot. AMR Rack Delivery step 1 is the example; copy its `figure.step-clip` markup. The script under `/* ── Step clips ── */` plays it muted on a loop only while it's on screen, and with reduced motion turned on it shows the still frame and controls instead.
-  - Convert it with ffmpeg to H.264 MP4 at 1280×720 and 30 fps, with no audio, no metadata (the location especially) and `-movflags +faststart`.
+  - Convert it with ffmpeg at 30 fps and the source size up to 1280×720, with no audio, no metadata (the location especially) and `-movflags +faststart`. Make two files and list both as `<source>`s, AV1 first, so browsers that can't play AV1 fall back to H.264 (the WATonomous tactile sensor clip is the example):
+    - `Media/<Company> <What> av1.mp4`: `-c:v libsvtav1 -preset 3 -crf 40 -g 300`, with `type='video/mp4; codecs="av01.0.04M.08"'`
+    - `Media/<Company> <What>.mp4`: `-c:v libx264 -preset veryslow -crf 26 -profile:v high`
+
+    For that clip this cut the file from 1035 KB to 405 KB (AV1) and 608 KB (H.264) with no visible loss.
   - iPhone clips are HDR (HLG). Tone-map them to standard colour, or they look washed out in browsers. This is the filter chain step 1 used, after `setpts=PTS/2.5,fps=30` for the speed-up:
 
     ```
