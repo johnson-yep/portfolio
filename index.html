@@ -281,9 +281,10 @@
         }
 
         .panel-heading {
-            font-size: 1.1rem;
+            font-size: 2rem;
             font-weight: 600;
-            letter-spacing: -0.3px;
+            letter-spacing: -0.6px;
+            line-height: 1.2;
             color: var(--text);
             margin-bottom: 0.4rem;
         }
@@ -300,10 +301,7 @@
         }
 
         .panel-date {
-            font-size: 0.68rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+            font-size: 0.85rem;
             color: var(--dim);
         }
 
@@ -313,11 +311,9 @@
         }
 
         .group-label {
-            font-size: 0.72rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            color: var(--accent);
+            color: var(--mid);
             padding-bottom: 1rem;
             border-bottom: 1px solid var(--border2);
             margin-bottom: 3rem;
@@ -346,22 +342,25 @@
             line-height: 1.3;
         }
 
+        /* A project's tools as one quiet line of text, dot-separated like the
+           homepage cards. Each tool wraps as a unit and the dot trails, so a
+           wrapped line starts clean. */
         .stack {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.35rem;
             margin-bottom: 2rem;
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: var(--dim);
         }
 
-        .tag {
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: var(--mid);
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 0.22rem 0.7rem;
-            border-radius: 999px;
-            letter-spacing: 0.2px;
+        .tag { white-space: nowrap; }
+
+        .stack .tag:not(:last-child)::after {
+            content: "·";
+            margin: 0 0.45em;
+            color: var(--accent);
+            font-weight: 700;
         }
 
         /* Image grid */
@@ -409,11 +408,9 @@
         }
 
         .ph-label {
-            font-size: 0.62rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--dim);
             text-align: center;
             padding: 0 1rem;
         }
@@ -443,13 +440,15 @@
         .whi-block {}
 
         .whi-label {
-            font-size: 0.7rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            color: var(--accent);
-            margin-bottom: 0.55rem;
+            color: var(--text);
+            margin-bottom: 0.45rem;
         }
+
+        /* "What" and "How" are plain from the layout, so they only show in
+           the print summary, which reads them from the markup */
+        .whi-label.is-implied { display: none; }
 
         .whi-text {
             font-size: 0.9rem;
@@ -552,8 +551,8 @@
         .overview { margin-bottom: 4rem; }
 
         .overview-lead {
-            font-size: 1.3rem;
-            line-height: 1.5;
+            font-size: 1.12rem;
+            line-height: 1.6;
             letter-spacing: -0.2px;
             color: var(--text);
         }
@@ -661,10 +660,7 @@
         }
 
         .overview-facts dt {
-            font-size: 0.68rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+            font-size: 0.86rem;
             color: var(--dim);
         }
 
@@ -674,7 +670,7 @@
             line-height: 1.6;
         }
 
-        .overview-tags, .overview-links {
+        .overview-links {
             display: flex;
             flex-wrap: wrap;
             gap: 0.35rem;
@@ -693,10 +689,11 @@
 
         /* Wikipedia links for terms a non-technical reader may not know:
            a thin solid underline in a faded accent that firms up on hover
-           (a dotted line read as a spellcheck squiggle) */
+           (a dotted line read as a spellcheck squiggle). They keep the
+           surrounding text's colour and weight, so a paragraph with several
+           linked terms doesn't read as a row of bold words. */
         .wiki {
-            color: var(--text);
-            font-weight: 500;
+            color: inherit;
             text-decoration: underline solid;
             text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
             text-decoration-thickness: 1px;
@@ -855,11 +852,8 @@
         @media (prefers-reduced-motion: reduce) { .light-flash { animation: none; opacity: 0.55; } }
 
         .step-eyebrow {
-            font-size: 0.62rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--accent);
+            font-size: 0.75rem;
+            color: var(--dim);
         }
 
         .stepper-panel > .step-title {
@@ -933,7 +927,8 @@
         .step-diagram text.small { font-size: 11px; }
 
         @media (max-width: 640px) {
-            .overview-lead { font-size: 1.15rem; }
+            .overview-lead { font-size: 1.05rem; }
+            .panel-heading { font-size: 1.65rem; }
             .demo-play { width: 3.5rem; height: 3.5rem; }
             .context-grid { grid-template-columns: 1fr; gap: 1.25rem; }
             .overview-facts > div { grid-template-columns: 1fr; gap: 0.3rem; }
@@ -1093,11 +1088,9 @@
         /* Reserve two lines so a wrapping label ("Currently Reading") and a
            one-line label ("Favourite") keep their covers on a shared baseline. */
         .book-status {
-            font-size: 0.62rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--mid);
             line-height: 1.3;
             min-height: 1.6rem;
             margin-bottom: 0.45rem;
@@ -1355,9 +1348,7 @@
         }
 
         .song-now-label {
-            font-size: 0.6rem;
-            letter-spacing: 0.6px;
-            text-transform: uppercase;
+            font-size: 0.75rem;
             color: var(--mid);
             margin-bottom: 0.6rem;
         }
@@ -1489,11 +1480,9 @@
         .cat-section:last-child { margin-bottom: 0; }
 
         .cat-section-label {
-            font-size: 0.7rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            color: var(--accent);
+            color: var(--mid);
             padding-bottom: 0.75rem;
             border-bottom: 1px solid var(--border);
         }
@@ -1548,25 +1537,10 @@
             background: var(--bg);
         }
 
-        /* current roles get a filled dot and a "Now" chip */
+        /* current roles get a filled dot; "to now" in the date says the rest */
         .cat-btn.is-now::after {
             background: var(--accent);
             box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
-        }
-
-        .now-chip {
-            display: inline-block;
-            vertical-align: 2px;
-            margin-left: 0.35rem;
-            padding: 0.08rem 0.45rem;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.58rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--accent);
-            border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
-            border-radius: 999px;
         }
 
         .cat-btn-body {
@@ -1677,6 +1651,17 @@
             object-fit: contain;
         }
 
+        /* A logo whose square is one solid colour sets --fill to it, so the
+           chip's own background and border can't show as a pale rim */
+        .cat-btn-logo-fill {
+            background: var(--fill);
+            border-color: var(--fill);
+        }
+
+        .cat-btn-logo-fill img {
+            object-fit: cover;
+        }
+
         .cat-btn-logo-mark svg {
             width: 60%;
             height: 60%;
@@ -1768,10 +1753,7 @@
         }
 
         .skill-desc {
-            font-size: 0.6rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 0.68rem;
             color: var(--dim);
             line-height: 1.4;
         }
@@ -2120,14 +2102,9 @@
                 display: inline;
                 margin: 0;
                 font-family: inherit;
-                font-size: 0.65rem;
-                font-weight: 600;
-                letter-spacing: 1.2px;
-                text-transform: uppercase;
+                font-size: 0.78rem;
                 color: var(--dim);
             }
-            /* the filled dot and "to now" already mark current roles */
-            .now-chip { display: none; }
             .img-grid.cols-2 { grid-template-columns: 1fr; }
             .img-grid.cols-3 { grid-template-columns: 1fr 1fr; }
             .song-entries { grid-template-columns: 1fr; }
@@ -2503,11 +2480,11 @@
             <div class="cat-section cat-section-timeline">
                 <p class="cat-section-label">Internships</p>
                 <button class="cat-btn is-now" onclick="navigate('robim')">
-                    <div class="cat-btn-logo">
+                    <div class="cat-btn-logo cat-btn-logo-fill" style="--fill: #012e55;">
                         <img src="Images/robim logo.jpeg" alt="RoBIM Technologies">
                     </div>
                     <div class="cat-btn-body">
-                        <p class="cat-btn-title">RoBIM Technologies <span class="now-chip">Now</span></p>
+                        <p class="cat-btn-title">RoBIM Technologies</p>
                         <p class="cat-btn-sub">Robotics &amp; Software Engineering Intern</p>
                         <p class="cat-btn-date"><span class="date-start">Sep 2026</span> <span class="date-end">to now</span></p>
                         <p class="cat-btn-tags"><span>Computer vision</span><span>ROS 2</span><span>Motion planning</span></p>
@@ -2534,7 +2511,7 @@
                         <img src="Images/Watonomous Logo.jpg" alt="WATonomous">
                     </div>
                     <div class="cat-btn-body">
-                        <p class="cat-btn-title">WATonomous <span class="now-chip">Now</span></p>
+                        <p class="cat-btn-title">WATonomous</p>
                         <p class="cat-btn-sub">Humanoid team</p>
                         <p class="cat-btn-date"><span class="date-start">May 2026</span> <span class="date-end">to now</span></p>
                         <p class="cat-btn-tags"><span>Reinforcement learning</span><span>Isaac Lab</span><span>Sim-to-real</span></p>
@@ -2622,7 +2599,6 @@
                 <div><dt>Robot</dt><dd>UR20, an industrial arm made by Universal Robots, until the new HIVE is ready</dd></div>
                 <div><dt>Camera</dt><dd>OAK <a class="wiki" href="https://en.wikipedia.org/wiki/Computer_stereo_vision" target="_blank" rel="noopener">stereo depth camera</a> on the wrist, which measures distance as well as colour</dd></div>
                 <div><dt>Gripper</dt><dd>Zimmer gripper with an attachment I designed</dd></div>
-                <div><dt>Built with</dt><dd class="overview-tags"><span class="tag">ROS 2</span><span class="tag">C++</span><span class="tag">MoveIt</span><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Next.js</span></dd></div>
                 <div><dt>Projects</dt><dd class="overview-links"><a href="#robim-survey">Survey Scan</a><a href="#robim-pick">Pick and Place</a><a href="#robim-gripper">Gripper Attachment</a></dd></div>
             </dl>
         </div>
@@ -2652,11 +2628,11 @@
 
                 <div class="whi">
                     <div class="whi-block">
-                        <p class="whi-label">What</p>
+                        <p class="whi-label is-implied">What</p>
                         <p class="whi-text">The survey scan takes a board lying anywhere in the work area and produces a 3D scan of it. The operator only has to pick which board. From the scan, the system measures the board's size and how <a class="wiki" href="https://en.wikipedia.org/wiki/Wood_warping" target="_blank" rel="noopener">warped</a> it is. Down the line, the goal is for the robot to scan boards on its own, sort them by quality, and decide which spot in a wall suits each board best. A straight board with little warp suits a wall frame's <a class="wiki" href="https://en.wikipedia.org/wiki/Wall_plate" target="_blank" rel="noopener">base plate</a>, for example, while a heavily warped one is better cut into short <a class="wiki" href="https://en.wikipedia.org/wiki/Blocking_(construction)" target="_blank" rel="noopener">blocking</a> pieces between <a class="wiki" href="https://en.wikipedia.org/wiki/Wall_stud" target="_blank" rel="noopener">studs</a>. The sorted boards could then go to the other robotic cells that build the walls, so each one works with lumber that suits its job. I'm collecting the data for this now: each scanned board is linked to a framer's rating of its quality and to where it ended up in a built wall.</p>
                     </div>
                     <div class="whi-block">
-                        <p class="whi-label">How</p>
+                        <p class="whi-label is-implied">How</p>
                         <div class="stepper">
                             <div class="stepper-tabs" role="tablist" aria-label="Survey Scan steps">
                                 <button class="stepper-tab" type="button" role="tab" id="robim-survey-tab-1" aria-controls="robim-survey-step-1" aria-selected="true" title="Recognise the boards"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="rotate(-20 12 12)"><rect x="5.5" y="9.5" width="13" height="5" rx="1"/><rect x="2.5" y="7" width="19" height="10" rx="2.5" stroke-dasharray="2 2.2"/></g></svg><span>1</span></button>
@@ -2807,11 +2783,11 @@
 
                 <div class="whi">
                     <div class="whi-block">
-                        <p class="whi-label">What</p>
+                        <p class="whi-label is-implied">What</p>
                         <p class="whi-text">Pick and place builds on the same survey to sort boards. I built it as a prototype to prove the arm could find, grip and move boards on its own. The operator ticks several boards in the survey view, and the robot picks them up one at a time and lays them in a row on the floor, shortest first. I'm now extending it into an automated scanning pipeline on the same robot: the arm will pick boards from a pile, lay each one down on its own so it can be scanned properly, and stack them on a finished pile, so collecting scan data no longer needs an operator.</p>
                     </div>
                     <div class="whi-block">
-                        <p class="whi-label">How</p>
+                        <p class="whi-label is-implied">How</p>
                         <div class="stepper">
                             <div class="stepper-tabs" role="tablist" aria-label="Pick and Place steps">
                                 <button class="stepper-tab" type="button" role="tab" id="robim-pick-tab-1" aria-controls="robim-pick-step-1" aria-selected="true" title="Measure every board"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="12.5" width="18" height="5" rx="0.8"/><path d="M3 5.5v4M21 5.5v4M3.5 7.5h17M5.5 5.8 3.6 7.5l1.9 1.7M18.5 5.8l1.9 1.7-1.9 1.7"/></svg><span>1</span></button>
@@ -2943,7 +2919,6 @@
                 <div><dt>Camera</dt><dd>An overhead camera on the roof trusses above the drop-off lanes</dd></div>
                 <div><dt>Controllers</dt><dd>Allen-Bradley PLCs, programmed in Studio 5000, and a Banner DXM100 wireless controller for the operator buttons</dd></div>
                 <div><dt>Screens</dt><dd>PanelView Plus touchscreens, built in FactoryTalk View</dd></div>
-                <div><dt>Built with</dt><dd class="overview-tags"><span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">Ladder Logic</span><span class="tag">Studio 5000</span><span class="tag">FactoryTalk View</span><span class="tag">MiR API</span><span class="tag">EtherNet/IP</span></dd></div>
                 <div><dt>Projects</dt><dd class="overview-links"><a href="#amr-delivery">AMR Rack Delivery</a><a href="#amr-cv">Drop-off Vision System</a><a href="#hmi">HMI Development</a></dd></div>
             </dl>
         </div>
@@ -2971,11 +2946,11 @@
 
                 <div class="whi">
                     <div class="whi-block">
-                        <p class="whi-label">What</p>
+                        <p class="whi-label is-implied">What</p>
                         <p class="whi-text">A system that moves racks of door parts around the plant with MiR robots. Operators call a robot with a button, and it carries full racks from the injection molding machine to the drop-off lanes, brings empty racks back to the machine, and delivers racks to other parts of the plant. I built all of it: the changes to the racks, the robot's map and missions, the PLC logic and buttons that call it, and the overhead camera that tells it where to drop each rack.</p>
                     </div>
                     <div class="whi-block">
-                        <p class="whi-label">How</p>
+                        <p class="whi-label is-implied">How</p>
                         <div class="stepper">
                             <div class="stepper-tabs" role="tablist" aria-label="AMR Rack Delivery steps">
                                 <button class="stepper-tab" type="button" role="tab" id="amr-delivery-tab-1" aria-controls="amr-delivery-step-1" aria-selected="true" title="Ready the racks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="14" height="13" rx="1"/><path d="M6 10.5h14M2.5 15h3.5"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg><span>1</span></button>
@@ -3109,11 +3084,11 @@
 
                 <div class="whi">
                     <div class="whi-block">
-                        <p class="whi-label">What</p>
+                        <p class="whi-label is-implied">What</p>
                         <p class="whi-text">The overhead camera system that tells the robot where to drop each rack. A Python program watches the drop-off lanes from above, works out which spots are full, and sends the PLC the outermost free spot in each lane. It replaced the robot's floor-level sensing, where the robot drove up to each lane and checked the spots itself.</p>
                     </div>
                     <div class="whi-block">
-                        <p class="whi-label">How</p>
+                        <p class="whi-label is-implied">How</p>
                         <div class="stepper">
                             <div class="stepper-tabs" role="tablist" aria-label="Drop-off Vision System steps">
                                 <button class="stepper-tab" type="button" role="tab" id="amr-cv-tab-1" aria-controls="amr-cv-step-1" aria-selected="true" title="Watch the lanes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="2"/><circle cx="12" cy="14" r="3.5"/><path d="M7 8V6h5v2"/></svg><span>1</span></button>
@@ -3216,11 +3191,11 @@
 
                 <div class="whi">
                     <div class="whi-block">
-                        <p class="whi-label">What</p>
+                        <p class="whi-label is-implied">What</p>
                         <p class="whi-text">Touchscreen panels for machines and robots around the plant. They show live <a class="wiki" href="https://en.wikipedia.org/wiki/Servomotor" target="_blank" rel="noopener">servo</a> speed and torque for the sonic weld robots that install clips, count the screws and clips installed, and let operators skip the camera-based defect check for specific screws.</p>
                     </div>
                     <div class="whi-block">
-                        <p class="whi-label">How</p>
+                        <p class="whi-label is-implied">How</p>
                         <p class="whi-text">I built them in FactoryTalk View Studio and Studio 5000. Ladder logic in the Allen-Bradley PLC records production and diagnostic data as it happens and passes it to the screens through structured tags and arrays. I laid the screens out so operators and maintenance staff can read a machine's status at a glance, without digging through raw PLC data.</p>
                     </div>
                     <div class="whi-block">
@@ -3274,11 +3249,11 @@
 
                 <div class="whi">
                     <div class="whi-block">
-                        <p class="whi-label">What</p>
+                        <p class="whi-label is-implied">What</p>
                         <p class="whi-text">A spacer jig that lines up the push bar holes on the UWFE race car chassis so they can be drilled accurately and the same way every time.</p>
                     </div>
                     <div class="whi-block">
-                        <p class="whi-label">How</p>
+                        <p class="whi-label is-implied">How</p>
                         <p class="whi-text">I took the dimensions straight from the driveline SVN master assembly, modeled the spacer in SolidWorks to fit the push bar geometry, and 3D printed it so the team could use it right away.</p>
                     </div>
                     <div class="whi-block">
@@ -3322,11 +3297,11 @@
 
                 <div class="whi">
                     <div class="whi-block">
-                        <p class="whi-label">What</p>
+                        <p class="whi-label is-implied">What</p>
                         <p class="whi-text">A motor template jig for the UWFE driveline that keeps chassis holes and inserts aligned when they're made, so they come out the same from part to part.</p>
                     </div>
                     <div class="whi-block">
-                        <p class="whi-label">How</p>
+                        <p class="whi-label is-implied">How</p>
                         <p class="whi-text">I modeled the jig in SolidWorks from measurements in the SVN driveline master assembly and made a full engineering drawing with GD&amp;T, which a senior team member checked for manufacturability. I water-jetted the aluminium base to size, then milled the holes to a ±0.1 mm tolerance.</p>
                     </div>
                     <div class="whi-block">
@@ -3368,11 +3343,11 @@
 
                 <div class="whi">
                     <div class="whi-block">
-                        <p class="whi-label">What</p>
+                        <p class="whi-label is-implied">What</p>
                         <p class="whi-text">An accurate CAD model of the cooling system's radiator, made to go into the UWFE driveline assembly.</p>
                     </div>
                     <div class="whi-block">
-                        <p class="whi-label">How</p>
+                        <p class="whi-label is-implied">How</p>
                         <p class="whi-text">I measured the radiator with calipers and rebuilt it in SolidWorks with the same shape and mounting features, then committed the model to the team's TortoiseSVN master assembly.</p>
                     </div>
                     <div class="whi-block">
@@ -3433,11 +3408,11 @@
 
                 <div class="whi">
                     <div class="whi-block">
-                        <p class="whi-label">What</p>
+                        <p class="whi-label is-implied">What</p>
                         <p class="whi-text">A guitar you play in the air. It reads hand and finger movements from a webcam in real time and turns them into music: the left hand picks chords by finger position, and the right hand plays individual notes. Chord diagrams and fingertip markers are drawn over the live feed.</p>
                     </div>
                     <div class="whi-block">
-                        <p class="whi-label">How</p>
+                        <p class="whi-label is-implied">How</p>
                         <p class="whi-text">I wrote custom hand-tracking logic on top of MediaPipe that compares landmark positions to work out which fingers are raised or pressed. Each gesture maps to a chord or note audio file played through Pygame. Sound only plays on a new finger press, so holding a position doesn't retrigger it, and I tuned the frame processing to keep latency low on the live feed.</p>
                     </div>
                     <div class="whi-block">
@@ -3486,11 +3461,11 @@
 
                 <div class="whi">
                     <div class="whi-block">
-                        <p class="whi-label">What</p>
+                        <p class="whi-label is-implied">What</p>
                         <p class="whi-text">A robot that makes a checkers move on its own. It scans the board with optical and distance sensors, finds the pieces, picks a legal move, and makes it with a motorized claw on an X-Y gantry. The whole thing had to fit strict hardware and size limits.</p>
                     </div>
                     <div class="whi-block">
-                        <p class="whi-label">How</p>
+                        <p class="whi-label is-implied">How</p>
                         <p class="whi-text">The C++ firmware stores the board as a 2D array and handles piece detection, legal move generation, promotion, and game-over detection. The X-Y system moves the claw over the target square, and the claw picks up and places the pieces. Getting it working took several prototypes: stiffening the chassis, fixing jams, realigning the claw and sensors, and finally modifying the checkers pieces so the sensors would detect them reliably.</p>
                     </div>
                     <div class="whi-block">
@@ -3525,11 +3500,11 @@
 
                 <div class="whi">
                     <div class="whi-block">
-                        <p class="whi-label">What</p>
+                        <p class="whi-label is-implied">What</p>
                         <p class="whi-text">A 2D survival shooter I wrote from scratch in Java with JavaFX. You fly a spaceship, dodge randomly spawned asteroids, shoot aliens, and try to last as long as you can. It has a full menu flow, health, enemy combat, collision handling, and a game over screen with high-score stats that are saved between sessions.</p>
                     </div>
                     <div class="whi-block">
-                        <p class="whi-label">How</p>
+                        <p class="whi-label is-implied">How</p>
                         <p class="whi-text">Each entity type has its own class: spaceship, aliens, asteroids, projectiles, health bar, and stat tracker. A JavaFX AnimationTimer loop runs movement, spawning, collision detection, and scoring. A key-state map tracks held keys so movement stays smooth. Shots fly toward the mouse click using normalized velocity components, enemy shots track the player, and stats are written to a file so they carry over between sessions.</p>
                     </div>
                     <div class="whi-block">
@@ -3596,11 +3571,11 @@
 
                 <div class="whi">
                     <div class="whi-block">
-                        <p class="whi-label">What</p>
+                        <p class="whi-label is-implied">What</p>
                         <p class="whi-text">I trained a reinforcement learning policy in NVIDIA Isaac Lab that gets an SO-ARM101 arm to push a block up a ramp and into a raised container using contact alone. The gripper was locked shut, so the policy couldn't grab or lift the block and had to do everything by pushing. It was built to transfer to the physical SO-101 arm later.</p>
                     </div>
                     <div class="whi-block">
-                        <p class="whi-label">How</p>
+                        <p class="whi-label is-implied">How</p>
                         <p class="whi-text">I designed the rewards to encourage the right approach position and progress up the ramp, and to penalize any attempt to lift the block. Training ran in three stages, each building on the one before:</p>
                         <div class="rl-runs-wrap">
                             <table class="rl-runs">
@@ -3678,11 +3653,11 @@
 
                 <div class="whi">
                     <div class="whi-block">
-                        <p class="whi-label">What</p>
+                        <p class="whi-label is-implied">What</p>
                         <p class="whi-text">With my teammates, I built a flexible <a class="wiki" href="https://en.wikipedia.org/wiki/Tactile_sensor" target="_blank" rel="noopener">tactile sensor</a>, a skin that lets a robot feel touch. It's a 32×16 grid of pressure points, and a laptop shows a live heatmap of where and how hard it's pressed. The plan is to put it on our humanoid's hand. I finished it at the end of my study term and will pick it back up when I'm back on campus.</p>
                     </div>
                     <div class="whi-block">
-                        <p class="whi-label">How</p>
+                        <p class="whi-label is-implied">How</p>
                         <p class="whi-text">We bought the materials and built it by following FlexiTac, an open-source build guide. A sheet of <a class="wiki" href="https://en.wikipedia.org/wiki/Velostat" target="_blank" rel="noopener">Velostat</a> sits between two flexible circuits whose lines cross, and each crossing is one pressure point. An Arduino reads the grid one row at a time and streams every reading to the laptop over USB. The guide's Python script then turns those readings into the heatmap.</p>
                     </div>
                 </div>

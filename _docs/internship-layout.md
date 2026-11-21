@@ -21,12 +21,12 @@ Inside `<div id="cat-<id>" class="cat-detail" style="display:none">`, in this or
    - `.overview-lead`: a pitch of one to three sentences saying what the user built, readable by someone with no technical background.
    - `.demo`: the video player, when there are demo videos. One tab per video, the most impressive first, labelled like the project or the video's YouTube title. No caption under the player.
    - Background: one `.context-part` (label plus paragraph) about the company or site. Use a `.context-grid` around two of them.
-   - `dl.overview-facts`: the setup (robots, camera, controllers and so on), a "Built with" row of tags, and a "Projects" row of jump links to each project.
+   - `dl.overview-facts`: the setup (robots, camera, controllers and so on) and a "Projects" row of jump links to each project. No "Built with" row: it repeated the projects' own tool lists, so the user dropped it on 2026-11-20.
    - No result tiles or stat cards. The user removed them from RoBIM.
 3. **Projects** (`.group` of `.project`), most important first. Each one has:
-   - `h2.project-title`, a `.stack` of tags, and a `.btn-row` (Watch Demo, View Code). Keep each project's own Watch Demo button even when its video is in the player, because the printable summary takes its links from those buttons.
+   - `h2.project-title`, a `.stack` of `.tag` spans (shown as one line of plain text with dots between, not pills), and a `.btn-row` (Watch Demo, View Code). Keep each project's own Watch Demo button even when its video is in the player, because the printable summary takes its links from those buttons.
    - Images in an `.img-grid`, when there are any.
-   - `.whi` with three blocks:
+   - `.whi` with three blocks. The What and How labels carry `class="whi-label is-implied"`: hidden on screen, since the layout makes them plain, but kept for the print summary. Impact keeps a visible label:
      - **What:** a paragraph.
      - **How:** a stepper when the work is a real process of four or more steps (Survey Scan, AMR Rack Delivery). Otherwise a paragraph (HMI Development).
      - **Impact:** outcomes and numbers, when the user has some. Leave the block out when there are none, as on RoBIM.
@@ -37,7 +37,8 @@ Inside `<div id="cat-<id>" class="cat-detail" style="display:none">`, in this or
 - **Homepage card:** a `.cat-btn` in the Internships group of `#cat-hub`, newest first. It needs:
   - the logo, the full company name, the role, and exactly three skill tags
   - a `.cat-btn-date` with `.date-start` ("Sep 2026") and `.date-end` ("to now", or "to May 2026") spans
-  - for a current role, the `is-now` class on the button and a `.now-chip` after the title
+  - for a current role, the `is-now` class on the button, which fills its timeline dot. No "Now" chip: the user removed it on 2026-11-20, since "to now" already says it
+  - a logo whose square is one solid colour gets `cat-btn-logo-fill` and `style="--fill: <that colour>"`, so no pale rim shows around it (RoBIM is the example)
 
   The Internships and Design Teams groups are `.cat-section-timeline`, which gives each group its own line, running from its first card's dot to its last. Personal Projects stays off the line. The homepage has no page heading and no pictures on the cards, by the user's choice.
 - **Router:** add the id to `validCats`.
@@ -67,6 +68,7 @@ The player only loads YouTube when clicked. On a page opened from disk, YouTube 
 - Write the user's own work in first person, and credit others where the user did ("with the kaizen team"). Leave out what they didn't do.
 - Every claim comes from the user or their code. No invented reasons, results or numbers.
 - No em dashes. Use straight quotes.
+- **Labels:** sentence case in a muted colour. No small spaced-out all-caps labels; the user removed them across the site on 2026-11-20 because they read as a template.
 - **Wikipedia links:** link a hard term the first time it appears on the page, never twice on one page. Use `<a class="wiki" href="https://en.wikipedia.org/wiki/<Article>" target="_blank" rel="noopener">`, and check that the article exists.
 - **Definitions:** add a `WIKI_DEFS` entry keyed by the article path, in one or two plain sentences written for how the page uses the term. A link with no entry shows no definition box. When no article fits exactly, link the closest one and let the definition say what the page means (AprilTag links to "Fiducial marker").
 

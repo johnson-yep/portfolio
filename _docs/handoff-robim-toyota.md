@@ -1,13 +1,22 @@
 # Handoff: RoBIM and Toyota pages
 
-Snapshot as of 2026-11-03. The rules for building internship pages are in `_docs/internship-layout.md`; this file is the state of the two pages built so far, and why they look the way they do. Update it when that changes.
+Snapshot as of 2026-11-20. The rules for building internship pages are in `_docs/internship-layout.md`; this file is the state of the two pages built so far, and why they look the way they do. Update it when that changes.
 
 ## Status
 
 - Both pages are finished. On 2026-10-31 the two CAD screenshots of the gripper attachment were added to RoBIM's Gripper Attachment section, and all three of its images (two CAD views and the photo) were cropped to 3:4 so they match.
 - On 2026-11-03 the diagram in step 1 of Toyota's AMR Rack Delivery ("Ready the racks") was replaced with a looping clip of the robot hooking onto a rack and towing it away. The same day, its step 2 and 3 diagrams were redrawn, and step 4's diagram was replaced with a clip of the call buttons. The clips, the redrawn diagrams and a same-day wording fix (the robot serves one molding machine, not several) went live on 2026-11-03.
-- On 2026-11-20 the RoBIM text was brought in line with the resume: the pitch and Pick and Place now call sorting a prototype that leads into an automated scanning pipeline on the same robot (picks boards from a pile, lays each one down on its own to be scanned, stacks them; the user said it is a pipeline, not a separate cell, and needs no fixture), the Survey Scan "What" states the current measurement, the user's future goal (quality sorting, wall placement, feeding the wall-building cells) and that the data collection for it is under way, Step 6 credits the user's retrain of the close-range face model in neutral words (the user asked not to name who trained the earlier version; YOLOv8 tag added), and the Gripper Attachment's "What" block was removed at the user's request. The resume source in `_resume/` was synced to the user's PDF the same day. Not pushed yet.
-- The pages went live on 2026-10-30, the CAD images on 2026-10-31, and the Toyota clips and diagrams on 2026-11-03. Push only when the user asks, since a push deploys johnsonyep.com.
+- On 2026-11-20 the RoBIM text was brought in line with the resume: the pitch and Pick and Place now call sorting a prototype that leads into an automated scanning pipeline on the same robot (picks boards from a pile, lays each one down on its own to be scanned, stacks them; the user said it is a pipeline, not a separate cell, and needs no fixture), the Survey Scan "What" states the current measurement, the user's future goal (quality sorting, wall placement, feeding the wall-building cells) and that the data collection for it is under way, Step 6 credits the user's retrain of the close-range face model in neutral words (the user asked not to name who trained the earlier version; YOLOv8 tag added), and the Gripper Attachment's "What" block was removed at the user's request. The resume source in `_resume/` was synced to the user's PDF the same day, and these changes went live that day.
+- Later on 2026-11-20 the whole site got a cleaner look, which also went live that day:
+  - RoBIM's homepage logo square is filled solid blue, so no pale rim shows.
+  - The "Now" chips are gone from the cards.
+  - Labels use sentence case instead of small all-caps. What and How are hidden on screen but kept for the print summary.
+  - Project tags show as one line of text with dots between them, and the "Built with" rows were removed from both pages.
+  - Wikipedia links take the colour and weight of the text around them.
+  - Page titles are larger and the pitch under them smaller.
+
+  The rules for this are in `_docs/internship-layout.md`.
+- The pages went live on 2026-10-30, the CAD images on 2026-10-31, the Toyota clips and diagrams on 2026-11-03, and the RoBIM text and site redesign on 2026-11-20. Push only when the user asks, since a push deploys johnsonyep.com.
 - `_config.yml` keeps `CLAUDE.md` off the website.
 
 ## Where things live in `index.html`
