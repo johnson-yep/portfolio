@@ -2589,7 +2589,7 @@
         <!-- Overview for readers who don't know RoBIM. Wikipedia links (.wiki)
              mark each hard term at its first appearance on the page. -->
         <div class="overview">
-            <p class="overview-lead">I'm prototyping <span class="overview-name">HIVE Insight</span>, the vision software for a RoBIM HIVE that processes materials. With it, a robot arm finds boards of lumber, scans them in 3D and sorts them by length.</p>
+            <p class="overview-lead">I'm prototyping <span class="overview-name">HIVE Insight</span>, the vision software for a RoBIM HIVE that processes materials. With it, a robot arm finds boards of lumber anywhere in its work area and scans them in 3D. I also prototyped sorting boards by length, and I'm now building on that so the arm picks boards from a pile, scans them and stacks them on its own.</p>
             <div class="demo">
                 <div class="demo-tabs" role="tablist" aria-label="Demo videos">
                     <button class="demo-tab" type="button" role="tab" id="demo-tab-scan" aria-controls="demo-scan" aria-selected="true">Survey Scan</button>
@@ -2615,7 +2615,7 @@
                 </div>
                 <div class="context-part">
                     <p class="whi-label">Where I started</p>
-                    <p>My work builds on an existing system that scans a board of lumber, measures it and grades its quality. I added the survey scan, which finds a board anywhere in the robot's work area and scans it where it lies, and pick and place, which picks boards up and sorts them.</p>
+                    <p>My work builds on an existing system that scans a board of lumber, measures it and grades its quality. I added the survey scan, which finds a board anywhere in the robot's work area and scans it where it lies, and pick and place, a prototype that picks boards up and sorts them.</p>
                 </div>
             </div>
             <dl class="overview-facts">
@@ -2638,6 +2638,7 @@
                     <span class="tag">MoveIt</span>
                     <span class="tag">OpenCV</span>
                     <span class="tag">YOLO26</span>
+                    <span class="tag">YOLOv8</span>
                     <span class="tag">Roboflow</span>
                     <span class="tag">Point Clouds</span>
                 </div>
@@ -2652,7 +2653,7 @@
                 <div class="whi">
                     <div class="whi-block">
                         <p class="whi-label">What</p>
-                        <p class="whi-text">The survey scan takes a board lying anywhere in the work area and produces a 3D scan of it. The operator only has to pick which board. Down the line, the goal is to measure each board's size and position accurately enough to saw or split it precisely to match the plans. The point clouds could also be used to train a model that decides where each board is best used, based on how <a class="wiki" href="https://en.wikipedia.org/wiki/Wood_warping" target="_blank" rel="noopener">warped</a> or defective it is. A straight board with little warp suits a wall frame's <a class="wiki" href="https://en.wikipedia.org/wiki/Wall_plate" target="_blank" rel="noopener">base plate</a>, for example, while a heavily warped one is better cut into short <a class="wiki" href="https://en.wikipedia.org/wiki/Blocking_(construction)" target="_blank" rel="noopener">blocking</a> pieces between <a class="wiki" href="https://en.wikipedia.org/wiki/Wall_stud" target="_blank" rel="noopener">studs</a>.</p>
+                        <p class="whi-text">The survey scan takes a board lying anywhere in the work area and produces a 3D scan of it. The operator only has to pick which board. From the scan, the system measures the board's size and how <a class="wiki" href="https://en.wikipedia.org/wiki/Wood_warping" target="_blank" rel="noopener">warped</a> it is. Down the line, the goal is for the robot to scan boards on its own, sort them by quality, and decide which spot in a wall suits each board best. A straight board with little warp suits a wall frame's <a class="wiki" href="https://en.wikipedia.org/wiki/Wall_plate" target="_blank" rel="noopener">base plate</a>, for example, while a heavily warped one is better cut into short <a class="wiki" href="https://en.wikipedia.org/wiki/Blocking_(construction)" target="_blank" rel="noopener">blocking</a> pieces between <a class="wiki" href="https://en.wikipedia.org/wiki/Wall_stud" target="_blank" rel="noopener">studs</a>. The sorted boards could then go to the other robotic cells that build the walls, so each one works with lumber that suits its job. I'm collecting the data for this now: each scanned board is linked to a framer's rating of its quality and to where it ended up in a built wall.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">How</p>
@@ -2738,6 +2739,7 @@
                                     <li>The outermost points across that heading give the two long edges. An edge only counts if the mask doesn't touch the image border there, since that would mean the board is cut off.</li>
                                 </ul>
                                 <p>The controller then moves the centre line, heading and width onto what it measured.</p>
+                                <p>The same close-range model outlines the board's top and side faces in every frame of the sweep that follows. It was previously trained on handheld photos, and it struggled with the robot's own camera: on a rough board, it mistook a stack of loose lumber behind the board for the board's side, so the scan of that side stopped short. I retrained it on frames from the robot's camera, picked from scans where it went wrong and spread across many boards, and relabelled them with a teammate. Frames from one sweep are nearly identical, so the validation set was split by board, not by frame. With the retrained model, the side scan of that rough board reaches its end.</p>
                             </div>
                             <div class="stepper-panel" id="robim-survey-step-7" role="tabpanel" aria-labelledby="robim-survey-tab-7" tabindex="0" hidden>
                                 <svg class="step-diagram" viewBox="0 0 360 174" role="img" aria-label="The board seen from its end, with the camera in three passes along it: one over the top, and one along each side, turned to face it" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140 H340"/><path class="hatch" d="M30 140 l-6 7 M42 140 l-6 7 M54 140 l-6 7 M66 140 l-6 7 M78 140 l-6 7 M90 140 l-6 7 M102 140 l-6 7 M114 140 l-6 7 M126 140 l-6 7 M138 140 l-6 7 M150 140 l-6 7 M162 140 l-6 7 M174 140 l-6 7 M186 140 l-6 7 M198 140 l-6 7 M210 140 l-6 7 M222 140 l-6 7 M234 140 l-6 7 M246 140 l-6 7 M258 140 l-6 7 M270 140 l-6 7 M282 140 l-6 7 M294 140 l-6 7 M306 140 l-6 7 M318 140 l-6 7 M330 140 l-6 7"/><polygon class="view" points="180,34 138,118 222,118"/><polygon class="view" points="52,80 135,117 135,140"/><polygon class="view" points="308,80 225,117 225,140"/><rect class="wood" x="135" y="118" width="90" height="22" rx="1.5"/><path class="grain" d="M145.8 138.5 Q180 119.1 214.2 138.5"/><path class="grain" d="M164.7 138.5 Q180 129 195.3 138.5"/><rect class="device" x="167" y="19" width="9" height="5" rx="1.5"/><rect class="device" x="163" y="23" width="34" height="22" rx="4"/><circle class="device" cx="180" cy="34" r="7"/><circle class="lens" cx="180" cy="34" r="3"/><rect class="device" x="39" y="65" width="9" height="5" rx="1.5"/><rect class="device" x="35" y="69" width="34" height="22" rx="4"/><circle class="device" cx="52" cy="80" r="7"/><circle class="lens" cx="52" cy="80" r="3"/><rect class="device" x="295" y="65" width="9" height="5" rx="1.5"/><rect class="device" x="291" y="69" width="34" height="22" rx="4"/><circle class="device" cx="308" cy="80" r="7"/><circle class="lens" cx="308" cy="80" r="3"/><text x="204" y="30" class="em">top pass</text><text x="52" y="58" text-anchor="middle" class="em">side pass</text><text x="308" y="58" text-anchor="middle" class="em">side pass</text><text x="180" y="166" text-anchor="middle" class="note">the board seen from its end</text></svg>
@@ -2806,7 +2808,7 @@
                 <div class="whi">
                     <div class="whi-block">
                         <p class="whi-label">What</p>
-                        <p class="whi-text">Pick and place builds on the same survey to sort boards. The operator ticks several boards in the survey view, and the robot picks them up one at a time and lays them in a row on the floor, shortest first.</p>
+                        <p class="whi-text">Pick and place builds on the same survey to sort boards. I built it as a prototype to prove the arm could find, grip and move boards on its own. The operator ticks several boards in the survey view, and the robot picks them up one at a time and lays them in a row on the floor, shortest first. I'm now extending it into an automated scanning pipeline on the same robot: the arm will pick boards from a pile, lay each one down on its own so it can be scanned properly, and stack them on a finished pile, so collecting scan data no longer needs an operator.</p>
                     </div>
                     <div class="whi-block">
                         <p class="whi-label">How</p>
@@ -2888,13 +2890,6 @@
                             <img src="Images/RoBIM Gripper On Robot.jpg" alt="Gripper attachment on the robot" style="height: 100%; object-fit: cover;">
                         </div>
                         <p class="img-caption">On the robot</p>
-                    </div>
-                </div>
-
-                <div class="whi">
-                    <div class="whi-block">
-                        <p class="whi-label">What</p>
-                        <p class="whi-text">I designed the attachment that goes on the Zimmer gripper, and wrapped rubber bands around it for more friction.</p>
                     </div>
                 </div>
             </div><!-- /project -->

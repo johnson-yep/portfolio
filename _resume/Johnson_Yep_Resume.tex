@@ -53,7 +53,7 @@
 \header{Education}
 \textbf{University of Waterloo} \hfill Waterloo, ON\\
 BASc Candidate, Honours Mechatronics Engineering, Co-op \hfill Expected Apr 2030\\
-Cumulative Average: 90.3\% $\cdot$ President's Scholarship of Distinction $\cdot$ Term Distinction (2 terms)\par
+Cumulative Average: 90.3\% $\cdot$ President's Scholarship of Distinction $\cdot$ Term Distinction (2 of 2 terms)\par
 
 %==== Skills ====%
 \header{Skills}
@@ -69,11 +69,12 @@ Cumulative Average: 90.3\% $\cdot$ President's Scholarship of Distinction $\cdot
 \role{Robotics \& Software Engineering Intern}{Sep 2026 -- Present}
      {RoBIM Technologies}{\href{https://johnsonyep.com/\#robim}{View Work}}
 \begin{itemize}
-    \item Developed machine vision software for RoBIM's robotic wall-panel prefabrication cells, prototyping lumber inspection and sorting on a UR20 arm with an eye-in-hand camera.
-    \item Fine-tuned a YOLO instance segmentation model on a custom Roboflow-annotated dataset to segment boards in the live camera stream, reaching \textbf{0.836 mask mAP50-95} on a held-out test set.
-    \item Integrated the model into a ROS 2 and MoveIt inspection pipeline in Python and C++ that estimates board pose anywhere in the workcell and scans each board into a 3D point cloud for warp and surface defect detection, measuring dimensions to \textbf{$\pm$5 mm} of tape-measure ground truth across 50+ boards.
-    \item Extended the pose estimation into a vision-guided pick-and-place application that sorts boards by length, and designed its end-of-arm tooling (EOAT) in SolidWorks.
-    \item Built an operator HMI in Next.js, React, and TypeScript, tested with Jest, that runs scan and sort jobs and shows a live camera stream with segmentation overlays, robot controls, and job progress.
+    \item Developed computer vision software for lumber inspection and sorting on a UR20 arm with an eye-in-hand camera
+    \item Created datasets and fine-tuned YOLO instance segmentation models to localize boards and segment their faces, raising mask mAP50-95 from \textbf{0.705} to \textbf{0.880} and cutting scan truncation on rough boards from \textbf{270\,mm} to \textbf{6\,mm}.
+    \item Engineered a ROS 2/MoveIt lumber inspection pipeline in Python and C++ that uses the segmentation models to locate each board, scan it into a 3D point cloud, and measure its warp and dimensions to within \textbf{4\,mm} of tape.
+    \item Built an operator HMI in Next.js, React and TypeScript to run scans and control the robot.
+    \item Designed a data collection pipeline with tablet tools that link each scanned board to a framer's quality ratings and its as-built panel placement, creating a labelled dataset for a planned model that predicts each stud's best wall role.
+    \item Developing a pipeline that picks, scans and stacks studs from a pile to fully automate data collection.
 \end{itemize}
 
 \role{Robotics Engineering Intern}{Jan 2026 -- Apr 2026}
@@ -91,8 +92,9 @@ Cumulative Average: 90.3\% $\cdot$ President's Scholarship of Distinction $\cdot
 \role{Humanoid Robotics Team}{May 2026 -- Present}
      {WATonomous}{\href{https://johnsonyep.com/\#watonomous}{View Work}}
 \begin{itemize}
-    \item Trained a PPO policy in Isaac Lab for non-prehensile pushing with an SO-ARM101 arm, using 11 shaped reward terms and a performance-gated curriculum to reach \textbf{85\% success} from randomized object poses.
-    \item Built an open-source 32$\times$16-taxel tactile sensor array with a real-time visualization pipeline.
+    \item Co-leading terrain mapping for the humanoid, building a GPU elevation-mapping pipeline on RealSense depth that measures obstacle heights within \textbf{4\,cm} of ground truth.
+    \item Trained a PPO pushing policy for an SO-ARM101 arm in Isaac Lab with curriculum learning, reaching \textbf{85\% success} from randomized poses.
+    \item Fabricated a 32$\times$12-taxel tactile sensor array from an open-source design and validated its pressure readout.
 \end{itemize}
 
 \role{Driveline Team}{Sep 2025 -- May 2026}
@@ -104,14 +106,14 @@ Cumulative Average: 90.3\% $\cdot$ President's Scholarship of Distinction $\cdot
 %==== Projects ====%
 \header{Projects}
 
-\project{Autonomous Checkers Robot}{C++, VEX}{\href{https://johnsonyep.com/\#checkers}{View Project}}
-\begin{itemize}
-    \item Built a robot that detects checkers pieces with optical and distance sensors, selects a legal move in C++ firmware that stores the board as a 2D array, and executes it with a claw on an X-Y gantry.
-\end{itemize}
-
 \project{Hand Tracking Computer Vision Guitar}{Python, OpenCV, MediaPipe, Pygame}{\href{https://johnsonyep.com/\#guitar-cv}{View Project}}
 \begin{itemize}
     \item Built a webcam air guitar that maps MediaPipe hand landmarks to chords on the left hand and notes on the right, with swipe gestures to switch chord groups and pinch-controlled volume.
+\end{itemize}
+
+\project{Autonomous Checkers Robot}{C++}{\href{https://johnsonyep.com/\#checkers}{View Project}}
+\begin{itemize}
+    \item Built an autonomous robot that detects piece positions, computes moves, and executes pick-and-place to play checkers.
 \end{itemize}
 
 \end{document}
